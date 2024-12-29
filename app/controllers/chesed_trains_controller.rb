@@ -156,11 +156,11 @@ class ChesedTrainsController < ApplicationController
   end
 
   def check_owner
-    # if current_user.id == @event.owner.id
-    #   current_user
-    # else
-    #   redirect_to new_session_path
-    # end
+    if current_user.id == @event.owner.id
+      current_user
+    else
+      redirect_to new_session_path
+    end
   end
 
   def send_emails

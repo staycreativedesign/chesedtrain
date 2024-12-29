@@ -3,7 +3,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :guest_user, :authorized, :check_owner
 
   def current_user
-    @current_user ||= User.find_by(session[:user_id])
+    @current_user ||= User.find session[:user_id] if session[:user_id]
+  rescue StandardError
+    session[:user_id] = nil
+    flash[:notice] = 'Account invalid or does not exist anymore please login'
+    redirect_to '/login'
   end
 
   def authorize
