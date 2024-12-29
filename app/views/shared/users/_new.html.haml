@@ -1,4 +1,4 @@
--# .container.p-10.flex.flex-col.justify-center
+.container.p-10.flex.flex-col.justify-center
   .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full
     %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
       Create Your Account
@@ -12,11 +12,11 @@
         %div{ class: "form-group w-1/2" }
           = f.label :last_name, "Last Name", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
           = f.text_field :last_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-      
+
       .form-group
         = f.label :email_address, "Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
         = f.text_field :email_address, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-      
+
       .form-group
         = f.label :password_confirmation, "Verify Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
         = f.text_field :password_confirmation, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'

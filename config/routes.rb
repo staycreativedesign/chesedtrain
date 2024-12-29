@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     member do
       get 'steps/:step', to: 'potlucks#steps', as: :steps
       patch 'update_step'
+      post 'update_step'
       get 'thank-you', to: 'potlucks#thank_you', as: :thank_you
     end
 

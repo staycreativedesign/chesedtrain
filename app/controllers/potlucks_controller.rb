@@ -92,6 +92,8 @@ class PotlucksController < ApplicationController
         end
       end
     when 6
+      current_user = check_owner
+
       if current_user.update(user_params.merge(guest: false))
         @event.update(owner: current_user)
         if current_user.events.count > 1 && !current_user.is_paying? || !current_user.is_admin?
