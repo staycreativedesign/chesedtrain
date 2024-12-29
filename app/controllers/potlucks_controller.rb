@@ -69,32 +69,15 @@ class PotlucksController < ApplicationController
         render :steps, status: :unprocessable_entity
       end
     when 5
-      @user = User.new(user_params.merge(guest: false))
-      if @user.save
-        @event.update(owner: @user)
-        session[:user_id] = @user.id
-        current_user = @user
-
-        if current_user.events.count > 1 && !current_user.is_paying? || !current_user.is_admin?
-          redirect_to pro_path
-        else
-          send_emails
-          redirect_to potluck_path(@event)
-        end
-      else
-        respond_to do |format|
-          format.html { render :steps, status: :unprocessable_entity }
-          format.json { render json: @event.errors, status: :unprocessable_entity }
-        end
-      end
     when 6
       current_user = check_owner
 
       if current_user.update(user_params.merge(guest: false))
         @event.update(owner: current_user)
-        if current_user.events.count > 1 && !current_user.is_paying? || !current_user.is_admin?
+        if current_user.events.count + 1 >= 2
           redirect_to pro_path
         else
+          current_user.events << @event
           send_emails
           redirect_to potluck_path(@event)
         end
@@ -158,6 +141,7 @@ class PotlucksController < ApplicationController
 
   def check_owner
     if current_user == @event.owner
+      current_user
     else
       redirect_to new_session_path
     end

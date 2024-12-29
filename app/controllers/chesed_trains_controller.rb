@@ -82,6 +82,7 @@ class ChesedTrainsController < ApplicationController
         if current_user.events.count > 1 && current_user.is_paying? || current_user.is_admin?
           redirect_to pro_path
         else
+          current_user.events << @event
           send_emails
           redirect_to chesed_train_path(@event)
         end
