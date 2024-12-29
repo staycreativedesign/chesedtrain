@@ -17,9 +17,9 @@ class SelectionsController < ApplicationController
     if @selection.update(selection_params.merge(volunteer: current_user))
       @event.volunteers << current_user
       OwnerMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
-      RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
 
       if @event.type == 'ChesedTrain'
+        RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
         redirect_to thank_you_chesed_train_path(@event)
       else
         redirect_to thank_you_potluck_path(@event)
@@ -32,7 +32,9 @@ class SelectionsController < ApplicationController
   def setup_volunteer
     @user = User.new(user_params)
     if @user.save
-      start_new_session_for @user
+      session[:user_id] = @user.id
+      @current_user = @user
+
       if @event.type == 'ChesedTrain'
         redirect_to volunteer_chesed_train_event_date_path(@event, @selection)
       else
