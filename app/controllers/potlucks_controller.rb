@@ -94,9 +94,12 @@ class PotlucksController < ApplicationController
     when 6
       if current_user.update(user_params.merge(guest: false))
         @event.update(owner: current_user)
-        Current.session.update(user: current_user)
-        send_emails
-        redirect_to potluck_path(@event)
+        if current_user.events.count > 1 && !current_user.is_paying? || !current_user.is_admin?
+          redirect_to pro_path
+        else
+          send_emails
+          redirect_to potluck_path(@event)
+        end
       else
         respond_to do |format|
           format.html do
