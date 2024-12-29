@@ -1,10 +1,10 @@
 class OwnerMailer < ApplicationMailer
-  default from: "notifications@chesedtrain.com"
+  default from: 'notifications@chesedtrain.com'
 
   def notification
     @owner = params[:user]
     @event = params[:event]
-    mail(to: @owner.email_address, subject: "Welcome to Chesed Train!")
+    mail(to: @owner.email_address, subject: 'Welcome to Chesed Train!')
   end
 
   def volunteer_signup
@@ -12,6 +12,6 @@ class OwnerMailer < ApplicationMailer
     @owner = @event.owner
     @task = params[:task]
     @volunteer = params[:volunteer]
-    mail(to: [ @owner.email_address ], subject: "A Volunteer Has Signed Up!")
+    mail(to: @owner.email_address, subject: 'A Volunteer Has Signed Up!')
   end
 end
