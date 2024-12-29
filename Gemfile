@@ -24,18 +24,13 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 gem "haml-rails", "~> 2.0"
 gem 'html2haml'
 gem 'tailwindcss-rails'
-gem 'sassc-rails'
+gem 'sassc'
 gem 'base64', '0.1.1'
 gem 'twilio-ruby'
 
