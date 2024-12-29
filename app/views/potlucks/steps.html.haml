@@ -19,15 +19,15 @@
 
         .form-group
           = f.label :name, "What should we call this potluck?", class: 'block text-sm font-bold text-secondary mb-1'
-          = f.text_field :name, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :name, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
         
         .form-group
           = f.label :start_date, "What date is this potluck called for?", class: 'block text-sm font-bold text-secondary mb-1'
-          = f.date_field :start_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.date_field :start_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
         
         .form-group
           = f.label :preferred_time, "What time is the potluck?", class: 'block text-sm font-bold text-secondary mb-1'
-          = f.text_field :preferred_time, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5'
+          = f.text_field :preferred_time, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5', required: true
         
         .mt-10.flex.justify-center
           = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
@@ -42,7 +42,7 @@
         = hidden_field_tag :step_check, @step
         .form-group
           = f.label :address1, "Street Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
 
         .form-group
           = f.label :address2, "Additional information", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
@@ -50,10 +50,10 @@
         .flex.flex-row.space-x-2
           %div{ class: "flex flex-col w-1/2" }
             = f.label :city, "City", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-            = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+            = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
           %div{ class: "flex flex-col w-1/2" }
             = f.label :state, "State", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-            = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+            = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
         .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
           = link_to "Back", steps_potluck_path(@event, step: 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
           = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
