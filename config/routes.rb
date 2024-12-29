@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       get 'steps/:step', to: 'chesed_trains#steps', as: :steps
       patch 'update_step'
+      post 'update_step'
       get 'thank-you', to: 'chesed_trains#thank_you', as: :thank_you
     end
 
@@ -40,14 +41,19 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :users
+  get '/pro', to: 'home#pro', as: :pro
+  # get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
+  # get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
+
   get '/select-chesed-type', to: 'selection#new', as: :selection
   get '/about-us', to: 'home#about', as: :about
   get '/contact-us', to: 'contact#new', as: :new_contact
+  get '/contact-thank-you', to: 'contact#thank_you', as: :contact_thank_you
   post '/contact-us', to: 'contact#create', as: :contact
   get '/privacy-policy', to: 'home#privacy_policy', as: :privacy_policy
   get '/terms-of-services', to: 'home#tos', as: :tos
   get '/sign-in', to: 'sessions#new', as: :login
-  # get '/coming-soon', to: 'home#coming_soon', as: :coming_soon
+  get '/coming-soon', to: 'home#coming_soon', as: :coming_soon
 
   get 'signup', to: 'registrations#new'
   post 'signup', to: 'registrations#create'
@@ -56,10 +62,6 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/*
-  get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
-  get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
 
   # Defines the root path route ("/")
   root 'home#index'

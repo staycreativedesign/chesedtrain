@@ -1,0 +1,8 @@
+.container.p-10
+  .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+    %div{ class: "text-secondary lg:text-[2rem] text-[2rem] font-lato font-[700] mb-5 text-center"} 
+      Thank you so much for contact us.<br>
+      We will be replying shortly to your message.<br>
+    %div{ class: "text-secondary lg:text-[1.5rem] text-[1rem] font-lato font-[500] mb-5 text-center"} 
+    = link_to 'Return', contact_path, class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+

@@ -10,14 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_26_024912) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_29_192103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "chesed_trains", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "event_dates", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,12 +20,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_024912) do
     t.string "date_number"
     t.string "date_weekday"
     t.string "date_month"
-    t.bigint "chesed_train_id"
     t.string "special_note"
     t.bigint "volunteer_id"
     t.text "bringing"
     t.datetime "full_date"
-    t.index ["chesed_train_id"], name: "index_event_dates_on_chesed_train_id"
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_event_dates_on_event_id"
     t.index ["volunteer_id"], name: "index_event_dates_on_volunteer_id"
   end
 
@@ -60,11 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_024912) do
     t.datetime "date_range"
     t.integer "step"
     t.index ["owner_id"], name: "index_events_on_owner_id"
-  end
-
-  create_table "potlucks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "selections", force: :cascade do |t|
@@ -111,6 +101,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_024912) do
     t.boolean "tos"
     t.boolean "sms"
     t.boolean "guest", default: false
+    t.boolean "is_paying", default: false
+    t.boolean "is_admin", default: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
@@ -123,7 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_024912) do
     t.index ["user_id"], name: "index_volunteer_events_on_user_id"
   end
 
-  add_foreign_key "event_dates", "chesed_trains"
+  add_foreign_key "event_dates", "events"
   add_foreign_key "event_dates", "users", column: "volunteer_id"
   add_foreign_key "events", "users", column: "owner_id"
   add_foreign_key "selections", "users", column: "volunteer_id"

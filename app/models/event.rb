@@ -37,9 +37,10 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Event < ApplicationRecord
+  self.inheritance_column = :type
+
   has_many :volunteers
-  belongs_to :owner, class_name: "User"
-  #
+  belongs_to :owner, class_name: 'User'
   has_many :volunteer_events
   has_many :volunteers, through: :volunteer_events, source: :user
 

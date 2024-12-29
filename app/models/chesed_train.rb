@@ -38,7 +38,7 @@
 #
 class ChesedTrain < Event
   validates :recipent_email, :recipent_name, presence: true
-  has_many :event_dates
+  has_many :event_dates, foreign_key: :event_id, dependent: :destroy
   accepts_nested_attributes_for :event_dates
 
   # normalizes :email_address, with: ->(e) { e.strip.downcase }

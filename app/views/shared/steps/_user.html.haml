@@ -1,5 +1,5 @@
 = form_with model: user, url: url, class: 'space-y-4 lg:w-1/2 w-full mt-5', method: method, data: { controller: "form-submit" } do |f|
-  = hidden_field_tag :step_check, 6
+  = hidden_field_tag :step_check, value: 6
   - if user.errors.any?
     %div{:style => "color: red"}
       %h2

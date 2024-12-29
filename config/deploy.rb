@@ -27,7 +27,7 @@ set :shared_dirs,
     fetch(:shared_dirs, []).push('public/assets', 'public/uploads', 'public/storage', 'tmp/pids', 'tmp/cache',
                                  'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system')
 set :shared_files,
-    fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/storage.yml', 'config/master.key',
+    fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/storage.yml',
                                   'config/credentials.ym.enc')
 
 # This task is the environment that is loaded for all remote run commands, such as

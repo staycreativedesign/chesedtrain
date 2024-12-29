@@ -76,9 +76,15 @@ class PotlucksController < ApplicationController
       @user = User.new(user_params.merge(guest: false))
       if @user.save
         @event.update(owner: @user)
-        Current.session.update(user: @user)
-        send_emails
-        redirect_to potluck_path(@event)
+        session[:user_id] = @user.id
+        current_user = @user
+
+        if current_user.events.count > 1 && !current_user.is_paying? || !current_user.is_admin?
+          redirect_to pro_path
+        else
+          send_emails
+          redirect_to potluck_path(@event)
+        end
       else
         respond_to do |format|
           format.html { render :steps, status: :unprocessable_entity }

@@ -24,6 +24,6 @@
 #  fk_rails_...  (volunteer_id => users.id)
 #
 class EventDate < ApplicationRecord
-  belongs_to :chesed_train
-  belongs_to :volunteer, class_name: "User", optional: true
+  belongs_to :event
+  belongs_to :volunteer, class_name: 'User', optional: true
 end

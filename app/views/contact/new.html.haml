@@ -6,16 +6,16 @@
       .grid.grid-cols-1.gap-4.md:grid-cols-2.md:gap-4
         .area
           = f.label :first_name, 'First Name', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :first_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :first_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
         .area
           = f.label :last_name, 'Last Name', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :last_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :last_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .grid.grid-cols-1
-        = f.label :email, 'Email Address', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-        = f.email_field :email, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        = f.label :email_address, 'Email Address', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+        = f.email_field :email_address, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .grid.grid-cols-1
-        = f.label :message, 'Email Address', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-        = f.text_area :message, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        = f.label :message, 'Message', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+        = f.text_area :message, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .grid.grid-cols-1
         = f.submit "Send Message", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 typypeext-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
             
