@@ -1,7 +1,6 @@
 class ChesedTrainsController < ApplicationController
   before_action :set_chesed_train, only: %i[steps update_step show thank_you edit update]
   before_action :check_owner, only: %i[steps update_step edit update]
-  before_action :check_number, only: %i[show]
 
   def index; end
 
@@ -89,7 +88,7 @@ class ChesedTrainsController < ApplicationController
       else
         respond_to do |format|
           format.html do
-            format.html { binding.pry }
+            format.html { render :new, status: :unprocessable_entity }
           end
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end
