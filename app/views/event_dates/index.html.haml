@@ -1,0 +1,21 @@
+%h1 Listing event_dates
+
+%table
+  %thead
+    %tr
+      %th Event
+      %th
+      %th
+      %th
+
+  %tbody
+    - @event_dates.each do |event_date|
+      %tr
+        %td= event_date.event
+        %td= link_to 'Show', event_date
+        %td= link_to 'Edit', edit_event_date_path(event_date)
+        %td= link_to 'Destroy', event_date, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Event date', new_event_date_path

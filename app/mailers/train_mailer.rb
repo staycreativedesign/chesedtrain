@@ -1,0 +1,2 @@
+class TrainMailer < ApplicationMailer
+end

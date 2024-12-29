@@ -1,0 +1,23 @@
+%p
+  Your Chesed Train Is Set Up!
+%p
+  Dear, #{ @event.recipent_name }
+
+%p
+  Your Chesed Train is ready to go! Here are the details:
+
+%ul
+  %li
+    Organizer: #{ @event.owner.name }
+  %li
+    Recipient: #{ @event.recipent_name }
+  %li
+    Chesed Train Link: #{ chesed_train_url(@event) }
+%p
+  You’re helping to create something that truly reflects the heart of our community. Log in anytime to manage or view your Chesed Train.
+
+%p
+  Warm regards,
+  <br>
+  The Chesed Train Team
+

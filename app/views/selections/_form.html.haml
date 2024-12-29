@@ -1,0 +1,14 @@
+= form_with(model: potluck) do |form|
+  - if potluck.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(potluck.errors.count, "error")
+        prohibited this potluck from being saved:
+      %ul
+        - potluck.errors.each do |error|
+          %li= error.full_message
+    
+  %div
+    = form.submit 'Submit'
+
+

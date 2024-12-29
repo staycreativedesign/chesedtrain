@@ -1,0 +1,42 @@
+%div{ class: "lg:bg-primary text-white w-full transition-all duration-300  font-alice lg:h-[100px] h-[90px]" }
+  .lg:flex.lg:flex-row.items-center.justify-between.hidden.pr-12 
+    .logo
+      = link_to(image_tag("logo_h.png", class: "h-[100px]", alt: "Header Logo"), root_path)
+    %div{ class: "text-secondary xl:text-[3rem] text-[2rem] text-center"} CHESED TRAIN
+    .flex.flex-row.items-center.justify-center.space-x-4
+      - if current_user && !current_user.guest?
+        = link_to "My Account", user_path(current_user), class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+        = button_to "Logout", session_path, method: :delete, class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+
+      - else
+        = link_to "Login", login_path, class: "text-center bg-transparent border border-secondary text-secondary lg:px-6 py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+
+      = link_to "Start a Chesed Train", select_chesed_path, class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer"
+      %span{ class: "text-secondary text-[0.9rem]"} ב״ה
+  .lg:hidden.flex.flex-row.items-center.justify-between
+    .flex.flex-row.items-center.justify-center
+      %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
+    .logo
+      = link_to(image_tag("logo_h.png", class: "h-[90px]", alt: "Header Logo"), root_path)
+    %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
+      = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
+    #mobile-menu{class: "hidden absolute top-[90px] right-0 w-full bg-white shadow-xl z-50"}
+      .flex.flex-col.items-center.py-4.space-y-4
+        - if current_user && !current_user.guest?
+          = link_to "My Account", user_path(current_user), class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+          = button_to "Logout", session_path, method: :delete, class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+        - else
+          = link_to "Login", login_path, class: "text-center bg-transparent border border-secondary text-secondary lg:px-6 py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
+        = link_to "Start a Chesed Train", select_chesed_path, class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer"
+    :javascript
+      function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        menu.classList.toggle('hidden');
+        if (menu.classList.contains('hidden')) {
+          menuIcon.src = "#{image_path('menu.svg')}";
+        } else {
+          menuIcon.src = "#{image_path('menu_close.svg')}";
+        }
+      }
+

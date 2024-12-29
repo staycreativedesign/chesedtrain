@@ -1,0 +1,72 @@
+.container.p-10
+  .flex.flex-col.items-center.w-full.lg:mt-4
+    %div{ class: "text-secondary lg:text-3xl text-[2rem] font-lato font-[700] mb-5"}
+      = @event.name
+  .w-full.grid.lg:grid-cols-3.lg:gap-4.text-center.font-normal.text-secondary.text-1xl.text-2xl.mb-5.lg:mb-10
+    .area
+      = @event.address1
+      = @event.address2
+      = @event.city
+      = @event.state
+    .area
+      = @event.start_date.strftime("%a %b %d")
+    .area
+      = @event.preferred_time
+  .w-full.grid.grid-cols-1.lg:grid-cols-5.lg:gap-48
+    .flex.flex-col.bg-primary.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative.col-span-3.mb-3
+      %div{ class: "text-secondary lg:text-3xl font-lato font-[700] "} 
+        Potluck Info:
+      %div{ class: "text-secondary lg:text-2xl font-lato mb-5"} 
+        = @event.special_message
+      %div{ class: "text-secondary lg:text-3xl font-lato font-[700] "} 
+        Preferences:
+      %div{ class: "text-secondary lg:text-2xl font-lato mb-5"} 
+        %ul.list-none
+          %li
+            = "Dietary Restrictions: #{@event.dietary_restrictions}" if @event.dietary_restrictions?
+          %li
+            = "Allergies: #{@event.allergies}" if @event.allergies?
+    .flex.flex-col.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative.col-span-2
+      %div{ class: "text-secondary lg:text-2xl font-lato font-[700] mb-5"} 
+        Organizer:
+        .font-normal.mb-5
+          = @event.owner.name
+        Participants:
+        .font-normal
+          - if @event.volunteers.blank?
+            None yet
+          - else
+            %ul.list-none
+              - @event.volunteers.map(&:name).uniq.each do |name|
+                %li
+                  = name
+        .mt-10.w-full{ data: { controller: 'copy' }}
+          = link_to 'Share', '#', class: 'w-full block px-12 mt-5 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal', data: { action: 'click->copy#copyUrl' }
+          .mt-2{class: 'text-[10px]'}
+            On a Mac machine use <b>CMD-V</b> to paste the information
+          %div{class: 'text-[10px]'}
+            On a PC machine use <b>CTRL-V</b> to paste the information
+
+  .flex.flex-col.items-center.w-full.relative.mt-5
+    %div{ class: "text-secondary lg:text-3xl text-[1rem] font-lato font-[700] mb-5 text-center"}
+      Potluck Options
+  .grid.grid-cols-1.gap-4.bg-primary.rounded.p-8.text-xl.mb-12.lg:justify-center
+    - @event.selections.order(name: :asc).each do |selection|
+      .bg-white.rounded.p-8.lg:grid.lg:grid-cols-2
+        .area{class: 'text-center'}
+          %h1{class: dom_id(selection)}
+            = selection.placeholder
+            .hidden.lg:inline-block
+              \|
+            = selection.name
+        .area{class: 'text-center'}
+          - if selection.volunteer.present?
+            .hidden.lg:inline-block
+              \|
+            = selection.volunteer.name
+            .hidden.lg:inline-block
+              \|
+            = selection.bringing
+          - else
+            = link_to 'Volunteer', volunteer_potluck_selection_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
+

@@ -1,0 +1,21 @@
+.container.p-10
+  .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+    %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
+      Contact Us
+    = form_with url: contact_path, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
+      .grid.grid-cols-1.gap-4.md:grid-cols-2.md:gap-4
+        .area
+          = f.label :first_name, 'First Name', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :first_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .area
+          = f.label :last_name, 'Last Name', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :last_name, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .grid.grid-cols-1
+        = f.label :email, 'Email Address', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+        = f.email_field :email, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .grid.grid-cols-1
+        = f.label :message, 'Email Address', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+        = f.text_area :message, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .grid.grid-cols-1
+        = f.submit "Send Message", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 typypeext-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+            

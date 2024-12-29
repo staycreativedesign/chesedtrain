@@ -1,0 +1,24 @@
+.container
+  .flex.flex-col.w-full
+    %div{class: 'flex flex-col items-center justify-center'}
+      %div{class: 'w-[%80] md:w-[50%]'}
+        %div{ class: "flex flex-col items-center justify-center"} 
+          %p.text-secondary{class: 'text-[2rem] my-5 font-bold'}
+            My Dashboard
+          = link_to 'Manage My Account', edit_user_path(current_user), class: 'border-2 border-primary rounded py-2 px-4'
+
+        - Event.where(owner: current_user).each do |event|
+          .border.border-primary.rounded-lg.lg:p-10.p-5.my-6.md:my-6.text-center
+            %p.text-secondary{class: 'text-[2rem] my-5 font-bold'}
+              = event.name
+            .grid.grid-cols-2.gap-4.space-between
+              - if event.type == 'ChesedTrain'
+                .area
+                  = link_to "Edit Chesed Train", edit_chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
+                .area
+                  = link_to "View", chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
+              - else
+                .area
+                  = link_to "Edit Potluck", edit_potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
+                .area
+                  = link_to "View", potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"

@@ -1,0 +1,11 @@
+%div{ class: "flex lg:flex-row flex-col-reverse items-center bg-primary rounded-[0.7rem] w-full lg:p-20 py-10 mb-20 mt-5"}
+  %div{ class: "flex flex-col items-center lg:w-2/5 w-full lg:px-10 px-20"}
+    = image_tag "bottomSecontion.png", class: "border-[0.625rem] border-white w-full rounded-[0.7rem] mb-2", alt: "bottomSecontion"
+  %div{ class: "flex flex-col items-center lg:w-3/5 w-full text-secondary px-10"}
+    %h1{ class: "lg:text-[2.5rem] text-[1.5rem] font-bold text-center"}
+      Sign Up Today and Start Delivering Acts of Kindness
+    %p{ class: "lg:text-[1.5rem] text-[1rem] font-bold lg:my-10 my-5"}
+      Create your free account today!
+    = link_to select_chesed_path, class: "mb-5 bg-primary-original text-white lg:w-[22rem] w-[11rem] lg:h-[5rem] h-[2rem]  rounded-[0.7rem] cursor-pointer border border-secondary flex items-center justify-center lg:space-x-4 space-x-2" do
+      %span{ class: "lg:text-[1.5rem] font-alice text-center"} Start a Chesed Train
+      = image_tag "arrow_left.svg", class: "lg:w-[2rem] w-[0.7rem] lg:h-[2.2rem] h-[0.7rem] lg:border lg:border-secondary lg:rounded-lg lg:px-[0.4rem] lg:py-[0.5rem]", alt: "Arrow Left"

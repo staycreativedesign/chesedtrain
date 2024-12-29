@@ -1,0 +1,129 @@
+- if @step == 1
+  .container.p-10
+    .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.p-10.w-full.relative
+      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} Let's Start With The Basics
+
+      = form_with(model: @event, class: 'space-y-4 lg:w-1/2 w-full mt-5') do |f|
+        = hidden_field_tag :step_check, @step
+        = hidden_field_tag :guest, false
+        
+        - if @event.errors.any?
+          .form-group
+            %div{:style => "color: red"}
+              %h2
+                = pluralize(@event.errors.count, "error")
+                prohibited this event from being saved:
+              %ul
+                - @event.errors.each do |error|
+                  %li= error.full_message
+
+        .form-group
+          = f.label :name, "What should we call this potluck?", class: 'block text-sm font-bold text-secondary mb-1'
+          = f.text_field :name, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        
+        .form-group
+          = f.label :start_date, "What date is this potluck called for?", class: 'block text-sm font-bold text-secondary mb-1'
+          = f.date_field :start_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        
+        .form-group
+          = f.label :preferred_time, "What time is the potluck?", class: 'block text-sm font-bold text-secondary mb-1'
+          = f.text_field :preferred_time, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5'
+        
+        .mt-10.flex.justify-center
+          = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        
+        %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
+          Step 1 of 4 
+- if @step == 2
+  .container.p-10
+    .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} Where Is The Potluck Taking Place?
+      = form_with model: @event, url: update_step_potluck_path(@event, step: 2), method: :patch, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
+        = hidden_field_tag :step_check, @step
+        .form-group
+          = f.label :address1, "Street Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+
+        .form-group
+          = f.label :address2, "Additional information", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :address2, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .flex.flex-row.space-x-2
+          %div{ class: "flex flex-col w-1/2" }
+            = f.label :city, "City", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+            = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          %div{ class: "flex flex-col w-1/2" }
+            = f.label :state, "State", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+            = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
+          = link_to "Back", steps_potluck_path(@event, step: 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+          = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+
+        %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
+          Step 2 of 4 
+        %div{ class: "text-center text-secondary lg:hidden font-bold pt-10"}
+          Step 2 of 4
+- if @step == 3
+  .container.p-10
+    .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} Now Let Talk About Food
+      = form_with model: @event, url: update_step_potluck_path(@event, step: 3), method: :patch, class: '' do |f|
+        = hidden_field_tag :step_check, @step
+        %div.overflow-x-auto
+          %table.text-2xl.rounded-lg.border-solid.min-w-full
+            %tbody
+              = f.fields_for :selections, @event.selections do |ff|
+                %tr
+                  %td.border.border-slate-300.px-4.py-2
+                    = ff.text_field :name, placeholder: ff.object.name, class: 'border-none lg:text-2xl text-neutral-400 w-full'
+                  %td.border.border-slate-300.px-4.py-2
+                    = ff.number_field :quantity, class: 'border-none lg:text-2xl text-neutral-400 w-full'
+                  %td.border.border-slate-300.px-4.py-2
+                    = ff.text_field :special_note, class: 'border-none lg:text-2xl text-neutral-400 w-full', placeholder: 'Special Notes'
+        
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
+          = link_to "Back", steps_potluck_path(@event, step: 2), class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+          = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
+          Step 3 of 4 
+        %div{ class: "text-center text-secondary lg:hidden font-bold pt-10"}
+          Step 3 of 4
+
+- if @step == 4
+  .container.p-10
+    .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
+        Potluck Preferences
+      = form_with model: @event, url: update_step_potluck_path(@event, step: 4), method: :patch, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
+        = hidden_field_tag :step_check, @step
+        - if @event.errors.any?
+          %div{:style => "color: red"}
+            %h2
+              = pluralize(@event.errors.count, "error")
+              prohibited this potluck from being saved:
+            %ul
+              - @event.errors.each do |error|
+                %li= error.full_message
+        .form-group
+          = f.label :dietary_restrictions, "", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :dietary_restrictions, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .form-group
+          = f.label :allergies, "", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :allergies, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .form-group
+          = f.label :special_message, "", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :special_message, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
+          = link_to "Back", steps_potluck_path(@event, step: 3), class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+          = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 typypeext-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+
+        %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
+          Step 4 of 4 
+        %div{ class: "text-center text-secondary lg:hidden font-bold pt-10"}
+          Step 4 of 4
+
+- if @step == 5  || @step == 6
+  .container.p-10
+    .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
+        Create your Account
+      = render partial: 'shared/steps/user', locals: { user: current_user, url: update_step_potluck_path(@event, step: 6), method: :patch }
