@@ -44,10 +44,6 @@ class PotlucksController < ApplicationController
 
   def steps
     @step = params[:step].to_i
-
-    return unless @step == 5
-
-    @user = User.new
   end
 
   def update_step
