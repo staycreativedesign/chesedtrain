@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def guest_user
-    binding.pry
     @guest_user ||= User.create(guest: true) do |user|
       user.first_name = 'Guest'
       user.last_name = 'Guest'
