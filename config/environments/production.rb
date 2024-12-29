@@ -103,6 +103,8 @@ Rails.application.configure do
     host: 'chesedtrain.com'
   }
 
+  config.action_mailer.default_url_options = { host: 'chesedtrain.com', protocol: 'https' }
+
   config.hosts = [
     'chesedtrain.com',     # Allow requests from example.com
     /.*\.chesedtrain\.com/ # Allow requests from subdomains like `www.example.com`
