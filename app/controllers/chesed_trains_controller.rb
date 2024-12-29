@@ -79,7 +79,7 @@ class ChesedTrainsController < ApplicationController
       if current_user.update!(user_params.merge(guest: false))
         @event.update(owner: current_user)
         session[:user_id] = current_user.id
-        if current_user.events.count > 1 && current_user.is_paying? || current_user.is_admin?
+        if current_user.events.count + 1 >= 2
           redirect_to pro_path
         else
           current_user.events << @event
