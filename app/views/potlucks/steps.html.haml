@@ -38,30 +38,7 @@
   .container.p-10
     .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
       %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} Where Is The Potluck Taking Place?
-      = form_with model: @event, url: update_step_potluck_path(@event, step: 2), method: :patch, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
-        = hidden_field_tag :step_check, @step
-        .form-group
-          = f.label :address1, "Street Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
-
-        .form-group
-          = f.label :address2, "Additional information", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :address2, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-        .flex.flex-row.space-x-2
-          %div{ class: "flex flex-col w-1/2" }
-            = f.label :city, "City", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-            = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
-          %div{ class: "flex flex-col w-1/2" }
-            = f.label :state, "State", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-            = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
-        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
-          = link_to "Back", steps_potluck_path(@event, step: 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
-          = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
-
-        %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
-          Step 2 of 4 
-        %div{ class: "text-center text-secondary lg:hidden font-bold pt-10"}
-          Step 2 of 4
+      = render partial: '/shared/steps/address', locals: { event: @event, step: 2, url: update_step_potluck_path(@event, step: 2) }
 - if @step == 3
   .container.p-10
     .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative

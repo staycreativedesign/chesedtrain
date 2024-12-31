@@ -28,15 +28,22 @@
         = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
 
       .form-group
-        = f.label :address2, "Additional information", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.label :address2,'Adddress continued', class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
         = f.text_field :address2, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-      .flex.flex-row.space-x-2
-        %div{ class: "flex flex-col w-1/2" }
-          = f.label :city, "City", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
-          = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-        %div{ class: "flex flex-col w-1/2" }
-          = f.label :state, "State", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
-          = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .flex.flex-col.lg:flex-row.lg:space-x-2
+        %div{ class: "flex flex-col lg:w-1/2" }
+          = f.label :city, "City", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :city, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
+        %div{ class: "flex flex-col lg:w-1/2 mt-2 lg:mt-0" }
+          = f.label :state, "State", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
+        %div{ class: "flex flex-col lg:w-1/2 mt-2 lg:mt-0" }
+          = f.label :postal_code, "Zipcode/Postal Code", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :postal_code, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
+      .flex.flex-col
+        %div{ class: "flex flex-col mt-2 lg:mt-0 w-full" }
+          = f.label :country, "Country", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.text_field :country, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .flex.flex-col.space-x-2.justify-content.items-center
         %div{ class: "text-secondary text-[1rem] font-lato font-[700] mb-5 text-center"} 
           Chesed Train Dates

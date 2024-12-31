@@ -118,6 +118,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
+    honeypot-captcha (1.0.1)
     html2haml (2.3.0)
       erubis (~> 2.7.0)
       haml (>= 4.0)
@@ -229,6 +230,7 @@ GEM
     rake (13.2.1)
     rdoc (6.10.0)
       psych (>= 4.0.0)
+    recaptcha (5.18.0)
     redis (4.8.1)
     regexp_parser (2.10.0)
     reline (0.6.0)
@@ -318,6 +320,7 @@ DEPENDENCIES
   capybara
   debug
   haml-rails (~> 2.0)
+  honeypot-captcha
   html2haml
   image_processing (~> 1.2)
   jbuilder
@@ -326,6 +329,7 @@ DEPENDENCIES
   pry
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
+  recaptcha
   sassc
   selenium-webdriver
   sidekiq (~> 6.0)

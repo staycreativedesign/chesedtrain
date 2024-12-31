@@ -40,11 +40,11 @@
         Chesed Train Delivery Address
       = render partial: '/shared/steps/address', locals: { event: @event, step: 2, url: update_step_chesed_train_path(@event, step: 2) }
 - if @step == 3
-  .container.p-10
+  .container.p-10{ data: { controller: 'dates'} }
     .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
       %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
         Select your Chesed Train Dates
-      = form_with model: @event, url: update_step_chesed_train_path(@event, step: 3), method: :patch, lacal: true do |f|
+      = form_with(model: @event, url: update_step_chesed_train_path(@event, step: 3), method: :patch) do |f|
         = hidden_field_tag :step_check, @step
         - if @event.errors.any?
           %div{:style => "color: red"}

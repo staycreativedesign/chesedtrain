@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_29_192103) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_31_220440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_29_192103) do
     t.string "fav_rest"
     t.datetime "date_range"
     t.integer "step"
+    t.string "country"
+    t.string "postal_code"
     t.index ["owner_id"], name: "index_events_on_owner_id"
   end
 

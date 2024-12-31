@@ -33,8 +33,9 @@ gem 'tailwindcss-rails'
 gem 'sassc'
 gem 'base64', '0.1.1'
 gem 'twilio-ruby'
-
+gem 'recaptcha'
 gem 'sidekiq', '~> 6.0'
+gem 'honeypot-captcha'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
