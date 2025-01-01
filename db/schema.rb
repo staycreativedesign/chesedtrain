@@ -20,12 +20,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_31_220440) do
     t.string "date_number"
     t.string "date_weekday"
     t.string "date_month"
+    t.bigint "chesed_train_id"
     t.string "special_note"
     t.bigint "volunteer_id"
     t.text "bringing"
     t.datetime "full_date"
-    t.bigint "event_id"
-    t.index ["event_id"], name: "index_event_dates_on_event_id"
+    t.index ["chesed_train_id"], name: "index_event_dates_on_chesed_train_id"
     t.index ["volunteer_id"], name: "index_event_dates_on_volunteer_id"
   end
 
@@ -117,7 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_31_220440) do
     t.index ["user_id"], name: "index_volunteer_events_on_user_id"
   end
 
-  add_foreign_key "event_dates", "events"
   add_foreign_key "event_dates", "users", column: "volunteer_id"
   add_foreign_key "events", "users", column: "owner_id"
   add_foreign_key "selections", "users", column: "volunteer_id"

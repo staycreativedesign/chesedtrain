@@ -103,12 +103,13 @@ class ChesedTrainsController < ApplicationController
 
   def create_event_dates(start_date, end_date, event)
     (start_date..end_date).each do |date|
+      binding.pry
       EventDate.create(
         date_number: Date.parse(date).day,
         date_weekday: Date.parse(date).strftime('%A'),
         date_month: Date.parse(date).month,
         full_date: Date.parse(date),
-        event_id: event.id
+        chesed_train_id: event.id
       )
     end
   end
