@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   resources :updates
   resources :events do
     resources :event_dates
@@ -37,6 +38,13 @@ Rails.application.routes.draw do
         patch '/add-volunteer/', to: 'selections#add_volunteer', as: :add_volunteer
       end
     end
+  end
+
+  namespace :admin do
+    resource :dashboard
+    resources :users
+    resources :chesed_trains
+    resources :potlucks
   end
 
   resource :session

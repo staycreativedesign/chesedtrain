@@ -36,6 +36,15 @@ gem 'twilio-ruby'
 gem 'recaptcha'
 gem 'sidekiq', '~> 6.0'
 gem 'honeypot-captcha'
+gem 'activeadmin'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
+gem 'country_select', '~> 8.0'
+
+
+
+
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
