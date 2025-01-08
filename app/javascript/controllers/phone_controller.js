@@ -16,20 +16,43 @@ export default class extends Controller {
   }
 
   format() {
-    // Remove all non-numeric characters except for '+'
-    let input = this.inputTarget.value.replace(/\D/g, "");
+    // Get the current cursor position
+    const cursorPosition = this.inputTarget.selectionStart;
 
-    // Ensure that input starts with country code '1'
-    if (input.length > 10) input = input.substring(0, 10); // Limit to 10 digits (U.S. phone numbers)
-    
-    // Apply proper formatting: +1 (XXX) XXX-XXXX
-    if (input.length <= 3) {
-      this.inputTarget.value = `1(${input}`;
-    } else if (input.length <= 6) {
-      this.inputTarget.value = `1(${input.slice(0, 3)}) ${input.slice(3)}`;
-    } else {
-      this.inputTarget.value = `1(${input.slice(0, 3)}) ${input.slice(3, 6)}-${input.slice(6, 10)}`;
+    // Remove all non-numeric characters except for '+'
+    let input = this.inputTarget.value.replace(/[^+\d]/g, "");
+
+    // If the input doesn't start with a '+' symbol, ensure it defaults to the U.S. country code '+1'
+    if (input.length > 0 && !input.startsWith("+")) {
+      input = "+1" + input.slice(1);  // Prepend '+1' if the user didn't input a country code
     }
+
+    // Limit input length to prevent excessive characters
+    if (input.length > 16) { // Allows for up to 15 digits + 1 '+' symbol
+      input = input.substring(0, 16);
+    }
+
+    // Formatting logic for international numbers with 2-digit country codes
+    let formattedValue = "";
+    if (input.startsWith("+")) {
+      if (input.length <= 3) {
+        // Only country code entered (2 digits + '+')
+        formattedValue = input;
+      } else {
+        // Full number formatting without spaces or dashes
+        formattedValue = input.slice(0, 3) + input.slice(3);
+      }
+    } else {
+      // Default to U.S. format if no '+' detected (although this should be rare)
+      formattedValue = `+${input.slice(1)}`;
+    }
+
+    // Update the input field value
+    this.inputTarget.value = formattedValue;
+
+    // Adjust the cursor position for backspacing
+    const adjustment = formattedValue.length - input.length;
+    this.inputTarget.setSelectionRange(cursorPosition + adjustment, cursorPosition + adjustment);
   }
 
 }

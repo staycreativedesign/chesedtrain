@@ -1,31 +1,38 @@
 = form_with model: user, url: url, class: 'space-y-4 lg:w-1/2 w-full mt-5', method: method, data: { controller: "form-submit" } do |f|
   = hidden_field_tag :step_check, value: 6
-  - if user.errors.any?
-    %div{:style => "color: red"}
-      %h2
-        = pluralize(user.errors.count, "error")
-        prohibited this user from being saved:
-      %ul
-        - user.errors.each do |error|
-          %li= error.full_message
   .grid.grid-cols-1.gap-4.md:grid-cols-2.md:gap-4
     .area
-      = f.label :first_name, "First Name", class: 'block text-sm font-bold text-secondary mb-1'
+      = f.label :first_name, "First Name", class: 'w-full-label'
       = f.text_field :first_name, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', value: current_user&.guest? ? nil : f.object.first_name, required: true
+      - if user.errors[:first_name].any?
+        .text-danger
+          = user.errors[:first_name].join(", ").upcase
     .area
       = f.label :last_name, "Last Name", class: 'block text-sm font-bold text-secondary mb-1'
       = f.text_field :last_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl fpocus:outline-none focus:ring-2 focus:ring-blue-500', value: current_user&.guest? ? nil : f.object.last_name, required: true
+      - if user.errors[:last_name].any?
+        .text-danger
+          = user.errors[:last_name].join(", ").upcase
     .area
       = f.label :password, "Password", class: 'block text-sm font-bold text-secondary mb-1'
       = f.password_field :password, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
+      - if user.errors[:password].any?
+        .text-danger
+          = user.errors[:password].join(", ").upcase
     .area
       = f.label :password_confirmation, "Password Confirmation", class: 'block text-sm font-bold text-secondary mb-1'
       = f.password_field :password_confirmation, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
+      - if user.errors[:password_confirmation].any?
+        .text-danger
+          = user.errors[:password_confirmation].join(", ").upcase
 
   
   .form-group
     = f.label :email_address, "Email Address", class: 'block text-sm font-bold text-secondary mb-1'
     = f.text_field :email_address, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', value: current_user&.guest? ? nil : f.object.email_address
+    - if user.errors[:email_address].any?
+      .text-danger
+        = user.errors[:email_address].join(", ").upcase
   .form-group{data: { controller: 'phone'} }
     = f.label :phone_number, "Phone Number", class: 'block text-sm font-bold text-secondary mb-1'
     = f.text_field :phone_number, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', minlength: 17, maxlength: 17, data: { phone_target: "input", action: "input->phone#restrictInput input->phone#format" }, value: current_user&.guest? ? nil : f.object.phone_number, required: true
