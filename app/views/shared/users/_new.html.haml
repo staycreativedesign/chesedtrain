@@ -7,19 +7,19 @@
       .flex.flex-row.space-x-2
         %div{ class: "form-group w-1/2" }
           = f.label :first_name, "First Name", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :first_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :first_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
 
         %div{ class: "form-group w-1/2" }
           = f.label :last_name, "Last Name", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-          = f.text_field :last_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+          = f.text_field :last_name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
 
       .form-group
         = f.label :email_address, "Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-        = f.text_field :email_address, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        = f.text_field :email_address, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
 
       .form-group
         = f.label :password_confirmation, "Verify Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
-        = f.text_field :password_confirmation, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        = f.text_field :password_confirmation, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
 
       .form-group
         = f.label :phone_number, "Phone Number", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
