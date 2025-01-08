@@ -1,0 +1,6 @@
+.form-group
+  = f.label field.to_sym, label, class: 'w-full-label'
+  = f.text_field field.to_sym, class: 'w-full-field', required: defined?(is_needed) ? false : true
+  - if model.errors[field.to_sym].any?
+    .text-danger
+      = model.errors[field.to_sym].join(", ").upcase

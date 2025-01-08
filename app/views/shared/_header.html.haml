@@ -15,11 +15,11 @@
       %span{ class: "text-secondary text-[0.9rem]"} ב״ה
   .lg:hidden.flex.flex-row.items-center.justify-between
     .flex.flex-row.items-center.justify-center
-      %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
+      %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
+        = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
     .logo
       = link_to(image_tag("logo_h.png", class: "h-[90px]", alt: "Header Logo"), root_path)
-    %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
-      = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
+    %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
     #mobile-menu{class: "hidden absolute top-[90px] right-0 w-full bg-white shadow-xl z-50"}
       .flex.flex-col.items-center.py-4.space-y-4
         - if current_user && !current_user.guest?
@@ -28,6 +28,7 @@
         - else
           = link_to "Login", login_path, class: "text-center bg-transparent border border-secondary text-secondary lg:px-6 py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
         = link_to "Start a Chesed Train", select_chesed_path, class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer"
+
     :javascript
       function toggleMenu() {
         const menu = document.getElementById('mobile-menu');

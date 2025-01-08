@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
   resources :updates
   resources :events do
     resources :event_dates

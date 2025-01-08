@@ -11,9 +11,10 @@
     -# %link{:href => "/icon.png", :rel => "icon", :type => "image/png"}/
     -# %link{:href => "/icon.svg", :rel => "icon", :type => "image/svg+xml"}/
     -# %link{:href => "/icon.png", :rel => "apple-touch-icon"}/
-    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload", rel: "stylesheet"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
   %body{style: 'background-color:white'}
+    = render 'shared/alert'
     .flex.flex-col
       = render "shared/header"
       .flex-grow.flex.items-center.justify-center.font-lato

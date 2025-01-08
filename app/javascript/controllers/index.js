@@ -7,8 +7,8 @@ import { application } from "./application"
 import CopyController from "./copy_controller"
 application.register("copy", CopyController)
 
-import DatesController from "./dates_controller"
-application.register("dates", DatesController)
+import FadeController from "./fade_controller"
+application.register("fade", FadeController)
 
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)

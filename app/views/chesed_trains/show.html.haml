@@ -53,10 +53,6 @@
                   = name
         .mt-3.lg:mt-10.w-full{ data: { controller: 'copy' }}
           = link_to 'Share', '#', class: 'w-full block px-12 mt-5 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal', data: { action: 'click->copy#copyUrl' }
-          .mt-2{class: 'text-[10px]'}
-            On a Mac machine use <b>CMD-V</b> to paste the information
-          %div{class: 'text-[10px]'}
-            On a PC machine use <b>CTRL-V</b> to paste the information
 
   .flex.flex-col.items-center.w-full.mt-5
     %div{ class: "text-secondary lg:text-3xl text-[1rem] font-lato font-[700] text-center"}

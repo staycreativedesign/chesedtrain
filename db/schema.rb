@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_01_195010) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_08_004634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_01_195010) do
     t.boolean "guest", default: false
     t.boolean "is_paying", default: false
     t.boolean "is_admin", default: false
+    t.string "country_code"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 

@@ -5,30 +5,18 @@
     = form_with(model: event, class: 'space-y-4 lg:w-1/2 w-full mt-5') do |f|
       = f.hidden_field :type, value: 'Potluck'
       
-      - if event.errors.any?
-        .form-group
-          %div{:style => "color: red"}
-            %h2
-              = pluralize(event.errors.count, "error")
-              prohibited this event from being saved:
-            %ul
-              - event.errors.each do |error|
-                %li= error.full_message
-
-      .form-group
-        = f.label :name, "What should we call this potluck?", class: 'block text-sm font-bold text-secondary mb-1'
-        = f.text_field :name, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-      
+      = render partial: "shared/field", locals: { field: 'name', model: event, label: "What should we call this potluck?", f: f }
       .form-group
         = f.label :start_date, "What date is this potluck called for?", class: 'block text-sm font-bold text-secondary mb-1'
         = f.date_field :start_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-      
-      .form-group
-        = f.label :preferred_time, "What time is the potluck?", class: 'block text-sm font-bold text-secondary mb-1'
-        = f.text_field :preferred_time, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5'
+        - if event.errors[:start_date].any?
+          .text-danger
+            = event.errors[:start_date].join(", ").upcase
+
+      = render partial: "shared/field", locals: { field: 'preferred_time', model: event, label: "What time is the potluck?", f: f }
       
       .mt-10.flex.justify-center
-        = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        = f.submit "Next", class: 'w-[11rem] button'
       
       %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
-        Step 1 of 4 
+        Step 1 of 4
