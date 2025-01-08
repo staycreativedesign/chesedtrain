@@ -16,7 +16,6 @@ export default class extends Controller {
     document.body.removeChild(tempInput);
 
     // Optionally: provide user feedback
-    alert('Event information copied!');
   }
 }
 

@@ -22,5 +22,8 @@ application.register("hello", HelloController)
 import HomeController from "./home_controller"
 application.register("home", HomeController)
 
+import NotificationController from "./notification_controller"
+application.register("notification", NotificationController)
+
 import PhoneController from "./phone_controller"
 application.register("phone", PhoneController)
