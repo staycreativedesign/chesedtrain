@@ -1,0 +1,112 @@
+.container.p-5.md:p-10
+  .admin
+    = link_to 'Edit User', edit_admin_user_path(@user), class: 'button px-4 text-xs'
+    .w-full
+      .overflow-x-auto{:class => "-m-1.5"}
+        .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+          .overflow-hidden
+            %table.min-w-full.divide-y.divide-gray-200
+              %thead
+                %tr
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Email
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Phone number
+
+              %tbody.divide-y.divide-gray-200
+                %tr.hover:bg-gray-100
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.font-medium.text-gray-800 
+                    = @user.name
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+                    = @user.email_address
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+                    = @user.phone_number
+
+            .py-3.text-start.text-xs.font-medium.text-gray-500.uppercase
+              Events
+            - @events.each do |event|
+              %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Name
+                  %p.text-sm.font-medium.text-gray-800
+                    = event.preferred_time
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Type
+                  %p.text-sm.font-medium.text-gray-800
+                    = event.type
+            .py-3.text-start.text-xs.font-medium.text-gray-500.uppercase
+              Volunteered 
+            - @chesed_trains.each do |v|
+              %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Name
+                  %p.text-sm.font-medium.text-gray-800
+                    = v.chesed_train.name
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Type
+                  %p.text-sm.font-medium.text-gray-800
+                    Chesed Train
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Bringing
+                  %p.text-sm.font-medium.text-gray-800
+                    = v.bringing
+
+            - @potlucks.each do |v|
+              %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Name
+                  %p.text-sm.font-medium.text-gray-800
+                    = v.potluck.name
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Event Type
+                  %p.text-sm.font-medium.text-gray-800
+                    Pot Luck
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    Bringing
+                  %p.text-sm.font-medium.text-gray-800
+                    = v.bringing
+            -#
+            -# %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+            -#   %div
+            -#     %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#       Special Message
+            -#     %p.text-sm.font-medium.text-gray-800
+            -#       = @event.special_message
+            -#   %div
+            -#     %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#       Allergies
+            -#     %p.text-sm.font-medium.text-gray-800
+            -#       = @event.allergies
+            -#   %div
+            -#     %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#       Dietary Restrictions
+            -#     %p.text-sm.font-medium.text-gray-800
+            -#       = @event.dietary_restrictions
+            -# - @event.selections.each do |selection|
+            -#   %div.grid.grid-cols-2.gap-4.border.border-gray-200.rounded-lg.p-4.mt-6
+            -#     %div
+            -#       %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#         = selection.name
+            -#     %p.text-sm.font-medium.text-gray-800
+            -#       = selection.special_note
+            -#     %div
+            -#       .grid.grid-cols-2.gap-4
+            -#         %div
+            -#           %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#             Volunteer
+            -#           %p.text-sm.font-medium.text-gray-800
+            -#             = selection.volunteer_id? ? selection.volunteer.name : 'None yet'
+            -#         %div
+            -#           %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+            -#             Bringing
+            -#           %p.text-sm.font-medium.text-gray-800
+            -#             = selection.volunteer_id? ? selection.bringing : 'None yet'
+            -#
+            -#

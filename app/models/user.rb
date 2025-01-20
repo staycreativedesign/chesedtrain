@@ -4,25 +4,24 @@
 #
 #  id              :bigint           not null, primary key
 #  email_address   :string           not null
-#  first_name      :string
-#  guest           :boolean          default(FALSE)
-#  last_name       :string
 #  password_digest :string           not null
-#  phone_number    :string
-#  sms             :boolean
-#  tos             :boolean
-#  updates         :boolean
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#
-# Indexes
-#
-#  index_users_on_email_address  (email_address) UNIQUE
+#  first_name      :string
+#  last_name       :string
+#  phone_number    :string
+#  updates         :boolean          default(TRUE)
+#  tos             :boolean
+#  sms             :boolean
+#  guest           :boolean          default(FALSE)
+#  is_paying       :boolean          default(FALSE)
+#  is_admin        :boolean          default(FALSE)
+#  country_code    :string
 #
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
-  has_many :events, foreign_key: :owner_id
+  has_many :events, foreign_key: :owner_id, dependent: :destroy
   validates :email_address, uniqueness: true
   after_create :send_welcome_message
   after_save :still_guest?

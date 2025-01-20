@@ -46,4 +46,20 @@
     @apply bg-primary-original border border-secondary text-white lg:py-2 py-1 rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer
 
   }
+
+  .link-to {
+    @apply text-white p-2 hover:bg-blue-700 transition duration-200 cursor-pointer
+
+  }
+
+  .secondary {
+    @apply bg-primary-original
+
+  }
+
+  .admin {
+    @apply flex flex-col items-center justify-center border border-primary rounded-lg p-5 md:p-10 w-full relative
+  }
+
+
 }

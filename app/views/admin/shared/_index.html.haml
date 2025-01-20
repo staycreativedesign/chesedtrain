@@ -1,0 +1,15 @@
+.container.p-5.md:p-10
+  .admin
+    .w-full
+      .overflow-x-auto{:class => "-m-1.5"}
+        .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+          .overflow-hidden
+            %table.min-w-full.divide-y.divide-gray-200
+              %thead
+                %tr
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Owner
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Type
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Start / End
+                  %th.px-6.py-3.text-end.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Action
+              = render partial: "admin/shared/event", collection: events

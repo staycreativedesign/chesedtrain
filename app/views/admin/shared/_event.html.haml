@@ -1,0 +1,18 @@
+%tbody.divide-y.divide-gray-200
+  %tr.hover:bg-gray-100
+    %td.px-6.py-4.whitespace-nowrap.text-sm.font-medium.text-gray-800 
+      = event.name
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+      = event.owner.name
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+      = event.type
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+      = event.start_date.strftime("%m/%d") 
+      \-
+      = event.end_date? ? event.end_date.strftime("%m/%d") : event.start_date.strftime("%m/%d") 
+    %td.px-6.py-4.whitespace-nowrap.text-end.text-sm.font-medium
+      - if event.type == 'Potluck'
+        = link_to 'View', admin_potluck_path(event), class: 'hover:text-secondary'
+      - else
+        = link_to 'View', admin_chesed_train_path(event), class: 'hover:text-secondary'
+      = link_to "Destroy", admin_event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'

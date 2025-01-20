@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :users
     resources :chesed_trains
     resources :potlucks
+    resources :events
   end
 
   resource :session

@@ -1,0 +1,108 @@
+.container.p-5.md:p-10
+  .admin
+    .w-full
+      .overflow-x-auto{:class => "-m-1.5"}
+        .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+          .overflow-hidden
+            %table.min-w-full.divide-y.divide-gray-200
+              %thead
+                %tr
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Owner
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Owner Email
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Start / End
+
+              %tbody.divide-y.divide-gray-200
+                %tr.hover:bg-gray-100
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.font-medium.text-gray-800 
+                    = @event.name
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+                    = @event.owner.name
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+                    = @event.owner.email_address
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
+                    = @event.start_date.strftime("%m/%d") 
+                    \-
+                    = @event.end_date? ? @event.end_date.strftime("%m/%d") : @event.start_date.strftime("%m/%d") 
+
+            %table.min-w-full.divide-y.divide-gray-200
+              %thead
+                %tr
+                  %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} 
+                    Address
+              %tbody.divide-y.divide-gray-200
+                %tr.hover:bg-gray-100
+                  %td.px-6.py-4.whitespace-nowrap.text-sm.font-medium.text-gray-800 
+                    = @event.address1
+                    = @event.address2
+                    = @event.city
+                    = @event.state
+                    = @event.postal_code
+                    = @event.country
+            %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Preferred Time
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.preferred_time
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Adults
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.adults
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Kids
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.kids
+
+            %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Special Message
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.special_message
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Allergies
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.allergies
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Dietary Restrictions
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.dietary_restrictions
+            %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4.md:mb-4
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Favorite Restaurant
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.fav_rest
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Least Favorite Foods
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.least
+            %div.grid.grid-cols-1.md:grid-cols-3.gap-4.md:border.md:border-gray-200.rounded-lg.p-4
+              %div
+                %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                  Shabbat Instructions
+                %p.text-sm.font-medium.text-gray-800
+                  = @event.shabbat_instructions
+            - @event.event_dates.order(:full_date).each do |event|
+              %div.grid.grid-cols-2.gap-4.border.border-gray-200.rounded-lg.p-4.mt-6
+                %div
+                  %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                    = event.full_date.strftime("%A - %B - %d ")
+                %div
+                  .grid.grid-cols-2.gap-4
+                    %div
+                      %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                        Volunteer
+                      %p.text-sm.font-medium.text-gray-800
+                        = event.volunteer_id? ? event.volunteer.name : 'None yet'
+                    %div
+                      %h3.text-xs.font-medium.text-gray-500.uppercase.mb-2
+                        Bringing
+                      %p.text-sm.font-medium.text-gray-800
+                        = event.volunteer_id? ? event.bringing : 'None yet'

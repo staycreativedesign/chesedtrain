@@ -13,8 +13,17 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
   %body{style: 'background-color:white'}
     = render 'shared/alert'
+    .flex
     .flex.flex-col
       = render "shared/header"
+      .flex-grow.flex.items-center.justify-center.font-lato
+        .p-2.secondary.w-full
+          = link_to 'Users', admin_users_path, class: 'link-to'
+          = link_to 'Chesed Trains', admin_chesed_trains_path, class: 'link-to'
+          = link_to 'Potlucks', admin_potlucks_path, class: 'link-to'
+          %span.text-white
+            \|
+            = render_breadcrumbs :separator => ' | '
       .flex-grow.flex.items-center.justify-center.font-lato
         = yield
       = render "shared/footer"

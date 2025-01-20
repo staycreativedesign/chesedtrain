@@ -3,43 +3,40 @@
 # Table name: events
 #
 #  id                   :bigint           not null, primary key
-#  address1             :string
-#  address2             :string
-#  adults               :integer
-#  allergies            :string
-#  city                 :string
-#  date_range           :datetime
-#  dietary_restrictions :string
-#  end_date             :datetime
-#  fav_rest             :string
-#  kids                 :integer
-#  least                :string
 #  name                 :string
-#  preferred_time       :string
-#  recipent_email       :string
-#  recipent_name        :string
-#  shabbat_instructions :string
-#  special_message      :text
 #  start_date           :datetime
-#  state                :string
-#  step                 :integer
-#  type                 :string
+#  end_date             :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  recipent_email       :string
+#  recipent_name        :string
+#  address1             :string
+#  address2             :string
+#  city                 :string
+#  state                :string
+#  adults               :integer
+#  kids                 :integer
+#  allergies            :string
+#  preferred_time       :string
+#  dietary_restrictions :string
+#  special_message      :text
 #  owner_id             :bigint
-#
-# Indexes
-#
-#  index_events_on_owner_id  (owner_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (owner_id => users.id)
+#  type                 :string
+#  least                :string
+#  shabbat_instructions :string
+#  fav_rest             :string
+#  date_range           :datetime
+#  step                 :integer
+#  country              :string
+#  postal_code          :string
+#  status               :integer          default("opened"), not null
 #
 class Potluck < Event
   validates :preferred_time, :start_date, presence: true
 
-  has_many :selections
+  has_many :selections, dependent: :destroy
+  has_many :events, foreign_key: :owner_id, dependent: :destroy
+
   accepts_nested_attributes_for :selections
   after_create :add_selections
   SELECTIONS = ['Appetizers', 'Salads', 'Side Dishes', 'Main Dishes', 'Beverages', 'Desserts'].freeze

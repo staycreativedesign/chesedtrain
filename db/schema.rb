@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_08_004634) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_19_232754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_08_004634) do
     t.integer "step"
     t.string "country"
     t.string "postal_code"
+    t.integer "status", default: 0, null: false
     t.index ["owner_id"], name: "index_events_on_owner_id"
   end
 
@@ -137,4 +138,5 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_08_004634) do
   add_foreign_key "selections", "users", column: "volunteer_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "updates", "events"
+  add_foreign_key "volunteer_events", "users", on_delete: :cascade
 end

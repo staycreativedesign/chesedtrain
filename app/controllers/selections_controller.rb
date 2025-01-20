@@ -14,9 +14,10 @@ class SelectionsController < ApplicationController
   end
 
   def add_volunteer
-    if @selection.update(selection_params.merge(volunteer: current_user))
+    if @selection.update!(selection_params.merge(volunteer: current_user))
       @event.volunteers << current_user
-      OwnerMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
+
+      # OwnerMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
 
       if @event.type == 'ChesedTrain'
         RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now

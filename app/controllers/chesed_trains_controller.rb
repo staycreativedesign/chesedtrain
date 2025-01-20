@@ -63,6 +63,7 @@ class ChesedTrainsController < ApplicationController
 
         redirect_to steps_chesed_train_path(@event, step: 4)
       else
+
         render :steps, status: :unprocessable_entity
       end
     when 4
@@ -103,7 +104,7 @@ class ChesedTrainsController < ApplicationController
 
   def create_event_dates(start_date, end_date, event)
     (start_date..end_date).each do |date|
-      EventDate.create(
+      EventDate.create!(
         date_number: Date.parse(date).day,
         date_weekday: Date.parse(date).strftime('%A'),
         date_month: Date.parse(date).month,

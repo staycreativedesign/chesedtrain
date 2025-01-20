@@ -125,7 +125,7 @@ class PotlucksController < ApplicationController
   end
 
   def preferences_params
-    params.require(:potluck).permit(:dietary, :restrictions, :allergies, :special_message)
+    params.require(:potluck).permit(:dietary_restrictions, :allergies, :special_message)
   end
 
   def user_params
