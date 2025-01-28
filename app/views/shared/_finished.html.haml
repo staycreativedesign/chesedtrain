@@ -1,0 +1,8 @@
+.container.p-10
+  .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
+    %div{ class: "text-secondary lg:text-[2rem] text-[2rem] font-lato font-[700] mb-5 text-center"} 
+      Your Chesed Train has been completed!
+    %div{ class: "text-secondary lg:text-[1.5rem] text-[1rem] font-lato font-[500] mb-5 text-center"} 
+      Please check your email for confirmation and regular reminders about your commitment.
+    = link_to 'Return to Dashboard', user_path(current_user), class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+

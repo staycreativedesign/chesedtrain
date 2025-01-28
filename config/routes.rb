@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     resources :event_dates
     resources :updates
   end
+  get 'create_payment_link', to: 'payments#create_payment_link'
+  post '/success', to: 'payments#success'
+  get '/payment-success', to: 'home#index'
+  get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
 
   resources :chesed_trains do
     member do

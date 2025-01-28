@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_19_232754) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_28_053908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,11 +66,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_19_232754) do
     t.string "least"
     t.string "shabbat_instructions"
     t.string "fav_rest"
-    t.datetime "date_range"
     t.integer "step"
     t.string "country"
     t.string "postal_code"
     t.integer "status", default: 0, null: false
+    t.jsonb "date_range"
     t.index ["owner_id"], name: "index_events_on_owner_id"
   end
 
@@ -121,6 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_19_232754) do
     t.boolean "is_paying", default: false
     t.boolean "is_admin", default: false
     t.string "country_code"
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 

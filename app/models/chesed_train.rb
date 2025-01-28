@@ -36,5 +36,5 @@ class ChesedTrain < Event
   has_many :event_dates, foreign_key: :chesed_train_id, dependent: :destroy
   accepts_nested_attributes_for :event_dates
 
-  # normalizes :email_address, with: ->(e) { e.strip.downcase }
+  serialize :date_range, Hash
 end

@@ -47,7 +47,10 @@
       .flex.flex-col.space-x-2.justify-content.items-center
         %div{ class: "text-secondary text-[1rem] font-lato font-[700] mb-5 text-center"} 
           Chesed Train Dates
-        = f.text_field :date_range, id: "date-range-picker",  data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d" }.to_json }, value: "#{f.object.start_date&.strftime('%Y-%m-%d')} to #{f.object.end_date&.strftime('%Y-%m-%d')}"
+          = f.text_field :date_range, id: "date-range-picker", data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d" }.to_json },
+            value:"#{f.object.start_date.strftime('%Y-%m-%d')} to #{f.object.end_date.strftime('%Y-%m-%d')}"
+        %b.text-xs
+          * Please note if you change dates and there are people signed up for dates that are removed they will be removed from the date they selected.
         %div{ class: "text-secondary text-[1rem] font-lato font-[700] mt-5 text-center"} 
           Chesed Train Preferences
       .grid.grid-cols-2.gap-4

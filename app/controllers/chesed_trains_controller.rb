@@ -1,6 +1,7 @@
 class ChesedTrainsController < ApplicationController
   before_action :set_chesed_train, only: %i[steps update_step show thank_you edit update]
   before_action :check_owner, only: %i[steps update_step edit update]
+  before_action :check_date, only: %i[edit update]
 
   def index; end
 
@@ -9,6 +10,8 @@ class ChesedTrainsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(all_params)
+        update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
+        binding.pry
         if (step = params[:step_check])
           format.html { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
           format.json { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
@@ -58,6 +61,7 @@ class ChesedTrainsController < ApplicationController
     when 3
       if date_params_valid?
         start_date, end_date = params[:chesed_train][:date_range].split(' to ')
+        binding.pry
         create_event_dates(start_date, end_date, @event)
         @event.update(start_date: start_date, end_date: end_date)
 
@@ -102,8 +106,41 @@ class ChesedTrainsController < ApplicationController
 
   private
 
-  def create_event_dates(start_date, end_date, event)
+  def update_event_dates(start_date, end_date, event)
+    start_date, end_date = params[:chesed_train][:date_range].split(' to ').map { |date| Date.parse(date) }
+
+    # Fetch existing dates for the event
+    @dates = EventDate.where(chesed_train_id: event.id)
+
+    # Delete records where start_date is greater and end_date overlaps
+    @dates.where('full_date < ?', start_date)
+          .destroy_all
+
+    # Check if new EventDates need to be created
+    # Create a new EventDate if there are no existing dates covering the range
+    return unless @dates.where('full_date <= ? AND full_date >= ?', start_date, end_date).empty?
+
+    event.update(start_date: start_date, end_date: end_date)
     (start_date..end_date).each do |date|
+      full_date = event.event_dates.pluck(:full_date)
+      next if full_date.include?(date)
+
+      EventDate.create!(
+        date_number: date.day,
+        date_weekday: date.strftime('%A'),
+        date_month: date.month,
+        full_date: date,
+        chesed_train_id: event.id
+      )
+    end
+  end
+
+  def create_event_dates(start_date, end_date, event)
+    event.update(start_date: start_date, end_date: end_date)
+    (start_date..end_date).each do |date|
+      full_date = event.event_dates.pluck(:full_date)
+      next if full_date.include?(date)
+
       EventDate.create!(
         date_number: Date.parse(date).day,
         date_weekday: Date.parse(date).strftime('%A'),
@@ -142,8 +179,8 @@ class ChesedTrainsController < ApplicationController
   end
 
   def preferences_params
-    params.require(:chesed_train).permit(:date_range, :dietary_restrictions, :allergies, :special_message, :adults,
-                                         :kids, :least, :preferred_time, :fav_rest, :shabbat_instructions)
+    params.require(:chesed_train).permit(:dietary_restrictions, :allergies, :special_message, :adults,
+                                         :kids, :least, :preferred_time, :fav_rest, :shabbat_instructions, date_range: %i[start_date end_date])
   end
 
   def user_params
@@ -153,8 +190,9 @@ class ChesedTrainsController < ApplicationController
 
   def all_params
     params.require(:chesed_train).permit(:type, :start_date, :stage, :fav_rest, :end_date, :address1, :address2, :city, :state, :postal_code, :country,
-                                         :recipent_name, :recipent_email, :name, :date_range, :dietary_restrictions, :allergies,
-                                         :special_message, :adults, :kids, :least, :preferred_time, :fav_rest, :shabbat_instructions)
+                                         :recipent_name, :recipent_email, :name, :dietary_restrictions, :allergies,
+                                         :special_message, :adults, :kids, :least, :preferred_time, :fav_rest, :shabbat_instructions,
+                                         date_range: %i[start_date end_date])
   end
 
   def check_owner
@@ -169,4 +207,6 @@ class ChesedTrainsController < ApplicationController
     OwnerMailer.with(user: current_user, event: @event).notification.deliver_later
     RecipientMailer.with(recipient_email: @event.recipent_email, event: @event).notification.deliver_later
   end
+
+  def check_date; end
 end

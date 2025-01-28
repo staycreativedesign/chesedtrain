@@ -40,6 +40,7 @@ gem 'cancancan'
 gem 'draper'
 gem 'pundit'
 gem 'breadcrumbs_on_rails'
+gem 'stripe'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
