@@ -39,11 +39,14 @@
             None yet
           - else
             %ul.list-none
-              - @event.volunteers.map(&:name).uniq.each do |name|
+              - @event.volunteers.where.not(id: @event.owner_id).map(&:name).uniq.each do |name|
                 %li
                   = name
         .mt-10.w-full{ data: { controller: 'copy notification' }}
-          = link_to 'Share', '', class: 'w-full block px-12 mt-5 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal', data: { action: 'click->copy#copyUrl click->notification#showNotification' }
+          - if Date.today > @event.end_date
+            Date for adding volunteers has passed
+          - else
+            = link_to 'Share', '', class: 'w-full block px-12 mt-5 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal', data: { action: 'click->copy#copyUrl click->notification#showNotification' }
           %div.hidden.fixed.top-0.right-0{role: "alert", class: "text-sm border-2 border-blue-500", data: { "notification-target": "notification"} }
             .text-white.px-4.py-2{ class: "bg-blue-500" }
               Information
@@ -71,7 +74,10 @@
               \|
             = selection.bringing
           - else
-            = link_to 'Volunteer', volunteer_potluck_selection_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
+            - if Date.today > @event.end_date
+              Date for adding volunteers has passed
+            - else
+              = link_to 'Volunteer', volunteer_potluck_selection_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
 
 .hidden.fixed.bottom-4.left-4.bg-green-500.text-white.px-6.py-3.rounded-lg.shadow-lg{"data-notification-target" => "notification"}
   This is a notification!

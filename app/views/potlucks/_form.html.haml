@@ -8,10 +8,10 @@
       = render partial: "shared/field", locals: { field: 'name', model: event, label: "What should we call this potluck?", f: f }
       .form-group
         = f.label :start_date, "What date is this potluck called for?", class: 'block text-sm font-bold text-secondary mb-1'
-        = f.date_field :start_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-        - if event.errors[:start_date].any?
+        = f.date_field :end_date, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        - if event.errors[:end_date].any?
           .text-danger
-            = event.errors[:start_date].join(", ").upcase
+            = event.errors[:end_date].join(", ").upcase
 
       = render partial: "shared/field", locals: { field: 'preferred_time', model: event, label: "What time is the potluck?", f: f }
       

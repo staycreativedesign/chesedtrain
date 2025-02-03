@@ -40,4 +40,6 @@
   .flex.justify-center.mt-4
     = f.submit nil, class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
 
-
+- if current_user.is_paying?
+  .flex.justify-center.mt-4
+    = link_to 'Cancel Subscription', unsubscribe_user_path(user), class: 'text-center w-[11rem] border border-secondary text-danger lg:py-2 py-1 rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'

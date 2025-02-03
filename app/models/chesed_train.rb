@@ -25,11 +25,11 @@
 #  least                :string
 #  shabbat_instructions :string
 #  fav_rest             :string
-#  date_range           :datetime
 #  step                 :integer
 #  country              :string
 #  postal_code          :string
 #  status               :integer          default("opened"), not null
+#  date_range           :jsonb
 #
 class ChesedTrain < Event
   validates :recipent_email, :recipent_name, presence: true

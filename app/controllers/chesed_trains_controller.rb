@@ -10,8 +10,9 @@ class ChesedTrainsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(all_params)
-        update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
-        binding.pry
+        if params[:chesed_train][:start_date].present?
+          update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
+        end
         if (step = params[:step_check])
           format.html { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
           format.json { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
@@ -61,7 +62,6 @@ class ChesedTrainsController < ApplicationController
     when 3
       if date_params_valid?
         start_date, end_date = params[:chesed_train][:date_range].split(' to ')
-        binding.pry
         create_event_dates(start_date, end_date, @event)
         @event.update(start_date: start_date, end_date: end_date)
 
@@ -89,6 +89,7 @@ class ChesedTrainsController < ApplicationController
         else
           current_user.events << @event
           send_emails
+          TwilioService.call(current_user, 'welcome')
           redirect_to chesed_train_path(@event)
         end
       else
@@ -156,6 +157,7 @@ class ChesedTrainsController < ApplicationController
       redirect_to steps_chesed_train_path(@event, step: 5)
     else
       send_emails
+      TwilioService.call(current_user, 'message')
       redirect_to chesed_train_path(@event)
     end
   end

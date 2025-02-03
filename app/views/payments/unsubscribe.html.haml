@@ -1,0 +1,11 @@
+.container.p-10.flex.flex-col.justify-center
+  .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.text-center
+    %div{class: 'lg:w-1/2'}
+      %div{ class: "text-secondary text-[2rem] font-lato font-[700] text-center lg:mb-20 mb-5"} 
+        We are sad to see you go!
+      %div{ class: "text-secondary lg:text-[1.8rem] text-[1.8rem] font-lato font-normal"} 
+        You can always restart your plan at any time and hope you will come back to continue to spread Chesed in the world!
+    - if current_user.is_paying?
+      .flex.justify-center.mt-4
+        = form_with url: unsubscribe_action_user_path(current_user) do |f|
+          = f.submit 'Cancel Subscription', class: 'text-center w-[11rem] border border-secondary text-danger lg:py-2 py-1 rounded-xl transition duration-200 cursor-pointer'

@@ -1,12 +1,21 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  def payment_success; end
+
+  def unsubscribe; end
+
+  def unsubscribe_action
+    # Stripe::Subscription.cancel(current_user.stripe_subscription_id)
+    # current_user.update(is_paying: false, stripe_subscription_id: nil)
+    redirect_to user_path(current_user)
+    flash[:notice] = 'Account is no longer subscribed'
+  end
+
   def success
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
     endpoint_secret = Rails.application.credentials.stripe.success_webhook
-
-    binding.pry
 
     begin
       event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
@@ -19,10 +28,7 @@ class PaymentsController < ApplicationController
     # Handle the event
     case event['type']
     when 'checkout.session.completed'
-      binding.pry
       handle_checkout_session_completed(event['data']['object'])
-      binding.pry
-      Rails.logger.info "PaymentIntent succeeded: #{payment_intent['id']}"
     else
       Rails.logger.info "Unhandled event type: #{event['type']}"
     end
@@ -78,14 +84,14 @@ class PaymentsController < ApplicationController
 
   # Update user account on successful payment
   def handle_checkout_session_completed(session)
-    if (user = User.find_by(email: session[:customer_details][:email]))
+    if (user = User.find_by(email_address: session[:customer_details][:email]))
       user.update(
         is_paying: true,
         stripe_customer_id: session['customer'],
         stripe_subscription_id: session['subscription']
       )
 
-      redirect_to user_path(user)
+      session[:user_id] = user.id
     else
       user = User.create(first_name: session[:custom_fields][0]['text']['value'],
                          last_name: session[:custom_fields][1]['text']['value'],
@@ -97,8 +103,6 @@ class PaymentsController < ApplicationController
                          stripe_customer_id: session['customer'],
                          stripe_subscription_id: session['subscription'])
       session[:user_id] = user.id
-      redirect_to user_path(user)
-
     end
     Rails.logger.info "User #{user.id} updated with active subscription."
   end

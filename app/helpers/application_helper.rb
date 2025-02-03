@@ -3,7 +3,7 @@ module ApplicationHelper
     case type.to_sym
     when :notice
       'blue'
-    when :alert
+    when :danger, :alert
       'red'
     else
       'gray'

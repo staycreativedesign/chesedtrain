@@ -7,7 +7,10 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @events = Event.where(owner: current_user).where('end_date >= ?', Date.today)
+    @past_events = Event.where(owner: current_user).where('end_date < ?', Date.today)
+  end
 
   # GET /users/new
   def new

@@ -7,7 +7,7 @@
             My Dashboard
           = link_to 'Manage My Account', edit_user_path(current_user), class: 'border-2 border-primary rounded py-2 px-4'
 
-        - Event.where(owner: current_user).each do |event|
+        - @events.each do |event|
           .border.border-primary.rounded-lg.lg:p-10.p-5.my-6.md:my-6.text-center
             %p.text-secondary{class: 'text-[2rem] my-5 font-bold'}
               = event.name
@@ -24,3 +24,21 @@
                     = link_to "Edit Potluck", edit_potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
                 .area
                   = link_to "View", potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
+
+        - if @past_events
+          %h1 Past Events
+
+          .w-full.mb-5
+            .overflow-x-auto{:class => "-m-1.5"}
+              .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+                .overflow-hidden
+                  %table.min-w-full.divide-y.divide-gray-200
+                    %thead
+                      %tr
+                        %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+
+                    %tbody
+                      - @past_events.each do |event|
+                        %tr
+                          %td= event.name
+                          %td= link_to 'View', event

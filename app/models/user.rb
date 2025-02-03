@@ -2,21 +2,23 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
-#  email_address   :string           not null
-#  password_digest :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  first_name      :string
-#  last_name       :string
-#  phone_number    :string
-#  updates         :boolean          default(TRUE)
-#  tos             :boolean
-#  sms             :boolean
-#  guest           :boolean          default(FALSE)
-#  is_paying       :boolean          default(FALSE)
-#  is_admin        :boolean          default(FALSE)
-#  country_code    :string
+#  id                     :bigint           not null, primary key
+#  email_address          :string           not null
+#  password_digest        :string           not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  first_name             :string
+#  last_name              :string
+#  phone_number           :string
+#  updates                :boolean          default(TRUE)
+#  tos                    :boolean
+#  sms                    :boolean
+#  guest                  :boolean          default(FALSE)
+#  is_paying              :boolean          default(FALSE)
+#  is_admin               :boolean          default(FALSE)
+#  country_code           :string
+#  stripe_customer_id     :string
+#  stripe_subscription_id :string
 #
 class User < ApplicationRecord
   has_secure_password

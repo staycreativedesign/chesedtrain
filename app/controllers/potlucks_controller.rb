@@ -79,6 +79,7 @@ class PotlucksController < ApplicationController
         else
           current_user.events << @event
           send_emails
+          TwilioService.call(current_user, 'welcome')
           redirect_to potluck_path(@event)
         end
       else
@@ -111,7 +112,7 @@ class PotlucksController < ApplicationController
   end
 
   def potluck_params
-    params.require(:potluck).permit(:name, :start_date, :preferred_time)
+    params.require(:potluck).permit(:name, :start_date, :preferred_time, :end_date)
   end
 
   def location_params

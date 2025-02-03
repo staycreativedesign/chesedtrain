@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
   get 'create_payment_link', to: 'payments#create_payment_link'
   post '/success', to: 'payments#success'
-  get '/payment-success', to: 'home#index'
+  get '/payment-success', to: 'payments#payment_success'
   get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
 
   resources :chesed_trains do
@@ -53,7 +53,12 @@ Rails.application.routes.draw do
 
   resource :session
   resources :passwords, param: :token
-  resources :users
+  resources :users do
+    member do
+      get '/unsubscribe', to: 'payments#unsubscribe', as: :unsubscribe
+      post '/unsubscribe_action', to: 'payments#unsubscribe_action', as: :unsubscribe_action
+    end
+  end
   get '/pro', to: 'home#pro', as: :pro
   # get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
   # get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
@@ -67,6 +72,7 @@ Rails.application.routes.draw do
   get '/terms-of-services', to: 'home#tos', as: :tos
   get '/sign-in', to: 'sessions#new', as: :login
   get '/coming-soon', to: 'home#coming_soon', as: :coming_soon
+  resources :password_resets, only: %i[new create edit update]
 
   get 'signup', to: 'registrations#new'
   post 'signup', to: 'registrations#create'
