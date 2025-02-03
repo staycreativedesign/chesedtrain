@@ -41,14 +41,14 @@ class PaymentsController < ApplicationController
     payment_link = Stripe::PaymentLink.create(
       line_items: [
         {
-          price: 'price_1Qm4YnFPajux6JXViZQUZcWC',
+          price: 'price_1QoJ2DFPajux6JXVgPOOJD8N',
           quantity: 1
         }
       ],
       after_completion: {
         type: 'redirect',
         redirect: {
-          url: 'http://localhost:3000/payment-success'
+          url: 'https://chesedtrain.com/payment-success'
         }
       },
 
