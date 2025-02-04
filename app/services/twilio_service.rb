@@ -30,8 +30,8 @@ class TwilioService
     case message
     when 'welcome'
       "Hi #{@user.first_name}, welcome to Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')}. Use your dashboard to set up Chesed Trains, manage tasks, or sign up to volunteer. Let’s get started!"
-    when 'joined'
-      'foo'
+    when 'volunteer'
+      "A volunteer has joined your Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')} and view your Chesed Train!"
     end
   end
 end
