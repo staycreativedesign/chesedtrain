@@ -12,22 +12,23 @@ class UsersController < ApplicationController
     @past_events = Event.where(owner: current_user).where('end_date < ?', Date.today)
   end
 
-  # GET /users/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit; end
 
-  # POST /users or /users.json
   def create
     @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save!
-        format.html { redirect_back fallback_location: root_path }
-        format.json { redirect_back fallback_location: root_path }
+        session[:user_id] = @user.id
+        current_user = @user
+
+        TwilioService.call(current_user, 'welcome')
+        format.html { redirect_to new_payment_path, notice: 'Account was successfully created.' }
+        format.json { redirect_to fallback_location: new_payment_path }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -70,6 +71,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates,
-                                 :password_confirmation, :password)
+                                 :password, :password_confirmation)
   end
 end

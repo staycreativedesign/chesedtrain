@@ -11,5 +11,8 @@
       Along with managing multiple Chesed Trains at once, joining Chesed Train Pro also gives you the opportunity to help with more than just dinners. With Chesed Train Pro, you will also have the ability to offer support with breakfast, lunch, and groceries as well.
 
     %div{ class: "text-secondary lg:text-[1.5rem] text-[1rem] font-lato font-[500] mb-5 text-center"} 
-    = link_to 'Join Chesed Train', create_payment_link_path, class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    - if current_user
+      = link_to 'Join Chesed Train', create_payment_link_path, class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    - else
+      = link_to 'Please create an Account first', new_user_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
 
