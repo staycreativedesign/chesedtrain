@@ -25,7 +25,7 @@
                 .area
                   = link_to "View", potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
 
-        - if @past_events
+        - if @past_events.present?
           %h1 Past Events
 
           .w-full.mb-5
