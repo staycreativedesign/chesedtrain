@@ -4,7 +4,7 @@
       = link_to(image_tag("logo_h.png", class: "h-[100px]", alt: "Header Logo"), root_path)
     %div{ class: "text-secondary xl:text-[3rem] text-[2rem] text-center"} CHESED TRAIN
     .flex.flex-row.items-center.justify-center.space-x-4
-      - if current_user&.present? && !current_user&.guest?
+      - if current_user&.present? && current_user&.guest?
         = link_to "My Account", user_path(current_user), class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
         = button_to "Logout", session_path, method: :delete, class: "text-center bg-transparent border border-secondary text-secondary lg:py-2 px-2 rounded-xl hover:bg-primary-original hover:text-white transition duration-200 cursor-pointer"
         - if current_user.is_admin?
@@ -19,8 +19,8 @@
     .flex.flex-row.items-center.justify-center
       %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
         = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
-    .logo
-      = link_to(image_tag("logo_h.png", class: "h-[90px]", alt: "Header Logo"), root_path)
+      .logo
+        = link_to(image_tag("logo_h.png", class: "h-[90px]", alt: "Header Logo"), root_path)
       %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
     #mobile-menu{class: "hidden absolute top-[90px] right-0 w-full bg-white shadow-xl z-50"}
       .flex.flex-col.items-center.py-4.space-y-4
