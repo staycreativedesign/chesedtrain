@@ -67,7 +67,7 @@ module Admin
 
     def user_params
       params.require(:user).permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates,
-                                   :password_confirmation, :password, :is_admin, :is_paying)
+                                   :password_confirmation, :password, :is_admin, :is_paying, :area_code)
     end
   end
 end

@@ -70,8 +70,8 @@ class SelectionsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates, :password,
-                                 :password_confirmation)
+    params.require(:user).permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates,
+                                 :password, :password_confirmation, :area_code)
   end
 
   def selection_params

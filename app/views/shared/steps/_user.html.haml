@@ -25,17 +25,20 @@
       - if user.errors[:password_confirmation].any?
         .text-danger
           = user.errors[:password_confirmation].join(", ").upcase
-
-  
   .form-group
     = f.label :email_address, "Email Address", class: 'block text-sm font-bold text-secondary mb-1'
     = f.text_field :email_address, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', value: current_user&.guest? ? nil : f.object.email_address
     - if user.errors[:email_address].any?
       .text-danger
         = user.errors[:email_address].join(", ").upcase
-  .form-group{data: { controller: 'phone'} }
+  .form-group
     = f.label :phone_number, "Phone Number", class: 'block text-sm font-bold text-secondary mb-1'
-    = f.text_field :phone_number, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', maxlength: 17, data: { phone_target: "input", action: "" }, value: current_user&.guest? ? nil : f.object.phone_number, required: true
+    .flex.gap-4
+      = f.select :area_code, 
+        options_for_select(show_codes, f.object.area_code), 
+        { prompt: "Select a country" }, 
+        { class: "px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500", required: true }
+      = f.number_field :phone_number, class: 'flex-grow block px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', maxlength: 17, data: { phone_target: "input", action: "" }, value: current_user&.guest? ? nil : f.object.phone_number, required: true
 
   %div{ class: "form-group lg:flex lg:flex-col justify-center items-center" }
     .w-100

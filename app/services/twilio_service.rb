@@ -20,7 +20,7 @@ class TwilioService
     @client.messages.create(
       body: final_message(@message),
       from: '+18778459101',
-      to: @user.phone_number
+      to: @user.area_code + @user.phone_number
     )
   end
 
