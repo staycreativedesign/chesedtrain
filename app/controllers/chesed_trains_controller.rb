@@ -157,7 +157,7 @@ class ChesedTrainsController < ApplicationController
       redirect_to steps_chesed_train_path(@event, step: 5)
     else
       send_emails
-      TwilioService.call(current_user, 'message')
+      TwilioService.call(current_user, 'chesed_train')
       redirect_to chesed_train_path(@event)
     end
   end

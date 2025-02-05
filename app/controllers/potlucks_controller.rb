@@ -33,6 +33,8 @@ class PotlucksController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        TwilioService.call(current_user, 'potluck')
+
         format.html { redirect_to steps_potluck_path(@event, step: 2) }
         format.turbo_stream { redirect_to steps_potluck_path(@event, step: 2) }
       else

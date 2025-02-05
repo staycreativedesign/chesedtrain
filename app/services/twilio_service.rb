@@ -30,8 +30,17 @@ class TwilioService
     case message
     when 'welcome'
       "Hi #{@user.first_name}, welcome to Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')}. Use your dashboard to set up Chesed Trains, manage tasks, or sign up to volunteer. Let’s get started!"
-    when 'volunteer'
+    when 'volunteer_joined'
       "A volunteer has joined your Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')} and view your Chesed Train!"
+
+    when 'chesed_train'
+      'Thank you for creating a Chesed Train, you will be notified by text message when somone volunteers'
+
+    when 'potluck'
+      'Thank you for creating a Pot Luck, you will be notified by text message when somone volunteers'
+
+    when 'volunteer'
+      'Thank you for volunteering! You will receive a reminder when to bring your item.'
     end
   end
 end
