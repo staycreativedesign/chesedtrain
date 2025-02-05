@@ -1,10 +1,12 @@
 require 'active_support/core_ext/integer/time'
-
+Rails.application.routes.default_url_options[:host] = 'yourdomain.com'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
+  # Set the default host for URL generation
+  Rails.application.routes.default_url_options[:host] = 'chesedtrain.com'
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -107,3 +109,5 @@ Rails.application.configure do
 
   config.active_record.dump_schema_after_migration = false
 end
+
+Rails.application.routes.default_url_options[:host] = 'yourdomain.com'
