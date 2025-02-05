@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
       flash[:notice] = 'Email sent with password reset instructions'
       redirect_to root_path
     else
-      flash[:alert] = 'Email not found'
+      flash[:notice] = 'Email not found'
       redirect_to new_password_reset_path
     end
   end
