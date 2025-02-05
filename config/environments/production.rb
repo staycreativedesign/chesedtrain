@@ -105,11 +105,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'chesedtrain.com', protocol: 'https' }
 
-  config.hosts = [
-    'chesedtrain.com',
-    /.*\.chesedtrain\.com/
-  ]
-
-  # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
