@@ -34,10 +34,10 @@ class TwilioService
       "A volunteer has joined your Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')} and view your Chesed Train!"
 
     when 'chesed_train'
-      'Thank you for creating a Chesed Train, you will be notified by text message when somone volunteers'
+      'Thank you for creating a Chesed Train, you will be notified by text message when someone volunteers'
 
     when 'potluck'
-      'Thank you for creating a Pot Luck, you will be notified by text message when somone volunteers'
+      'Thank you for creating a Pot Luck, you will be notified by text message when someone volunteers'
 
     when 'volunteer'
       'Thank you for volunteering! You will receive a reminder when to bring your item.'
