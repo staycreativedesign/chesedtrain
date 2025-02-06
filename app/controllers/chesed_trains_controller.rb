@@ -62,6 +62,10 @@ class ChesedTrainsController < ApplicationController
     when 3
       if date_params_valid?
         start_date, end_date = params[:chesed_train][:date_range].split(' to ')
+        binding.pry
+
+        end_date = start_date if end_date.blank?
+
         create_event_dates(start_date, end_date, @event)
         @event.update(start_date: start_date, end_date: end_date)
 
@@ -149,6 +153,8 @@ class ChesedTrainsController < ApplicationController
         full_date: Date.parse(date),
         chesed_train_id: event.id
       )
+
+      return if end_date == start_date
     end
   end
 
@@ -167,7 +173,7 @@ class ChesedTrainsController < ApplicationController
   end
 
   def chesed_train_params
-    params.require(:chesed_train).permit(:recipent_name, :recipent_email, :name)
+    params.require(:chesed_train).permit(:recipent_name, :recipent_email, :name, :type)
   end
 
   def location_params
