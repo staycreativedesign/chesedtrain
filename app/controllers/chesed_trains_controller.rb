@@ -62,7 +62,6 @@ class ChesedTrainsController < ApplicationController
     when 3
       if date_params_valid?
         start_date, end_date = params[:chesed_train][:date_range].split(' to ')
-        binding.pry
 
         end_date = start_date if end_date.blank?
 

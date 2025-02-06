@@ -36,7 +36,6 @@ class PotlucksController < ApplicationController
         format.html { redirect_to steps_potluck_path(@event, step: 2) }
         format.turbo_stream { redirect_to steps_potluck_path(@event, step: 2) }
       else
-        binding.pry
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end

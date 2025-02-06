@@ -23,7 +23,8 @@ class ApplicationController < ActionController::Base
       user.first_name = 'Guest'
       user.last_name = 'Guest'
       user.email_address = "guest_#{SecureRandom.uuid}@example.com"
-      user.phone_number = '1800'
+      user.phone_number = '305000000'
+      user.area_code = '+1'
       user.password = SecureRandom.hex(10) # Random password
     end
 
