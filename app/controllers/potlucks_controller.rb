@@ -29,15 +29,14 @@ class PotlucksController < ApplicationController
 
   def create
     guest_user if current_user.blank?
-    @event = Potluck.new(potluck_params.merge(owner: current_user))
+    @event = Potluck.new(potluck_params.merge(owner: current_user, start_date: params[:potluck][:end_date]))
 
     respond_to do |format|
-      if @event.save
-        TwilioService.call(current_user, 'potluck')
-
+      if @event.save!
         format.html { redirect_to steps_potluck_path(@event, step: 2) }
         format.turbo_stream { redirect_to steps_potluck_path(@event, step: 2) }
       else
+        binding.pry
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
@@ -114,7 +113,7 @@ class PotlucksController < ApplicationController
   end
 
   def potluck_params
-    params.require(:potluck).permit(:name, :start_date, :preferred_time, :end_date)
+    params.require(:potluck).permit(:name, :start_date, :preferred_time, :end_date, :type)
   end
 
   def location_params
