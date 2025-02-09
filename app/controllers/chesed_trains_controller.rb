@@ -84,7 +84,7 @@ class ChesedTrainsController < ApplicationController
     when 6
       current_user = check_owner
 
-      if current_user.update!(user_params.merge(guest: false))
+      if current_user.update(user_params.merge(guest: false))
         @event.update(owner: current_user)
         session[:user_id] = current_user.id
         if current_user.events.count + 1 >= 2
@@ -97,9 +97,7 @@ class ChesedTrainsController < ApplicationController
         end
       else
         respond_to do |format|
-          format.html do
-            format.html { render :new, status: :unprocessable_entity }
-          end
+          format.html { render :steps, status: :unprocessable_entity }
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end
       end

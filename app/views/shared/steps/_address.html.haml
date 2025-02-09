@@ -1,7 +1,7 @@
 = form_with model: event, url: url, method: :patch, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
   = render partial: "shared/field", locals: { field: 'address1', model: event, label: "Address", f: f }
   .form-group
-    = f.label :address2, 'Addres continued', class: 'w-full-label'
+    = f.label :address2, 'Address continued', class: 'w-full-label'
     = f.text_field :address2, class: 'w-full-field'
     - if event.errors[:address2].any?
       .text-danger

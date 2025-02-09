@@ -28,8 +28,8 @@ class User < ApplicationRecord
   after_create :send_welcome_message
   after_save :still_guest?
 
-  has_many :volunteer_events
-  has_many :events, through: :volunteer_events
+  has_many :volunteer_events, dependent: :destroy
+  has_many :events, through: :volunteer_events, dependent: :destroy
 
   # normalizes :email_address, with: ->(e) { e.strip.downcase }
 

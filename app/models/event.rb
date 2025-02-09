@@ -38,8 +38,8 @@ class Event < ApplicationRecord
 
   has_many :volunteers, dependent: :nullify
   belongs_to :owner, class_name: 'User'
-  has_many :volunteer_events
-  has_many :volunteers, through: :volunteer_events, source: :user
+  has_many :volunteer_events, dependent: :nullify
+  has_many :volunteers, through: :volunteer_events, source: :user, dependent: :destroy
 
   validates :name, presence: true
 end
