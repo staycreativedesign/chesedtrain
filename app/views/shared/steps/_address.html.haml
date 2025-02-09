@@ -7,12 +7,12 @@
       .text-danger
         = event.errors[:address2].join(", ").upcase
   .flex.flex-row.space-x-2
-    %div{ class: "flex flex-col w-1/3" }
+    %div{ class: "flex flex-col w-1/2 md:w-1/3" }
       = render partial: "shared/field", locals: { field: 'city', model: event, label: "City", f: f }
-    %div{ class: "flex flex-col w-1/3" }
+    %div{ class: "flex flex-col w-1/2 md:w-1/3" }
       = render partial: "shared/field", locals: { field: 'state', model: event, label: "State/Province", f: f }
-    %div{ class: "flex flex-col w-1/3" }
-      = render partial: "shared/field", locals: { field: 'postal_code', model: event, label: "Zipcode/Postal Code", f: f }
+    %div{ class: "flex flex-col w-full md:w-1/3" }
+      = render partial: "shared/field", locals: { field: 'postal_code', model: event, label: "Zip/Postal Code", f: f }
   = render partial: "shared/field", locals: { field: 'country', model: event, label: "Country", f: f }
   .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
     - if @event.type == 'Potluck'
