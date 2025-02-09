@@ -61,14 +61,9 @@
       .bg-white.rounded.p-8.lg:grid.lg:grid-cols-2
         .area{class: 'text-center'}
           %h1{class: dom_id(selection)}
-            = selection.placeholder
-            .hidden.lg:inline-block
-              \|
             = selection.name
         .area{class: 'text-center'}
           - if selection.volunteer.present?
-            .hidden.lg:inline-block
-              \|
             = selection.volunteer.name
             .hidden.lg:inline-block
               \|
