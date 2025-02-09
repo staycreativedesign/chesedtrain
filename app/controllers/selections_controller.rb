@@ -20,7 +20,7 @@ class SelectionsController < ApplicationController
       # OwnerMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
       TwilioService.call(current_user, 'volunteer')
       TwilioService.call(@event.owner, 'volunteer_joined')
-      RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
+      # RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
 
       if @event.type == 'ChesedTrain'
         redirect_to thank_you_chesed_train_path(@event)
