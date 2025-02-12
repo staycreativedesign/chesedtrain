@@ -43,7 +43,7 @@
                   %td.border.border-slate-300.px-4.py-2
                     = ff.text_field :special_note, class: 'border-none text-xs lg:text-2xl text-neutral-400 w-full', placeholder: 'Notes'
         
-        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-col
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-row
           = link_to "Back", steps_potluck_path(@event, step: 2), class: 'mt-5 w-[11rem] button text-center'
           = f.submit "Next", class: 'w-[11rem] button'
         %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-bold"}
@@ -61,7 +61,7 @@
         = render partial: "shared/field", locals: { field: 'dietary_restrictions', model: @event, label: "Dietary Restrictions", is_needed: 'no', f: f }
         = render partial: "shared/field", locals: { field: 'allergies', model: @event, label: "Allergies", is_needed: 'no', f: f }
         = render partial: "shared/field", locals: { field: 'special_message', model: @event, label: "Special Message", is_needed: 'no',  f: f }
-        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-col
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-row
           = link_to "Back", steps_potluck_path(@event, step: 3), class: 'mt-5 w-[11rem] button text-center'
           = f.submit "Next", class: 'w-[11rem] button'
 

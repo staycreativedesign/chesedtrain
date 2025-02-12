@@ -15,7 +15,7 @@
       = render partial: "shared/field", locals: { field: 'postal_code', model: event, label: "Zip/Postal Code", f: f }
   = render partial: "shared/field", locals: { field: 'country', model: event, label: "Country", f: f }
 
-  .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-col
+  .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-row
     - if @event.type == 'Potluck'
       = link_to "Back", steps_potluck_path(event, step: 1), class: 'mt-5 w-[11rem] button text-center'
     - else
