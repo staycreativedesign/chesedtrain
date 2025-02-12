@@ -56,7 +56,7 @@
                 %li= error.full_message
         .flex.flex-row.space-x-2
           = f.text_field :date_range, id: "date-range-picker", data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d" }.to_json } 
-        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-col
           = link_to "Back", steps_chesed_train_path(@event, step: @step - 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
           = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         %div{ class: "text-center text-secondary lg:flex hidden absolute left-[10%] bottom-12  font-normal"}
@@ -108,7 +108,7 @@
         .form-group.mb-4
           = f.label :special_message, "Special Message", class: 'block text-sm font-bold text-secondary mb-1'
           = f.text_area :special_message, class: 'w-full px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-        .lg:mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.lg:flex-row.flex-col
+        .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-col
           = link_to "Back", steps_chesed_train_path(@event, step: @step - 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
           = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         .mt-5.lg:mt-10
