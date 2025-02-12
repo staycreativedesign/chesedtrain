@@ -65,6 +65,7 @@
         .area{class: 'text-center'}
           - if selection.volunteer.present?
             = selection.volunteer.name
+            %br.lg:hidden
             .hidden.lg:inline-block
               \|
             = selection.bringing
