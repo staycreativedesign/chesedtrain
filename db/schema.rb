@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_04_031819) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_18_041338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_04_031819) do
     t.bigint "potluck_id"
     t.bigint "volunteer_id"
     t.string "bringing"
+    t.datetime "potluck_date"
     t.index ["potluck_id"], name: "index_selections_on_potluck_id"
     t.index ["volunteer_id"], name: "index_selections_on_volunteer_id"
   end

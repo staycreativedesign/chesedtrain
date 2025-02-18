@@ -19,6 +19,9 @@
 #  country_code           :string
 #  stripe_customer_id     :string
 #  stripe_subscription_id :string
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  area_code              :string
 #
 class User < ApplicationRecord
   has_secure_password

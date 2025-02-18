@@ -121,7 +121,7 @@ class PotlucksController < ApplicationController
 
   def selection_params
     params.require(:potluck).permit(
-      selections_attributes: %i[id name quantity special_note]
+      selections_attributes: %i[id name quantity special_note bringing]
     )
   end
 
@@ -135,8 +135,7 @@ class PotlucksController < ApplicationController
   end
 
   def all_params
-    params.require(:potluck).permit(:type, :start_date, :stage, :fav_rest, :end_date, :address1, :address2, :city, :state,
-                                    :postal_code, :country, :recipent_name, :recipent_email, :name, :date_range,
+    params.require(:potluck).permit(:bringing, :type, :start_date, :stage, :fav_rest, :end_date, :address1, :address2, :city, :state, :postal_code, :country, :recipent_name, :recipent_email, :name, :date_range,
                                     :dietary_restrictions, :allergies, :special_message, :adults, :kids, :least,
                                     :preferred_time, :fav_rest, :shabbat_instructions)
   end

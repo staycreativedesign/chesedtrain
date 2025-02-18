@@ -12,6 +12,7 @@
 #  potluck_id   :bigint
 #  volunteer_id :bigint
 #  bringing     :string
+#  potluck_date :datetime
 #
 class Selection < ApplicationRecord
   belongs_to :potluck
