@@ -9,10 +9,8 @@ class ChesedTrainsController < ApplicationController
 
   def update
     respond_to do |format|
+      update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event, params)
       if @event.update(all_params)
-        if params[:chesed_train][:start_date].present?
-          update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
-        end
         if (step = params[:step_check])
           format.html { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
           format.json { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
@@ -108,7 +106,9 @@ class ChesedTrainsController < ApplicationController
 
   private
 
-  def update_event_dates(start_date, end_date, event)
+  def update_event_dates(start_date, end_date, event, params)
+    return if params[:chesed_train][:date_range] == event.date_range
+
     start_date, end_date = params[:chesed_train][:date_range].split(' to ').map { |date| Date.parse(date) }
 
     # Fetch existing dates for the event
@@ -125,7 +125,7 @@ class ChesedTrainsController < ApplicationController
     event.update(start_date: start_date, end_date: end_date)
     (start_date..end_date).each do |date|
       full_date = event.event_dates.pluck(:full_date)
-      next if full_date.include?(date)
+      next if full_date.map(&:to_date).include?(date.to_date)
 
       EventDate.create!(
         date_number: date.day,
@@ -194,10 +194,9 @@ class ChesedTrainsController < ApplicationController
   end
 
   def all_params
-    params.require(:chesed_train).permit(:type, :start_date, :stage, :fav_rest, :end_date, :address1, :address2, :city, :state, :postal_code, :country,
-                                         :recipent_name, :recipent_email, :name, :dietary_restrictions, :allergies,
-                                         :special_message, :adults, :kids, :least, :preferred_time, :fav_rest, :shabbat_instructions,
-                                         date_range: %i[start_date end_date])
+    params.require(:chesed_train).permit(:type, :start_date, :stage, :fav_rest, :end_date, :address1, :address2, :city, :state, :postal_code, :country, :recipent_name, :recipent_email, :name, :dietary_restrictions, :allergies,
+                                         :special_message, :adults, :kids, :least, :preferred_time, :fav_rest,
+                                         :shabbat_instructions, :date_range)
   end
 
   def check_owner

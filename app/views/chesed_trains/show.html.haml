@@ -65,7 +65,7 @@
     %div{ class: "text-secondary lg:text-3xl text-[1rem] font-lato font-[700] text-center"}
       Chesed Train Calendar
   .grid.grid-cols-1.gap-4.bg-primary.rounded.p-8.text-xl.mb-12.lg:justify-center
-    - @event.event_dates.order(created_at: :asc).each do |selection|
+    - @event.event_dates.order(full_date: :asc).each do |selection|
       .bg-white.rounded.p-8.lg:grid.lg:grid-cols-2
         .area{class: 'text-center'}
           = "#{selection.date_weekday}" 
