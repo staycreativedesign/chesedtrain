@@ -1,24 +1,23 @@
 .container.p-10
   .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.p-10.w-full.relative
     %div{ class: "text-secondary lg:text-[2rem] text-[2rem] font-lato font-[700] mb-5 text-center"} 
-      Join Chesed Train Pro Today
+      Chesed Train Pro
     %div{ class: "text-secondary lg:text-[1.5rem] text-[1.5rem] font-lato font-[700] mb-5 text-center"} 
-      Take Your Chesed to the Next Level with Chesed Train Pro
-
+      Take Your Chesed to the Next Level with Chesed Train Pro!
     %div{ class: "text-secondary lg:text-[1.5rem] text-[1.5rem] font-lato font-[700] mb-5 text-center"} 
       %p
-        Manage multiple Chesed Trains &amp; Potlucks simultaneously.
+        Manage multiple Chesed Trains & Potlucks simultaneously.
       %p
         Support unlimited individuals and families at the same time.
       %p
         Provide comprehensive meal assistance including breakfast, lunch, dinner, groceries, and more!
       %p
-        Upgrade to Chesed Train Pro today!
+        Upgrade today!
       %p.mt-3
         $5.99 Per Month
 
     %div{ class: "text-secondary lg:text-[1.5rem] text-[1rem] font-lato font-[500] mb-5 text-center"} 
     - if current_user
-      = link_to 'Subscribe to Pro Account', create_payment_link_path, class: ' mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+      = link_to 'Subscribe to Pro Account', create_payment_link_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
     - else
-      = link_to 'Please create an Account first', new_user_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+      = link_to 'Subscribe', new_user_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
