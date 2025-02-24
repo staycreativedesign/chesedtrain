@@ -86,7 +86,8 @@
                 = selection.special_note
           - else
             - if Date.today > @event.end_date
-              Date for adding volunteers has passed
+              .text-center
+                Volunteer time has passed
             - else
               = link_to 'Volunteer', volunteer_chesed_train_event_date_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
 
