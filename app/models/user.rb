@@ -33,8 +33,11 @@ class User < ApplicationRecord
 
   has_many :volunteer_events, dependent: :destroy
   has_many :events, through: :volunteer_events, dependent: :destroy
+  before_save :normalize_email
 
-  normalizes :email_address, with: ->(e) { e.strip.downcase }
+  def normalize_email
+    self.email = email.strip.downcase if email.present?
+  end
 
   def name
     "#{first_name} #{last_name}"
