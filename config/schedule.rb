@@ -8,7 +8,7 @@
 # set :output, "/path/to/my/cron_log.log"
 #
 every 1.day, at: '8:00am' do
-  rake 'rake event_reminder:send'
+  rake 'event_reminder:send'
 end
 #
 # every 4.days do

@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :volunteer_events, dependent: :destroy
   has_many :events, through: :volunteer_events, dependent: :destroy
 
-  # normalizes :email_address, with: ->(e) { e.strip.downcase }
+  normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   def name
     "#{first_name} #{last_name}"
