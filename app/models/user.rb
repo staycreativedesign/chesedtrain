@@ -36,7 +36,7 @@ class User < ApplicationRecord
   before_save :normalize_email
 
   def normalize_email
-    self.email_address = email.strip.downcase if email_address.present?
+    self.email_address = email_address.strip.downcase if email_address.present?
   end
 
   def name
