@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
 
     # Handle the event
     case event['type']
-    when 'checkout.session.completed'
+    when 'checkout.session.completed', 'charge.succeeded'
       handle_checkout_session_completed(event['data']['object'])
     else
       Rails.logger.info "Unhandled event type: #{event['type']}"

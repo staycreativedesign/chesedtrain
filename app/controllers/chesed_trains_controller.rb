@@ -134,6 +134,8 @@ class ChesedTrainsController < ApplicationController
         full_date: date,
         chesed_train_id: event.id
       )
+
+      return if start_date == end_date
     end
   end
 
@@ -149,6 +151,8 @@ class ChesedTrainsController < ApplicationController
         full_date: Date.parse(date),
         chesed_train_id: event.id
       )
+
+      return if start_date == end_date
     end
   end
 
