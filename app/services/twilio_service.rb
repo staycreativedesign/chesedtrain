@@ -33,6 +33,9 @@ class TwilioService
     when 'volunteer_joined'
       "A volunteer has joined your Chesed Train! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')} and view your Chesed Train!"
 
+    when 'volunteer_joined_potluck'
+      "A volunteer has joined your Potluck! Log in here: #{Rails.application.routes.url_helpers.login_url(protocol: 'https')} and view your Potluck!"
+
     when 'chesed_train'
       'Thank you for creating a Chesed Train, you will be notified by text message when someone volunteers'
 

@@ -1,23 +1,48 @@
-%p
-  Your Chesed Train Is Set Up!
-%p
-  Dear, #{ @event.recipent_name }
+- if @event.type == 'Potluck'
+  %p
+    Your Potluck Is Set Up!
+  %p
+    Dear, #{ @event.recipent_name }
 
-%p
-  Your Chesed Train is ready to go! Here are the details:
+  %p
+    Your Chesed Train is ready to go! Here are the details:
 
-%ul
-  %li
-    Organizer: #{ @event.owner.name }
-  %li
-    Recipient: #{ @event.recipent_name }
-  %li
-    Chesed Train Link: #{ link_to 'Click here', chesed_train_url(@event) }
-%p
-  You’re helping to create something that truly reflects the heart of our community. Log in anytime to manage or view your Chesed Train.
+  %ul
+    %li
+      Organizer: #{ @event.owner.name }
+    %li
+      Recipient: #{ @event.end_date.strftime("%A on %D") }
+    %li
+      Potluck Link: #{ link_to 'Click here', potluck_url(@event) }
+  %p
+    You’re helping to create something that truly reflects the heart of our community. Log in anytime to manage or view your Potluck.
 
-%p
-  Warm regards,
-  <br>
-  The Chesed Train Team
+  %p
+    Warm regards,
+    <br>
+    The Chesed Train Team
+
+- else
+  %p
+    Your Chesed Train Is Set Up!
+  %p
+    Dear, #{ @event.recipent_name }
+
+  %p
+    Your Chesed Train is ready to go! Here are the details:
+
+  %ul
+    %li
+      Organizer: #{ @event.owner.name }
+    %li
+      Recipient: #{ @event.recipent_name }
+    %li
+      Chesed Train Link: #{ link_to 'Click here', chesed_train_url(@event) }
+  %p
+    You’re helping to create something that truly reflects the heart of our community. Log in anytime to manage or view your Chesed Train.
+
+  %p
+    Warm regards,
+    <br>
+    The Chesed Train Team
 

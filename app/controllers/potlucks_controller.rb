@@ -150,6 +150,5 @@ class PotlucksController < ApplicationController
 
   def send_emails
     OwnerMailer.with(user: current_user, event: @event).notification.deliver_later
-    RecipientMailer.with(recipient_email: @event.recipent_email, event: @event).notification.deliver_later
   end
 end
