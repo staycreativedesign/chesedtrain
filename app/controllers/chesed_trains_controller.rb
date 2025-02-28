@@ -126,6 +126,7 @@ class ChesedTrainsController < ApplicationController
     (start_date..end_date).each do |date|
       full_date = event.event_dates.pluck(:full_date)
       next if full_date.map(&:to_date).include?(date.to_date)
+      next unless Date.valid_date?(date.year, date.month, date.day)
 
       EventDate.create!(
         date_number: date.day,
@@ -142,7 +143,7 @@ class ChesedTrainsController < ApplicationController
   def create_event_dates(start_date, end_date, event)
     event.update(start_date: start_date, end_date: end_date)
     (start_date..end_date).each do |date|
-      binding.pry
+      next unless Date.valid_date?(date.year, date.month, date.day)
 
       EventDate.create!(
         date_number: Date.parse(date).day,
