@@ -45,13 +45,13 @@ class User < ApplicationRecord
 
   def send_welcome_message
     nil unless guest? do
-      WelcomeMailer.with(user: self).hello
+      WelcomeMailer.with(user: self).hello.deliver_now
     end
   end
 
   def still_guest?
     return unless saved_change_to_guest?
 
-    WelcomeMailer.with(user: self).hello
+    WelcomeMailer.with(user: self).hello.deliver_now
   end
 end
