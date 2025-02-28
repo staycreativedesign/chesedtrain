@@ -125,6 +125,12 @@ class ChesedTrainsController < ApplicationController
     event.update(start_date: start_date, end_date: end_date)
     (start_date..end_date).each do |date|
       full_date = event.event_dates.pluck(:full_date)
+      begin
+        date = Date.parse(foo)
+      rescue StandardError
+        next
+      end
+
       next if full_date.map(&:to_date).include?(date.to_date)
       next unless Date.valid_date?(date.year, date.month, date.day)
 
@@ -142,14 +148,20 @@ class ChesedTrainsController < ApplicationController
 
   def create_event_dates(start_date, end_date, event)
     event.update(start_date: start_date, end_date: end_date)
-    (start_date..end_date).each do |date|
+    (start_date..end_date).each do |foo|
+      begin
+        date = Date.parse(foo)
+      rescue StandardError
+        next
+      end
+
       next unless Date.valid_date?(date.year, date.month, date.day)
 
       EventDate.create!(
-        date_number: Date.parse(date).day,
-        date_weekday: Date.parse(date).strftime('%A'),
-        date_month: Date.parse(date).month,
-        full_date: Date.parse(date),
+        date_number: date.day,
+        date_weekday: date.strftime('%A'),
+        date_month: date.month,
+        full_date: date,
         chesed_train_id: event.id
       )
 
