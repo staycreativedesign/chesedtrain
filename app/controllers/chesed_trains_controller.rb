@@ -121,7 +121,7 @@ class ChesedTrainsController < ApplicationController
     # Check if new EventDates need to be created
     # Create a new EventDate if there are no existing dates covering the range
 
-    event.update(start_dat: start_date, end_date: end_date)
+    event.update(start_date: start_date, end_date: end_date)
     (start_date..end_date).each do |foo|
       full_date = event.event_dates.pluck(:full_date)
       begin
