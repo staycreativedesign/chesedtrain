@@ -42,7 +42,6 @@ class SelectionsController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       @current_user = @user
-
       TwilioService.call(current_user, 'welcome')
 
       if @event.type == 'ChesedTrain'
