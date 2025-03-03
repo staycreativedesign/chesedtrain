@@ -15,12 +15,11 @@
 
       = link_to "Start a Chesed Train", select_chesed_path, class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer"
       %span{ class: "text-secondary text-[0.9rem]"} ב״ה
-  .lg:hidden.flex.flex-row.items-center.justify-between
-    .flex.flex-row.items-center.justify-center
+  .lg:hidden
+    .flex.flex-row.justify-between.content-center.items-center
       %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
         = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
-      .logo
-        = link_to(image_tag("logo_h.png", class: "h-[90px]", alt: "Header Logo"), root_path)
+      %div{ class: "text-secondary xl:text-[3rem] text-[2rem] text-center"} CHESED TRAIN
       %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
     #mobile-menu{class: "hidden absolute top-[90px] right-0 w-full bg-white shadow-xl z-50"}
       .flex.flex-col.items-center.py-4.space-y-4
