@@ -15,4 +15,4 @@
         = link_to 'View', admin_potluck_path(event), class: 'hover:text-secondary'
       - else
         = link_to 'View', admin_chesed_train_path(event), class: 'hover:text-secondary'
-      = link_to "Destroy", admin_event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'
+      = link_to "Delete", admin_event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'
