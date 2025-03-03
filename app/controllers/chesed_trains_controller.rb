@@ -115,8 +115,11 @@ class ChesedTrainsController < ApplicationController
     @dates = EventDate.where(chesed_train_id: event.id)
 
     # Delete records where start_date is greater and end_date overlaps
+
     @dates.where('full_date < ?', start_date)
           .destroy_all
+
+    @dates.where('full_date > ?', end_date + 1.day).destroy_all
 
     # Check if new EventDates need to be created
     # Create a new EventDate if there are no existing dates covering the range
