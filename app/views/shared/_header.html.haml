@@ -1,6 +1,7 @@
 %div{ class: "lg:bg-primary text-white w-full transition-all duration-300  font-alice lg:h-[100px] h-[90px] lg:flex lg:justify-between px-4" }
   .hidden.lg:flex.flex-row.justify-between.content-center.items-center.px-4
-    %div{ class: "text-secondary xl:text-[3rem] text-[2rem] text-center"} CHESED TRAIN
+    = link_to root_path do
+      %div{ class: "text-secondary xl:text-[3rem] text-[2rem] text-center"} CHESED TRAIN
     -# .logo
     -#   = link_to(image_tag("logo_h.png", class: "h-[100px]", alt: "Header Logo"), root_path)
     %div
@@ -21,7 +22,8 @@
     .flex.flex-row.justify-between.content-center.items-center
       %button.relative#mobile-menu-button{onclick: "toggleMenu()", class: "h-[90px] flex items-center"}
         = image_tag "menu.svg", class: "h-[90px]", alt: "Menu", id: "menu-icon"
-      %div{ class: "text-secondary xl:text-[3rem] text-[1.5rem] text-center"} CHESED TRAIN
+      = link_to root_path do
+        %div{ class: "text-secondary xl:text-[3rem] text-[1.5rem] text-center"} CHESED TRAIN
       %span{ class: "text-secondary text-[1rem] w-[90px] text-center"} ב״ה
     #mobile-menu{class: "hidden absolute top-[90px] right-0 w-full bg-white shadow-xl z-50"}
       .flex.flex-col.items-center.py-4.space-y-4
