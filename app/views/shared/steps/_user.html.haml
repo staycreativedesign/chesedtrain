@@ -57,7 +57,3 @@
         By opting in, you agree to receive recurring automated promotional and personalized text messages (from Chesed Train Inc) at the mobile number provided. <b>Consent is not a condition of sign up.</b> Msg &amp; data rates may apply. Reply STOP to unsubscribe. You do not have to agree to create an account
   .flex.justify-center.py-4.gap-4
     = f.submit "Create Account", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-not-allowed opacity-50', data: { form_submit_target: "submit" }, disabled: true
-
-    - if @selection.present?
-      = link_to "Login", login_path(event: @event.type.downcase, event_id: @event.id, selection_id: @selection.id), class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'
-    - else 
