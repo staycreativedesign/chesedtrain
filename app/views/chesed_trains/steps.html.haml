@@ -119,6 +119,4 @@
 - if @step == 5  || @step == 6
   .container.p-10
     .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
-      %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
-        Create your Account
-      = render partial: 'shared/steps/user', locals: { user: current_user, url: update_step_chesed_train_path(@event, step: 6), method: :patch }
+    = render partial: 'shared/steps/user', locals: { user: current_user, url: update_step_chesed_train_path(@event, step: 6), method: :patch }
