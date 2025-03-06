@@ -1,3 +1,5 @@
+- if @selection.present?
+  = link_to "Login", login_path(event: @event.type.downcase, event_id: @event.id, selection_id: @selection.id), class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'
 = form_with model: user, url: url, class: 'space-y-4 lg:w-1/2 w-full mt-5', method: method, data: { controller: "form-submit" } do |f|
   = hidden_field_tag :step_check, value: 6
   .grid.grid-cols-1.gap-4.md:grid-cols-2.md:gap-4
@@ -58,3 +60,4 @@
 
     - if @selection.present?
       = link_to "Login", login_path(event: @event.type.downcase, event_id: @event.id, selection_id: @selection.id), class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'
+    - else 
