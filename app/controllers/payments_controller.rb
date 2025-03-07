@@ -2,7 +2,10 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def payment_success
-    puts params[:session_id]
+    session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    user = User.find_by(email_address: session.customer_email)
+    session[:user_id] = user.id
+    @current_user = user
   end
 
   def unsubscribe; end
