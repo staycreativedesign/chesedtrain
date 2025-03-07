@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def payment_success
-    puts params
+    puts params[:session_id]
   end
 
   def unsubscribe; end
@@ -56,7 +56,7 @@ class PaymentsController < ApplicationController
       after_completion: {
         type: 'redirect',
         redirect: {
-          url: 'https://chesedtrain.com/payment-success'
+          url: 'https://chesedtrain.com/payment-success?session_id={CHECKOUT_SESSION_ID}'
         }
       },
 
