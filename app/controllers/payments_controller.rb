@@ -103,7 +103,8 @@ class PaymentsController < ApplicationController
         stripe_subscription_id: subscription_id
       )
 
-      session[:user_id] = user.id
+      user = session[:user_id] = user.id
+      @current_user = user
     else
       user = User.create(first_name: first_name,
                          last_name: last_name,
@@ -113,7 +114,8 @@ class PaymentsController < ApplicationController
                          password: SecureRandom.hex(10),
                          stripe_customer_id: session['customer'],
                          stripe_subscription_id: subscription_id)
-      session[:user_id] = user.id
+      user = session[:user_id] = user.id
+      @current_user = user
     end
 
     WelcomeMailer.with(user: self).subscribe.deliver_now
