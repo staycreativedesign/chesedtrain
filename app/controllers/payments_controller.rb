@@ -26,11 +26,15 @@ class PaymentsController < ApplicationController
   def success
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    endpoint_secret = Rails.application.credentials.stripe.success_webhook
+    begin
+      endpoint_secret = Rails.application.credentials.stripe.success_webhook
+    rescue StandardError
+      Rails.logger info endpont_secret
+      Rails.logger info sig_header
+    end
 
     begin
       event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
-      puts event
     rescue JSON::ParserError
       render json: { error: 'Invalid payload' }, status: 400 and return
     rescue Stripe::SignatureVerificationError
