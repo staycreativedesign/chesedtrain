@@ -1,12 +1,8 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :login, only: [:payment_success]
 
-  def payment_success
-    session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    user = User.find_by(email_address: session.customer_details.email)
-    session[:user_id] = user.id
-    @current_user = user
-  end
+  def payment_success; end
 
   def unsubscribe; end
 
@@ -92,6 +88,13 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def login
+    session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    user = User.find_by(email_address: session.customer_details.email)
+    session[:user_id] = user.id
+    @current_user = user
+  end
 
   def handle_checkout_session_completed(session)
     payment_intent_id = session['payment_intent']
