@@ -3,12 +3,10 @@ class PaymentsController < ApplicationController
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    Rails.logger.info "session #{session}"
     user = User.find_by(email_address: session.customer_details.email)
-    Rails.logger.info user
     session[:user_id] = user.id
     @current_user = user
-    redirect_to user_path(@current_user), notice: 'User was successfully WHATEVER.'
+    redirect_to pro_account_path
   end
 
   def unsubscribe; end
