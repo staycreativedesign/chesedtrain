@@ -91,7 +91,9 @@ class PaymentsController < ApplicationController
 
   def login
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    Rails.logger.info "session #{session}"
     user = User.find_by(email_address: session.customer_details.email)
+    Rails.logger.info user
     session[:user_id] = user.id
     @current_user = user
   end
