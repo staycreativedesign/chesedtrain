@@ -6,7 +6,12 @@ class PaymentsController < ApplicationController
   def unsubscribe; end
 
   def unsubscribe_action
-    Stripe::Subscription.cancel(current_user.stripe_subscription_id)
+    begin
+      Stripe::Subscription.cancel(current_user.stripe_subscription_id)
+    rescue StandardError => e
+      Rails.logger.info "Unhandled event type: #{e}"
+    end
+
     current_user.update(is_paying: false, stripe_subscription_id: nil)
     redirect_to user_path(current_user)
     flash[:notice] = 'Account is no longer subscribed'
