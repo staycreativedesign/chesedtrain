@@ -1,6 +1,5 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :check_session, only: %i[pro]
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
@@ -32,7 +31,9 @@ class PaymentsController < ApplicationController
     redirect_to pro_account_path
   end
 
-  def pro; end
+  def pro
+    Rails.logger info current_user
+  end
 
   def unsubscribe; end
 
