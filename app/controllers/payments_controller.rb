@@ -27,13 +27,12 @@ class PaymentsController < ApplicationController
 
     session[:user_id] = foo.id
     @current_user = foo
+    current_user
     WelcomeMailer.with(user: foo).subscribe.deliver_now
     redirect_to pro_account_path
   end
 
-  def pro
-    Rails.logger info current_user
-  end
+  def pro; end
 
   def unsubscribe; end
 
@@ -63,7 +62,7 @@ class PaymentsController < ApplicationController
       after_completion: {
         type: 'redirect',
         redirect: {
-          url: 'https://chesedtrain.com/payment-success?session_id={CHECKOUT_SESSION_ID}'
+          redirect: { url: 'https://chesedtrain.com/payment-success?session_id={CHECKOUT_SESSION_ID}' }
         }
       },
 
