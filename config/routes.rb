@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'create_payment_link', to: 'payments#create_payment_link'
   post '/success', to: 'payments#success'
   get '/payment-success', to: 'payments#payment_success'
-  get '/chesed-train-pro', to: 'payments#pro', as: :pro_account
+  get '/chesed-train-pro-account', to: 'payments#pro', as: :pro_account
   get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
 
   resources :chesed_trains do
