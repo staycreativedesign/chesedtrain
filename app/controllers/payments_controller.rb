@@ -1,7 +1,9 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def payment_success; end
+  def payment_success
+    puts params
+  end
 
   def unsubscribe; end
 
