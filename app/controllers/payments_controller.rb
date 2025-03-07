@@ -3,9 +3,26 @@ class PaymentsController < ApplicationController
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    user = User.find_by(email_address: session.customer_details.email)
+
+    if (user = User.find_by(email_address: session[:billing_details][:email]))
+      user.update(
+        is_paying: true
+      )
+
+    else
+      user = User.create(first_name: first_name,
+                         last_name: last_name,
+                         is_paying: true,
+                         email_address: session[:billing_details][:email],
+                         tos: true, sms: false, guest: false,
+                         password: SecureRandom.hex(10),
+                         stripe_customer_id: session.customer,
+                         stripe_subscription_id: session.subscription)
+    end
+
     session[:user_id] = user.id
     @current_user = user
+    WelcomeMailer.with(user: user).subscribe.deliver_now
     redirect_to pro_account_path
   end
 
@@ -23,34 +40,7 @@ class PaymentsController < ApplicationController
     flash[:notice] = 'Account is no longer subscribed'
   end
 
-  def success
-    payload = request.body.read
-    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    begin
-      endpoint_secret = Rails.application.credentials.stripe.success_webhook
-    rescue StandardError
-      Rails.logger info endpont_secret
-      Rails.logger info sig_header
-    end
-
-    begin
-      event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
-    rescue JSON::ParserError
-      render json: { error: 'Invalid payload' }, status: 400 and return
-    rescue Stripe::SignatureVerificationError
-      render json: { error: 'Invalid signature' }, status: 400 and return
-    end
-
-    # Handle the event
-    case event['type']
-    when 'checkout.session.completed', 'charge.succeeded'
-      handle_checkout_session_completed(event['data']['object'])
-    else
-      Rails.logger.info "Unhandled event type: #{event['type']}"
-    end
-
-    render json: { message: 'Success' }, status: 200
-  end
+  def success; end
 
   def create_payment_link
     # Create a Payment Link with a price and description
@@ -94,40 +84,5 @@ class PaymentsController < ApplicationController
   rescue Stripe::StripeError => e
     flash[:error] = e.message
     redirect_to root_path
-  end
-
-  private
-
-  def login; end
-
-  def handle_checkout_session_completed(session)
-    payment_intent_id = session['payment_intent']
-    payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
-    invoice = Stripe::Invoice.retrieve(payment_intent.invoice)
-    subscription_id = invoice.subscription
-
-    first_name, last_name = session['billing_details']['name'].split(' ', 2)
-
-    if (user = User.find_by(email_address: session[:billing_details][:email]))
-      user.update(
-        is_paying: true,
-        stripe_customer_id: session['customer'],
-        stripe_subscription_id: subscription_id
-      )
-
-    else
-      user = User.create(first_name: first_name,
-                         last_name: last_name,
-                         is_paying: true,
-                         email_address: session[:billing_details][:email],
-                         tos: true, sms: false, guest: false,
-                         password: SecureRandom.hex(10),
-                         stripe_customer_id: session['customer'],
-                         stripe_subscription_id: subscription_id)
-    end
-
-    WelcomeMailer.with(user: user).subscribe.deliver_now
-    Rails.logger.info "User #{user.id} updated with active subscription."
-    user
   end
 end
