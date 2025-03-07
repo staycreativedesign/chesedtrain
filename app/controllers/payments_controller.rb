@@ -6,8 +6,8 @@ class PaymentsController < ApplicationController
   def unsubscribe; end
 
   def unsubscribe_action
-    # Stripe::Subscription.cancel(current_user.stripe_subscription_id)
-    # current_user.update(is_paying: false, stripe_subscription_id: nil)
+    Stripe::Subscription.cancel(current_user.stripe_subscription_id)
+    current_user.update(is_paying: false, stripe_subscription_id: nil)
     redirect_to user_path(current_user)
     flash[:notice] = 'Account is no longer subscribed'
   end
