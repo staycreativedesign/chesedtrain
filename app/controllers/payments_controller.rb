@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    user = User.find_by(email_address: session.customer_email)
+    user = User.find_by(email_address: session.customer_details.email)
     session[:user_id] = user.id
     @current_user = user
   end
