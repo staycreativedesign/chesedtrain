@@ -19,6 +19,7 @@ class PaymentsController < ApplicationController
 
     begin
       event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
+      puts event
     rescue JSON::ParserError
       render json: { error: 'Invalid payload' }, status: 400 and return
     rescue Stripe::SignatureVerificationError
@@ -82,26 +83,30 @@ class PaymentsController < ApplicationController
 
   private
 
-  # Update user account on successful payment
   def handle_checkout_session_completed(session)
-    if (user = User.find_by(email_address: session[:customer_details][:email]))
+    payment_intent_id = session['payment_intent']
+    payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+    subscription_id = payment_intent.subscription
+    first_name, last_name = session['billing_details']['name'].split(' ', 2)
+
+    if (user = User.find_by(email_address: session[:billing_details][:email]))
       user.update(
         is_paying: true,
         stripe_customer_id: session['customer'],
-        stripe_subscription_id: session['subscription']
+        stripe_subscription_id: subscription_id
       )
 
       session[:user_id] = user.id
     else
-      user = User.create(first_name: session[:custom_fields][0]['text']['value'],
-                         last_name: session[:custom_fields][1]['text']['value'],
+      user = User.create(first_name: first_name,
+                         last_name: last_name,
                          is_paying: true,
                          email_address: session[:customer_details][:email],
                          phone_number: session[:customer_details][:phone],
                          tos: true, sms: true, guest: false,
 
                          stripe_customer_id: session['customer'],
-                         stripe_subscription_id: session['subscription'])
+                         stripe_subscription_id: subscription_id)
       session[:user_id] = user.id
       WelcomeMailer.with(user: self).subscribe.deliver_now
     end
