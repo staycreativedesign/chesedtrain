@@ -11,6 +11,7 @@ class PaymentsController < ApplicationController
                stripe_customer_id: session.customer,
                stripe_subscription_id: session.subscription
              )
+             user
 
            else
              User.create(first_name: session.custom_fields[0].text.value,
