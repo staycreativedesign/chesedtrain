@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :check_session, only: %i[pro]
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
@@ -27,6 +28,8 @@ class PaymentsController < ApplicationController
     WelcomeMailer.with(user: user).subscribe.deliver_now
     redirect_to pro_account_path
   end
+
+  def pro; end
 
   def unsubscribe; end
 
@@ -86,5 +89,9 @@ class PaymentsController < ApplicationController
   rescue Stripe::StripeError => e
     flash[:error] = e.message
     redirect_to root_path
+  end
+
+  def check_session
+    redirect_to new_session_path unless params[:id].to_i == current_user.id
   end
 end
