@@ -115,9 +115,9 @@ class PaymentsController < ApplicationController
                          stripe_customer_id: session['customer'],
                          stripe_subscription_id: subscription_id)
       session[:user_id] = user.id
-      WelcomeMailer.with(user: self).subscribe.deliver_now
     end
 
+    WelcomeMailer.with(user: self).subscribe.deliver_now
     Rails.logger.info "User #{user.id} updated with active subscription."
   end
 end
