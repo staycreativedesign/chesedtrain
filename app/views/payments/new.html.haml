@@ -17,9 +17,9 @@
         $5.99 Per Month
 
     %div{ class: "text-secondary lg:text-[1.5rem] text-[1rem] font-lato font-[500] mb-5 text-center"} 
-    - if !current_user&.is_paying?
+    - if !current_user
+      = link_to 'Please login or create an account', login_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    - elsif !current_user&.is_paying?
       = link_to 'Subscribe to Pro Account', create_payment_link_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
     - elsif current_user&.is_paying?
       You are already subscribed to a pro account. 
-    - else
-      = link_to 'Subscribe', new_user_path, class: ' mt-5 px-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
