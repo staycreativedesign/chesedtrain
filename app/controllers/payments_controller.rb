@@ -34,10 +34,7 @@ class PaymentsController < ApplicationController
     # Handle the event
     case event['type']
     when 'checkout.session.completed', 'charge.succeeded'
-      response = handle_checkout_session_completed(event['data']['object'])
-      user = response
-      session[:user_id] = user.id
-      @current_user = user
+      handle_checkout_session_completed(event['data']['object'])
     else
       Rails.logger.info "Unhandled event type: #{event['type']}"
     end
@@ -117,7 +114,7 @@ class PaymentsController < ApplicationController
                          stripe_subscription_id: subscription_id)
     end
 
-    WelcomeMailer.with(user: self).subscribe.deliver_now
+    WelcomeMailer.with(user: user).subscribe.deliver_now
     Rails.logger.info "User #{user.id} updated with active subscription."
     user
   end
