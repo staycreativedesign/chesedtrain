@@ -62,7 +62,7 @@ class PaymentsController < ApplicationController
       after_completion: {
         type: 'redirect',
         redirect: {
-          redirect: { url: 'https://chesedtrain.com/payment-success?session_id={CHECKOUT_SESSION_ID}' }
+          url: 'https://chesedtrain.com/payment-success?session_id={CHECKOUT_SESSION_ID}'
         }
       },
 
