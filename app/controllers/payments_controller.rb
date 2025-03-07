@@ -91,7 +91,9 @@ class PaymentsController < ApplicationController
   def handle_checkout_session_completed(session)
     payment_intent_id = session['payment_intent']
     payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
-    subscription_id = payment_intent.subscription
+    invoice = Stripe::Invoice.retrieve(payment_intent.invoice)
+    subscription_id = invoice.subscription
+
     first_name, last_name = session['billing_details']['name'].split(' ', 2)
 
     if (user = User.find_by(email_address: session[:billing_details][:email]))
