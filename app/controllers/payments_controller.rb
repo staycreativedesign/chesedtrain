@@ -54,7 +54,7 @@ class PaymentsController < ApplicationController
     payment_link = Stripe::PaymentLink.create(
       line_items: [
         {
-          price: 'price_1Qm4YnFPajux6JXViZQUZcWC',
+          price: 'price_1QjBsaFPajux6JXVkPonszRy',
           quantity: 1
         }
       ],
