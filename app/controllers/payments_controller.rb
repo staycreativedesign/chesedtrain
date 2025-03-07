@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
     Rails.logger.info user
     session[:user_id] = user.id
     @current_user = user
-    format.html { redirect_to request.referrer, notice: 'User was successfully WHATEVER.' }
+    redirect_to request.referrer, notice: 'User was successfully WHATEVER.'
   end
 
   def unsubscribe; end
