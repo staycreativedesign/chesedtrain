@@ -1,8 +1,15 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :login, only: [:payment_success]
 
-  def payment_success; end
+  def payment_success
+    session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    Rails.logger.info "session #{session}"
+    user = User.find_by(email_address: session.customer_details.email)
+    Rails.logger.info user
+    session[:user_id] = user.id
+    @current_user = user
+    format.html { redirect_to request.referrer, notice: 'User was successfully WHATEVER.' }
+  end
 
   def unsubscribe; end
 
@@ -89,14 +96,7 @@ class PaymentsController < ApplicationController
 
   private
 
-  def login
-    session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    Rails.logger.info "session #{session}"
-    user = User.find_by(email_address: session.customer_details.email)
-    Rails.logger.info user
-    session[:user_id] = user.id
-    @current_user = user
-  end
+  def login; end
 
   def handle_checkout_session_completed(session)
     payment_intent_id = session['payment_intent']
