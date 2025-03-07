@@ -4,7 +4,6 @@ class PaymentsController < ApplicationController
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    toke = SecureRandom.hex(10)
 
     if (user = User.find_by(email_address: session.customer_details.email))
       user.update(
@@ -26,11 +25,11 @@ class PaymentsController < ApplicationController
                   stripe_subscription_id: session.subscription)
 
     end
-    user = User.find_by(toke: toke)
+    foo = User.find_by(toke: user.toke)
 
-    session[:user_id] = user.id
-    @current_user = user
-    WelcomeMailer.with(user: user).subscribe.deliver_now
+    session[:user_id] = foo.id
+    @current_user = foo
+    WelcomeMailer.with(user: foo).subscribe.deliver_now
     redirect_to pro_account_path
   end
 
