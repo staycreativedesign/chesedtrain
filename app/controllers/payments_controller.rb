@@ -4,24 +4,29 @@ class PaymentsController < ApplicationController
 
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    toke = SecureRandom.hex(10)
 
     if (user = User.find_by(email_address: session.customer_details.email))
       user.update(
         is_paying: true,
         stripe_customer_id: session.customer,
-        stripe_subscription_id: session.subscription
+        stripe_subscription_id: session.subscription,
+        toke: toke
       )
 
     else
-      user = User.create(first_name: session.custom_fields[0].text.value,
-                         last_name: session.custom_fields[1].text.value,
-                         is_paying: true,
-                         email_address: session.customer_details.email,
-                         tos: true, sms: false, guest: false,
-                         password: SecureRandom.hex(10),
-                         stripe_customer_id: session.customer,
-                         stripe_subscription_id: session.subscription)
+      User.create(first_name: session.custom_fields[0].text.value,
+                  last_name: session.custom_fields[1].text.value,
+                  is_paying: true,
+                  email_address: session.customer_details.email,
+                  tos: true, sms: false, guest: false,
+                  password: SecureRandom.hex(10),
+                  toke: toke,
+                  stripe_customer_id: session.customer,
+                  stripe_subscription_id: session.subscription)
+
     end
+    user = User.find_by(toke: toke)
 
     session[:user_id] = user.id
     @current_user = user
