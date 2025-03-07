@@ -108,10 +108,9 @@ class PaymentsController < ApplicationController
       user = User.create(first_name: first_name,
                          last_name: last_name,
                          is_paying: true,
-                         email_address: session[:customer_details][:email],
-                         phone_number: session[:customer_details][:phone],
-                         tos: true, sms: true, guest: false,
-
+                         email_address: session[:billing_details][:email],
+                         tos: true, sms: false, guest: false,
+                         password: SecureRandom.hex(10),
                          stripe_customer_id: session['customer'],
                          stripe_subscription_id: subscription_id)
       session[:user_id] = user.id
