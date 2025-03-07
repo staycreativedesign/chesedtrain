@@ -4,7 +4,7 @@ class PaymentsController < ApplicationController
   def payment_success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
 
-    if (user = User.find_by(email_address: seession.customer_details.email))
+    if (user = User.find_by(email_address: session.customer_details.email))
       user.update(
         is_paying: true,
         stripe_customer_id: session.customer,
