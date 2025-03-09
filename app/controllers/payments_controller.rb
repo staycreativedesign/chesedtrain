@@ -28,7 +28,7 @@ class PaymentsController < ApplicationController
     session[:user_id] = foo.id
     @current_user = foo
     current_user
-    WelcomeMailer.with(user: foo).subscribe.deliver_now
+    WelcomeMailer.with(user: current_user).subscribe.deliver_now
     redirect_to pro_account_path
   end
 
