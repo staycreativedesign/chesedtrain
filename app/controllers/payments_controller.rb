@@ -48,9 +48,7 @@ class PaymentsController < ApplicationController
     flash[:notice] = 'Account is no longer subscribed'
   end
 
-  def success
-    WelcomeMailer.with(user: current_user).subscribe.deliver_now
-  end
+  def success; end
 
   def create_payment_link
     # Create a Payment Link with a price and description
