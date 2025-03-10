@@ -16,7 +16,7 @@ class RecipientMailer < ApplicationMailer
   def volunteer_signup
     @event = params[:event]
     @task = params[:task]
-    @recipient = @event.recipent_email
-    mail(to: @event.recipent_email, subject: 'A Volunteer Has Signed Up!')
+    @recipient = @event.recipent_email? ? @event.recipent_email : @event.owner.email_address
+    mail(to: @recipient, subject: 'A Volunteer Has Signed Up!')
   end
 end

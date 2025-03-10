@@ -17,15 +17,13 @@ class SelectionsController < ApplicationController
     if @selection.update!(selection_params.merge(volunteer: current_user))
       @event.volunteers << current_user
 
-      # OwnerMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
       TwilioService.call(current_user, 'volunteer')
       if @event.type == 'Potluck'
         TwilioService.call(@event.owner, 'volunteer_joined_potluck')
       else
-
         TwilioService.call(@event.owner, 'volunteer_joined_chesed_train')
       end
-      # RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
+      RecipientMailer.with(event: @event, task: @selection, volunteer: current_user).volunteer_signup.deliver_now
 
       if @event.type == 'ChesedTrain'
         redirect_to thank_you_chesed_train_path(@event)

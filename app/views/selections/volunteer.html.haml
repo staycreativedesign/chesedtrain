@@ -12,7 +12,7 @@
         = render partial: 'shared/steps/user', locals: { user: @user, url: setup_volunteer_potluck_selection_path(@event, @selection), method: :post }
   - else
     .container.p-10
-      .flex.flex-col.bg-primary
+      .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
         %div{ class: "text-secondary lg:text-3xl text-[1rem] font-lato font-[700] mb-5"}
           Volunteer
         = form_with model: @selection, url: add_volunteer_potluck_selection_path(@event, @selection), method: :patch, class: 'lg:space-y-4 space-y-2 lg:w-1/2 w-full' do |f|
@@ -26,11 +26,11 @@
                   %li= error.full_message
           .area.mb-5
             %div{ class: "text-secondary text-lg font-lato font-semibold"} 
-              Menu Item Selected
+              Menu Item Selected:
             %div{ class: "text-secondary text-lg font-lato font-normal"} 
               = @selection.name
             %div.mt-2{ class: "text-secondary text-l font-lato font-semibold"} 
-              Volunteer
+              Volunteer:
             %div{ class: "text-secondary text-lg font-lato font-normal"} 
               = current_user.name
           .area
