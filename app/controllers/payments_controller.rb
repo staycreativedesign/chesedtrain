@@ -40,7 +40,7 @@ class PaymentsController < ApplicationController
     begin
       Stripe::Subscription.cancel(current_user.stripe_subscription_id)
     rescue StandardError => e
-      Rails.logger.info "Unhandled event type: #{e}"
+      Rails.logger info "Unhandled event type: #{e}"
     end
 
     current_user.update(is_paying: false, stripe_subscription_id: nil)
@@ -48,7 +48,9 @@ class PaymentsController < ApplicationController
     flash[:notice] = 'Account is no longer subscribed'
   end
 
-  def success; end
+  def success
+    WelcomeMailer.with(user: current_user).subscribe.deliver_now
+  end
 
   def create_payment_link
     # Create a Payment Link with a price and description
