@@ -8,6 +8,6 @@ class WelcomeMailer < ApplicationMailer
 
   def subscribe
     @user = params[:user]
-    mail(to: @user.email_address, subject: 'Welcome to Chesed Train Pro!')
+    mail(to: @user, subject: 'Welcome to Chesed Train Pro!')
   end
 end
