@@ -1,4 +1,4 @@
-.container.p-10
+.container.p-4.md:p-10
   .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
     = form_with(model: @event, class: 'space-y-4 lg:w-1/2 w-full mt-5', method: :patch) do |f|
       - if @event.errors.any?
