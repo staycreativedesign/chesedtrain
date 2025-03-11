@@ -45,19 +45,28 @@
         %div{ class: "flex flex-col mt-2 lg:mt-0 w-full" }
           = f.label :country, "Country", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
           = f.text_field :country, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
-        Menu Options
-      .flex.flex-row.justify-center.items-center
-        %div.overflow-x-auto
-          %table.text-2xl.rounded-lg.border-solid.min-w-full
-            %tbody
-              = f.fields_for :selections, @event.selections do |ff|
-                %tr
-                  %td.border.border-slate-300
-                    = ff.text_field :name, placeholder: ff.object.name, class: 'border-none text-1xl text-neutral-400'
-                  %td.border.border-slate-300
-                    = ff.number_field :quantity, class: 'border-none text-1xl text-neutral-400'
-                  %td.border.border-slate-300
-                    = ff.text_field :special_note, class: 'border-none text-1xl text-neutral-400', placeholder: 'Notes'
+        .mt-3
+          %b
+            Menu Options
+        .flex.flex-row.justify-center.items-center.mt-4
+          %div.overflow-x-auto.w-full
+            %table.text-2xl.rounded-lg.border-solid.min-w-full.table-fixed
+              %tbody
+                %tr.text-center
+                  %td.text-sm
+                    Name
+                  %td.text-sm
+                    Quantity
+                  %td.text-sm
+                    Notes
+                = f.fields_for :selections, @event.selections do |ff|
+                  %tr
+                    %td.border.border-slate-300
+                      = ff.text_field :name, placeholder: ff.object.name, class: 'border-none text-1xl text-neutral-400 w-full'
+                    %td.border.border-slate-300.whitespace-nowrap
+                      = ff.number_field :quantity, class: 'border-none text-1xl text-neutral-400 w-full'
+                    %td.border.border-slate-300.whitespace-nowrap
+                      = ff.text_field :special_note, class: 'border-none text-1xl text-neutral-400 w-full', placeholder: 'Notes'
 
       %div{ class: "text-secondary text-[1.5rem] font-lato font-[700] mt-5 text-center"} 
         Preferences
