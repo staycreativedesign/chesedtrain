@@ -7,9 +7,9 @@
     %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
       = event.type
     %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800 
-      = event.start_date&.strftime("%m/%d") 
+      = event.start_date.strftime("%m/%d") 
       \-
-      = event.end_date? ? event.end_date&.strftime("%m/%d") : event.&start_date&.strftime("%m/%d") 
+      = "#{event.start_date.strftime("%m/%d")} - #{event.end_date.strftime("%m/%d") if event.end_date}"
     %td.px-6.py-4.whitespace-nowrap.text-end.text-sm.font-medium
       - if event.type == 'Potluck'
         = link_to 'View', admin_potluck_path(event), class: 'hover:text-secondary'
