@@ -4,7 +4,7 @@ module Admin
     add_breadcrumb 'Chesed Trains', :admin_chesed_trains_path
 
     def index
-      @events = Event.where(status: :opened, type: 'ChesedTrain')
+      @events = Event.joins(:owner).where(status: :opened, type: 'ChesedTrain', users: { guest: false })
     end
 
     def show

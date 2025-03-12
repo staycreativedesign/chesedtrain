@@ -4,7 +4,7 @@ module Admin
     add_breadcrumb 'Potlucks', :admin_potlucks_path
 
     def index
-      @events = Event.where(status: :opened, type: 'Potluck')
+      @events = Event.joins(:owner).where(status: :opened, type: 'Potluck', users: { guest: false })
     end
 
     def show
