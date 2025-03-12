@@ -4,7 +4,7 @@ module Admin
     add_breadcrumb 'Home', :admin_dashboard_path
 
     def show
-      @events = Event.where(status: :opened)
+      @events = Event.joins(:owner).where(status: :opened, users: { guest: false })
     end
   end
 end
