@@ -50,8 +50,8 @@ class User < ApplicationRecord
   end
 
   def still_guest?
-    return unless saved_change_to_guest?
-
-    WelcomeMailer.with(user: self).hello.deliver_now
+    nil unless guest? do
+      WelcomeMailer.with(user: self).hello.deliver_now
+    end
   end
 end

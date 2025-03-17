@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     respond_to do |format|
-      if @user.save!
+      if @user.save! && verify_recaptcha(message: 'Cannot verify your recaptcha')
         session[:user_id] = @user.id
         current_user = @user
 

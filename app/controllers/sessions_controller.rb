@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email_address: params[:email_address])
-    if user&.authenticate(params[:password])
+    if user&.authenticate(params[:password]) && verify_recaptcha(message: 'Cannot verify your recaptcha')
       session[:user_id] = user.id
       @current_user = user
       redirect_to determine_redirect_path(params)
