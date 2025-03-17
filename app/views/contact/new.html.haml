@@ -17,5 +17,5 @@
         = f.label :message, 'Message', class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
         = f.text_area :message, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .grid.grid-cols-1.gap-2
-        = recaptcha_tags
+        = recaptcha_tags(noscript: false)
         = f.submit "Send Message", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 typypeext-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'

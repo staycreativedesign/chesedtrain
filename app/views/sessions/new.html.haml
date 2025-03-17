@@ -13,7 +13,7 @@
         = f.label :password, "Password", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
         = f.password_field :password, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
       .mt-12.flex.justify-center.gap-3.lg:space-x-2.items-center.lg:flex-row.flex-col
-        = recaptcha_tags
+        = recaptcha_tags(noscript: false)
       .mt-12.flex.justify-center.gap-3.lg:space-x-2.items-center.lg:flex-row.flex-col
         = f.submit "Login", class: 'mt-2 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         = link_to "Create an Account", new_user_path, class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'

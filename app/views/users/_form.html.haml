@@ -38,7 +38,7 @@
         = f.check_box :updates, class: ' lg:px-3 px-2 lg:py-3 py-2 border border-secondary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-original checked:bg-primary-original'
         = f.label :updates, "Send me SMS updated and news", class: 'block lg:text-[0.9rem] text-[0.6rem] font-normal text-secondary'
   .flex.justify-center.mt-4.gap-4
-    = recaptcha_tags
+    = recaptcha_tags(noscript: false)
   .flex.justify-center.mt-4.gap-4
     = f.submit nil, class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
 
