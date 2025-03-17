@@ -363,6 +363,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
+  jwt
   letter_opener
   pg (~> 1.1)
   pry

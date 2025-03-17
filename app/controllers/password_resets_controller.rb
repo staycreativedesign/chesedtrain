@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by(email_address: params[:email_address])
-    if @user
+    if @user && verify_recaptcha(message: 'Cannot verify user')
       @user.update(reset_password_token: SecureRandom.hex(10), reset_password_sent_at: Time.zone.now)
       UserMailer.reset_password_email(@user).deliver_now
       flash[:notice] = 'Email sent with password reset instructions'
