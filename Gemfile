@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.3"
+gem "rails", "~> 7.2.2.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -23,15 +23,12 @@ gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
-gem 'jwt'
-
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
 gem "jbuilder"
 gem "haml-rails", "~> 2.0"
 gem 'html2haml'
-gem 'tailwindcss-rails'
+gem "tailwindcss-rails", "~> 3.3.1"
 gem 'sassc'
 gem 'base64', '0.1.1'
 gem 'twilio-ruby'

@@ -29,7 +29,7 @@
         = f.label :address1, "Street Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
         = f.text_field :address1, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
       .form-group
-        = f.label :address2, "Additional information", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.label :address2, "Address continued", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
         = f.text_field :address2, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
       .flex.flex-col.lg:flex-row.lg:space-x-2
         %div{ class: "flex flex-col lg:w-1/2" }
@@ -39,7 +39,7 @@
           = f.label :state, "State/Province", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
           = f.text_field :state, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
         %div{ class: "flex flex-col lg:w-1/2 mt-2 lg:mt-0" }
-          = f.label :postal_code, "Zipcode/Postal Code", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
+          = f.label :postal_code, "Zip/Postal Code", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
           = f.text_field :postal_code, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', required: true
       .flex.flex-col
         %div{ class: "flex flex-col mt-2 lg:mt-0 w-full" }
