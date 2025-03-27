@@ -35,7 +35,7 @@ module Admin
 
       respond_to do |format|
         format.xlsx do
-          response.headers['Content-Disposition'] = 'attachment; filename="events_report.xlsx"'
+          response.headers['Content-Disposition'] = 'attachment; filename="potluck_events_report.xlsx"'
         end
       end
     end
@@ -45,7 +45,7 @@ module Admin
 
       respond_to do |format|
         format.xlsx do
-          response.headers['Content-Disposition'] = 'attachment; filename="events_report.xlsx"'
+          response.headers['Content-Disposition'] = 'attachment; filename="chesed_train_events_report.xlsx"'
         end
       end
     end
