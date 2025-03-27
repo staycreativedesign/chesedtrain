@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_26_194434) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_27_022944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -210,26 +210,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_194434) do
     WHERE (users.guest = false)
     GROUP BY users.id, users.first_name, users.last_name, users.email_address, users.area_code, users.phone_number, users.is_paying, users.created_at, selected_countries.country_name;
   SQL
-  create_view "event_reports", sql_definition: <<-SQL
-      SELECT events.name AS event_name,
-      events.type AS event_type,
-      (((users.first_name)::text || ' '::text) || (users.last_name)::text) AS owner,
-      users.email_address AS email,
-      (((users.area_code)::text || ' '::text) || (users.phone_number)::text) AS contact_number,
-      events.start_date,
-      events.end_date,
-      events.recipent_email AS recipient_email,
-      events.recipent_name AS recipient_name,
-      events.country,
-      events.postal_code,
-      events.state,
-      events.created_at,
-      count(volunteer_events.id) AS volunteer_count
-     FROM ((events
-       JOIN users ON ((events.owner_id = users.id)))
-       LEFT JOIN volunteer_events ON ((events.id = volunteer_events.event_id)))
-    GROUP BY events.id, users.id;
-  SQL
   create_view "ad_reports", sql_definition: <<-SQL
       WITH country_codes(country_name, country_code) AS (
            VALUES ('United States'::text,'+1'::text), ('Argentina'::text,'+54'::text), ('Australia'::text,'+61'::text), ('Austria'::text,'+43'::text), ('Belarus'::text,'+375'::text), ('Belgium'::text,'+32'::text), ('Belize'::text,'+501'::text), ('Benin'::text,'+229'::text), ('Bhutan'::text,'+975'::text), ('Bolivia'::text,'+591'::text), ('Brazil'::text,'+55'::text), ('Brunei'::text,'+673'::text), ('Canada'::text,'+1c'::text), ('Chile'::text,'+56'::text), ('Colombia'::text,'+57'::text), ('Comoros'::text,'+269'::text), ('Congo'::text,'+242'::text), ('Costa Rica'::text,'+506'::text), ('Croatia'::text,'+385'::text), ('Cuba'::text,'+53'::text), ('Cyprus'::text,'+357'::text), ('Czech Republic'::text,'+420'::text), ('Denmark'::text,'+45'::text), ('Ecuador'::text,'+593'::text), ('Egypt'::text,'+20'::text), ('El Salvador'::text,'+503'::text), ('Finland'::text,'+358'::text), ('France'::text,'+33'::text), ('Georgia'::text,'+995'::text), ('Germany'::text,'+49'::text), ('Greece'::text,'+30'::text), ('Guatemala'::text,'+502'::text), ('Haiti'::text,'+509'::text), ('Honduras'::text,'+504'::text), ('Hungary'::text,'+36'::text), ('Iceland'::text,'+354'::text), ('Iran'::text,'+98'::text), ('Iraq'::text,'+964'::text), ('Ireland'::text,'+353'::text), ('Israel'::text,'+972'::text), ('Italy'::text,'+39'::text), ('Jamaica'::text,'+1-876'::text), ('Japan'::text,'+81'::text), ('Jordan'::text,'+962'::text), ('Lebanon'::text,'+961'::text), ('Mexico'::text,'+52'::text), ('Monaco'::text,'+377'::text), ('Mongolia'::text,'+976'::text), ('Morocco'::text,'+212'::text), ('Netherlands'::text,'+31'::text), ('New Zealand'::text,'+64'::text), ('Peru'::text,'+51'::text), ('Philippines'::text,'+63'::text), ('Poland'::text,'+48'::text), ('Portugal'::text,'+351'::text), ('Qatar'::text,'+974'::text), ('Romania'::text,'+40'::text), ('Russia'::text,'+7'::text), ('Saudi Arabia'::text,'+966'::text), ('Singapore'::text,'+65'::text), ('South Africa'::text,'+27'::text), ('Spain'::text,'+34'::text), ('Sweden'::text,'+46'::text), ('Switzerland'::text,'+41'::text), ('Thailand'::text,'+66'::text), ('Turkey'::text,'+90'::text), ('Ukraine'::text,'+380'::text), ('United Arab Emirates'::text,'+971'::text), ('United Kingdom'::text,'+44'::text)
@@ -248,5 +228,26 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_194434) do
       country_codes.country_name
      FROM (ads
        LEFT JOIN country_codes ON (((ads.country)::text = country_codes.country_code)));
+  SQL
+  create_view "event_reports", sql_definition: <<-SQL
+      SELECT events.name AS event_name,
+      events.type AS event_type,
+      (((users.first_name)::text || ' '::text) || (users.last_name)::text) AS owner,
+      users.email_address AS email,
+      (((users.area_code)::text || ' '::text) || (users.phone_number)::text) AS contact_number,
+      events.start_date,
+      events.end_date,
+      events.recipent_email AS recipient_email,
+      events.recipent_name AS recipient_name,
+      events.country,
+      events.postal_code,
+      events.state,
+      events.created_at,
+      count(volunteer_events.id) AS volunteer_count
+     FROM ((events
+       JOIN users ON ((events.owner_id = users.id)))
+       LEFT JOIN volunteer_events ON ((events.id = volunteer_events.event_id)))
+    WHERE (users.guest = false)
+    GROUP BY events.id, users.id;
   SQL
 end
