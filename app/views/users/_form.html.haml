@@ -22,12 +22,17 @@
       = f.password_field :password_confirmation, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
 
   
-  .form-group
+  .form-group.mt-4
     = f.label :email_address, "Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
     = f.text_field :email_address, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
-  .form-group
+  .form-group.mt-4
     = f.label :phone_number, "Phone Number", class: 'block lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
-    = f.text_field :phone_number, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+    .md:flex.gap-4
+      = f.select :area_code, 
+        options_for_select(show_codes), 
+        { prompt: "Select a country", required: true }, 
+        { class: "mb-3 md:mb-auto w-full md:block px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" }
+      = f.number_field :phone_number, class: 'flex-grow w-full md:block px-3 py-2 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500', maxlength: 17, data: { phone_target: "input", action: "" }, value: current_user&.guest? ? nil : f.object.phone_number, required: true
 
   %div{ class: "form-group lg:flex lg:flex-col justify-center items-center" }
     .w-100
