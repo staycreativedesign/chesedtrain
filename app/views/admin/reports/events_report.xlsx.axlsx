@@ -1,0 +1,24 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Ads") do |sheet|
+  sheet.add_row ["Event Name", "Event Type", "Event Owner", "Owner Contact Number", "Email", "Start Date", "End Date", "Created At", "Recipient Name", "Recipient Email", "Country", "Zip/Postal Code", "State", "Volunteer Count"]
+
+  @events.each do |event|
+    sheet.add_row [
+    event.event_name, 
+    event.event_type, 
+    event.owner, 
+    event.contact_number, 
+    event.email, 
+    event.start_date.strftime("%m-%d-%Y"),
+    event.end_date.strftime("%m-%d-%Y"),
+    event.created_at.strftime("%m-%d-%Y"),
+    event.recipient_name,
+    event.recipient_email,
+    event.country,
+    event.postal_code,
+    event.state,
+    event.volunteer_count,
+    ]
+  end
+end

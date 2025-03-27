@@ -25,7 +25,7 @@ set :forward_agent, true
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
 set :shared_dirs,
     fetch(:shared_dirs, []).push('public/assets', 'public/uploads', 'public/storage', 'tmp/pids', 'tmp/cache',
-                                 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system')
+                                 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/storage')
 set :shared_files,
     fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/storage.yml',
                                   'config/credentials.ym.enc')

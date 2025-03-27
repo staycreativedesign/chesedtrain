@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/payment-success', to: 'payments#payment_success'
   get '/chesed-train-pro-account', to: 'payments#pro', as: :pro_account
   get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
+  post 'ads/:id/track', to: 'ads#track', as: 'track_ad'
 
   resources :chesed_trains do
     member do
@@ -50,6 +51,13 @@ Rails.application.routes.draw do
     resources :chesed_trains
     resources :potlucks
     resources :events
+    resources :ads
+    get 'reports/users_report', to: 'reports#users_report', defaults: { format: 'xlsx' }, as: :users_report
+    get 'reports/ads_report', to: 'reports#ads_report', defaults: { format: 'xlsx' }, as: :ads_report
+    get 'reports/potlucks_report', to: 'reports#potluck_events_report', defaults: { format: 'xlsx' },
+                                   as: :potluck_reports
+    get 'reports/chesed_events_report', to: 'reports#chesed_events_report', defaults: { format: 'xlsx' },
+                                        as: :chesed_train_reports
   end
 
   resource :session

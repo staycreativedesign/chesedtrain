@@ -1,0 +1,18 @@
+.container.p-5.md:p-10
+  .flex.flex-row.gap-4.items-center.w-full.relative.mb-4
+    = link_to 'Create Ad', new_admin_ad_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    = link_to 'Download Ad Report', admin_ads_report_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+  .admin
+    .w-full
+      .overflow-x-auto{:class => "-m-1.5"}
+        .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+          %table.min-w-full.divide-y.divide-gray-200
+            %thead
+              %tr
+                %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+                %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Start
+                %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} End
+                %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Views
+                %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Clicks
+                %th.px-6.py-3.text-end.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Action
+            = render partial: "admin/shared/ad", collection: @ads

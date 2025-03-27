@@ -29,7 +29,6 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -107,6 +106,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'chesedtrain.com', protocol: 'https' }
 
   config.active_record.dump_schema_after_migration = false
+  config.assets.digest = true
+  config.assets.compile = false
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=31536000',
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
+  }
 end
 
 Rails.application.routes.default_url_options[:host] = 'chesedtrain.com'

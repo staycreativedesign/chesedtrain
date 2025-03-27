@@ -1,0 +1,15 @@
+%tbody.divide-y.divide-gray-200
+  %tr.hover:bg-gray-100
+    %td.px-6.py-4.whitespace-nowrap.text-sm.font-medium.text-gray-800
+      = ad.name
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800
+      = ad.start_date.strftime("%m/%d")
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800
+      = ad.end_date.strftime("%m/%d")
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800
+      = ad.views
+    %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-800
+      = ad.clicks
+    %td.px-6.py-4.whitespace-nowrap.text-end.text-sm.font-medium
+      = link_to 'Edit', edit_admin_ad_path(ad), class: 'hover:text-secondary'
+      = link_to "Delete", admin_event_path(ad), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'

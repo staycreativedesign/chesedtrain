@@ -29,7 +29,7 @@ module UsersHelper
       # ['Burundi (+257)', '+257'],
       # ['Cambodia (+855)', '+855'],
       # ['Cameroon (+237)', '+237'],
-      ['Canada (+1)', '+1'],
+      ['Canada (+1)', '+1c'],
       # ['Central African Republic (+236)', '+236'],
       # ['Chad (+235)', '+235'],
       ['Chile (+56)', '+56'],

@@ -1,6 +1,7 @@
 class PotlucksController < ApplicationController
   before_action :set_potluck, only: %i[steps update_step show thank_you edit update]
   before_action :check_owner, only: %i[steps update_step edit update]
+  before_action :find_ad, only: %i[show]
 
   def index; end
 
@@ -97,6 +98,15 @@ class PotlucksController < ApplicationController
   def thank_you; end
 
   private
+
+  def find_ad
+    @ad = Ad.random_for_event(@event)
+    @ad2 = Ad.random_for_event(@event)
+    return unless @ad && @ad2
+
+    @ad.increment!(:views)
+    @ad2.increment!(:views)
+  end
 
   def redirect_after_update
     if current_user.guest?

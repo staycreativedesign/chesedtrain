@@ -22,6 +22,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  area_code              :string
+#  toke                   :string           default("cb53e62275d4f169a50c")
 #
 class User < ApplicationRecord
   has_secure_password

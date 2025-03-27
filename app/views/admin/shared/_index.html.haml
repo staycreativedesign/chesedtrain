@@ -1,4 +1,9 @@
 .container.p-5.md:p-10
+  .flex.flex-row.gap-4.items-center.w-full.relative.mb-4
+    - if @type == 'chesed'
+      = link_to 'Download Chesed Trains Report', admin_chesed_train_reports_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    - else
+      = link_to 'Download Potlucks Report', admin_potluck_reports_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
   .admin
     .w-full
       .overflow-x-auto{:class => "-m-1.5"}

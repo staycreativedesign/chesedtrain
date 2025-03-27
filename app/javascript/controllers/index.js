@@ -7,6 +7,9 @@ import { application } from "./application"
 import CopyController from "./copy_controller"
 application.register("copy", CopyController)
 
+import DirectUploadController from "./direct_upload_controller"
+application.register("direct-upload", DirectUploadController)
+
 import FadeController from "./fade_controller"
 application.register("fade", FadeController)
 
@@ -21,6 +24,9 @@ application.register("hello", HelloController)
 
 import HomeController from "./home_controller"
 application.register("home", HomeController)
+
+import LinkClickController from "./link_click_controller"
+application.register("link-click", LinkClickController)
 
 import NotificationController from "./notification_controller"
 application.register("notification", NotificationController)

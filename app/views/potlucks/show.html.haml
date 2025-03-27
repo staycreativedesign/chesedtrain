@@ -54,6 +54,8 @@
               Successfully copied to your clipboard
 
   .flex.flex-col.items-center.w-full.relative.mt-5
+    = link_to(image_tag(@ad.image), "#", data: { controller: "link-click", action: "click->link-click#click", link_click_url_value: track_ad_path(@ad), link_click_redirect_value: @ad.link } ) if @ad
+  .flex.flex-col.items-center.w-full.relative.mt-5
     %div{ class: "text-secondary lg:text-3xl text-[1rem] font-lato font-[700] mb-5 text-center"}
       Potluck Options
   .grid.grid-cols-1.gap-4.bg-primary.rounded.p-8.text-xl.mb-12.lg:justify-center
@@ -74,6 +76,8 @@
               Date for adding volunteers has passed
             - else
               = link_to 'Volunteer', volunteer_potluck_selection_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
+  .flex.flex-col.items-center.w-full.relative.mt-5
+    = link_to(image_tag(@ad2.image), "#", data: { controller: "link-click", action: "click->link-click#click", ad_tracker_url_value: track_ad_path(@ad2), ad_tracker_redirect_value: @ad2.link } ) if @ad2
 
 .hidden.fixed.bottom-4.left-4.bg-green-500.text-white.px-6.py-3.rounded-lg.shadow-lg{"data-notification-target" => "notification"}
   This is a notification!

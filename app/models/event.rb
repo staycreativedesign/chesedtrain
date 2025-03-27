@@ -32,14 +32,11 @@
 #  date_range           :jsonb
 #
 class Event < ApplicationRecord
-  self.inheritance_column = :type
+  enum :status, { opened: 0, closed: 1 }
 
-  enum status: { opened: 0, closed: 1 }
-
-  has_many :volunteers, dependent: :nullify
   belongs_to :owner, class_name: 'User'
   has_many :volunteer_events, dependent: :nullify
-  has_many :volunteers, through: :volunteer_events, source: :user, dependent: :destroy
+  has_many :volunteers, through: :volunteer_events, source: :user, dependent: :nullify
 
   validates :name, presence: true
 end

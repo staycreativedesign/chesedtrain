@@ -1,18 +1,13 @@
 class LocationsController < ApplicationController
-  before_action :set_event, only: %i[ new show edit update ]
+  before_action :set_event, only: %i[new show edit update]
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
-  def create
-  end
+  def create; end
 
-  def show
-  end
-
+  def show; end
 
   def update
     respond_to do |format|
@@ -26,12 +21,11 @@ class LocationsController < ApplicationController
     end
   end
 
-
   def set_event
     @event = Event.find(params[:potluck_id])
   end
 
   def location_params
-    params.expect(event: [ :address1, :address2, :city, :state ])
+    params.expect(event: %i[address1 address2 city state])
   end
 end

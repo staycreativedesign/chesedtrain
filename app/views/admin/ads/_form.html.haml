@@ -1,0 +1,50 @@
+.flex.flex-col.items-center.justify-center
+  = form_with(model: [:admin, ad]) do |f|
+    - if ad.errors.any?
+      %div{:style => "color: red"}
+        %h2
+          = pluralize(ad.errors.count, "error")
+          prohibited this admin_ad from being saved:
+        %ul
+          - ad.errors.each do |error|
+            %li= error.full_message
+
+    .grid.grid-cols-1.gap-4.md:grid-cols-1.md:gap-4
+      .area
+        = f.label :name, "Describe Ad", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.text_field :name, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+    .grid.grid-cols-1.gap-4.md:grid-cols-2.md:gap-4.mt-4
+      .area
+        = f.label :start_date, "Start Date", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.date_field :start_date, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .area
+        = f.label :end_date, "End Date", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.date_field :end_date, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .area
+        = f.label :zipcode, "Zip code / Postal Code", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.text_field :zipcode, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+      .area
+        = f.label :country, "Country", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.select :country, 
+          options_for_select(show_codes), 
+          { prompt: "Select a country", required: true }, 
+          { class: "w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" }
+      .area
+        = f.label :link, "Link", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.text_field :link, class: 'w-full lg:px-1 px-2 lg:py-1 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        %small.text-secondary
+          Ex: www.nameofsite.com
+
+      .area{data: { controller: "direct-upload"} }
+        = f.label :image, "Ad Image", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
+        = f.file_field :image, class: 'w-full focus:outline-none focus:ring-2 focus:ring-blue-500', data: { "direct-upload-target": "input" }, direct_upload: true
+    .grid.grid-cols-1.gap-4.md:grid-cols-1.md:gap-4
+      .area
+        %span.block.h-1.bg-gray-900.rounded-full{"data-direct-upload-target": "progressBar", style: "width: 0%"}
+    - if ad.image.present?
+      .grid.grid-cols-2.gap-4.md:grid-cols-2.md:gap-4
+        .area
+          = image_tag ad.image 
+    .grid.grid-cols-1.gap-4.md:grid-cols-1.md:gap-4
+      .flex.justify-center.py-4.gap-4
+        = f.submit nil, class: 'px-4 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'

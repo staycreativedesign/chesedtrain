@@ -2,6 +2,7 @@ class ChesedTrainsController < ApplicationController
   before_action :set_chesed_train, only: %i[steps update_step show thank_you edit update]
   before_action :check_owner, only: %i[steps update_step edit update]
   before_action :check_date, only: %i[edit update]
+  before_action :find_ad, only: %i[show]
 
   def index; end
 
@@ -105,6 +106,15 @@ class ChesedTrainsController < ApplicationController
   def thank_you; end
 
   private
+
+  def find_ad
+    @ad = Ad.random_for_event(@event)
+    @ad2 = Ad.random_for_event(@event)
+    return unless @ad && @ad2
+
+    @ad.increment!(:views)
+    @ad2.increment!(:views)
+  end
 
   def update_event_dates(start_date, end_date, event, params)
     return if params[:chesed_train][:date_range] == event.date_range

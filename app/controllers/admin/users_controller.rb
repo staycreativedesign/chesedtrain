@@ -2,8 +2,6 @@ module Admin
   class UsersController < DashboardsController
     before_action :find_user, except: %i[index new create]
 
-    add_breadcrumb 'Users', :admin_users_path
-
     def index
       @users = User.where(guest: false).order(:last_name)
     end

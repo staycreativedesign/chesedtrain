@@ -1,6 +1,8 @@
 .container.p-5.md:p-10
+  .flex.flex-row.gap-4.items-center.w-full.relative.mb-4
+    = link_to 'Create User', new_admin_user_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+    = link_to 'Download Users Report', admin_users_report_path, class: 'bg-primary-original border border-secondary text-white px-2 lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
   .admin
-    = link_to 'Create User', new_admin_user_path, class: 'button px-4 text-xs'
     .w-full
       .overflow-x-auto{:class => "-m-1.5"}
         .min-w-full.inline-block.align-middle{:class => "p-1.5"}

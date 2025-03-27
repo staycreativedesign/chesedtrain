@@ -10,6 +10,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.12",
+    "@rails/activestorage": "^8.0.200",
     "flatpickr": "^4.6.13"
   }
 }
