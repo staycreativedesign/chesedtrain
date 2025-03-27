@@ -50,10 +50,18 @@ module Admin
     def destroy
       @user = User.find(params[:id])
 
-      @user.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_users_path, notice: 'User deleted' }
-        format.js # You need a corresponding destroy.js.erb to handle the view update via AJAX
+      if @user.destroy
+        respond_to do |format|
+          format.html { redirect_to admin_users_path, notice: 'User deleted' }
+          format.js # You need a corresponding destroy.js.erb to handle the view update via AJAX
+        end
+
+      else
+        respond_to do |format|
+          format.html { redirect_to admin_users_path, notice: 'User is linked to an event and cannot be deleted' }
+          format.js # You need a corresponding destroy.js.erb to handle the view update via AJAX
+        end
+
       end
     end
 
