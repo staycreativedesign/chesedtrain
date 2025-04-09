@@ -28,6 +28,9 @@ application.register("home", HomeController)
 import LinkClickController from "./link_click_controller"
 application.register("link-click", LinkClickController)
 
+import LogoController from "./logo_controller"
+application.register("logo", LogoController)
+
 import NotificationController from "./notification_controller"
 application.register("notification", NotificationController)
 

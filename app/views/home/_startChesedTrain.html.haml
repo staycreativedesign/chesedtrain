@@ -1,11 +1,18 @@
 %div{ class: "flex flex-col items-center", data: {controller: 'home' } } 
-  .mb-4.lg:mt-10
-    .flex.flex-col.items-center.justify-center.lg:p-10.p-2.w-full
-      %div{ class: "text-secondary text-[2rem] font-lato font-[700] text-center lg:mb-20 mb-2 text-center"} 
+  %div.h-32.lg:h-64
+    %div{ data: { controller: "logo" }, style: ""}
+      = image_tag "logo.png",
+        id: "logo",
+        alt: "Logo",
+        data: { logo_target: "image" },
+        style: "opacity: 0;transition: all 0.7s ease-out;", class: "absolute right-0 h-32 lg:h-72"
+
+%div{ class: "flex flex-col items-center" } 
+  .lg:mb-2
+    .flex.flex-col.items-center.justify-center.p-2.w-full
+      %div{ class: "text-secondary text-[2rem] font-latk font-[700] text-center mb-2 text-center"} 
         Acts of Chesed, Delivered
-  .mt-2
-    = link_to select_chesed_path, class: "bg-primary-original text-white lg:w-[22rem] w-[11rem] lg:h-[5rem] h-[2rem]  rounded-[0.7rem] cursor-pointer border border-secondary flex items-center justify-center lg:space-x-4 space-x-2" do
+  .my-4.lg:mb-6
+    = link_to select_chesed_path, class: "bg-primary-original text-white lg:w-[22rem] w-[11rem] lg:h-[5rem] py-4 rounded-[0.7rem] cursor-pointer border border-secondary flex items-center justify-center lg:space-x-4 space-x-2" do
       %span{ class: "lg:text-[1.5rem] font-alice text-center"} Start a Chesed Train
       = image_tag "arrow_left.svg", class: "lg:w-[2rem] w-[0.7rem] lg:h-[2.2rem] h-[0.7rem] lg:border lg:border-secondary lg:rounded-lg lg:px-[0.4rem] lg:py-[0.5rem]", alt: "Arrow Left"
-  %div{ class: "mt-6 flex justify-center items-center"}
-    = image_tag "logo.png", id: "logo", class: "w-5/6 transition-all duration-1000 ease-in-out", alt: "Logo"
