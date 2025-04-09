@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       @current_user = user
       redirect_to determine_redirect_path(params)
     else
-      redirect_to new_session_path, alert: 'Invalid email address or password.'
+      redirect_to new_session_path, notice: 'Invalid email address or password.'
     end
   end
 
