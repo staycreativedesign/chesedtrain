@@ -5,7 +5,7 @@
 #  event_name      :string
 #  event_type      :string
 #  owner           :text
-#  Email Address   :string
+#  email           :string
 #  contact_number  :text
 #  start_date      :datetime
 #  end_date        :datetime

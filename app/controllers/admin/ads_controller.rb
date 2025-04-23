@@ -50,7 +50,7 @@ module Admin
     private
 
     def ad_params
-      params.require(:ad).permit(:name, :start_date, :end_date, :country, :zipcode, :views, :clicks, :image, :link)
+      params.require(:ad).permit(:name, :start_date, :end_date, :country, :zipcode, :views, :clicks, :image, :link, :location)
     end
 
     def find_ad

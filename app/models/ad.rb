@@ -13,6 +13,7 @@
 #  link       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  location   :string           default("top")
 #
 class Ad < ApplicationRecord
   include RandomAdSelector
