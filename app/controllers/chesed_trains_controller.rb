@@ -108,8 +108,8 @@ class ChesedTrainsController < ApplicationController
   private
 
   def find_ad
-    @ad = Ad.random_for_event(@event)
-    @ad2 = Ad.random_for_event(@event)
+    @ad = Ad.random_for_event(@event, "top")
+    @ad2 = Ad.random_for_event(@event, "bottom")
     return unless @ad && @ad2
 
     @ad.increment!(:views)
