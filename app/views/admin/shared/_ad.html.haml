@@ -12,4 +12,4 @@
       = ad.clicks
     %td.px-6.py-4.whitespace-nowrap.text-end.text-sm.font-medium
       = link_to 'Edit', edit_admin_ad_path(ad), class: 'hover:text-secondary'
-      = link_to "Delete", admin_event_path(ad), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'
+      = link_to "Delete", admin_ad_path(ad), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-red-500'
