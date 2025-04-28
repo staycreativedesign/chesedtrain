@@ -3,6 +3,7 @@ import confetti from "canvas-confetti";
 
 export default class extends Controller {
   connect() {
+    console.log("foo")
     this.fireConfetti();
     if (document.referrer.includes("steps")) {
       this.fireConfetti();
