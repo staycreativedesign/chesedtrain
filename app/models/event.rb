@@ -35,8 +35,8 @@ class Event < ApplicationRecord
   enum :status, { opened: 0, closed: 1 }
 
   belongs_to :owner, class_name: 'User'
-  has_many :volunteer_events, dependent: :nullify
-  has_many :volunteers, through: :volunteer_events, source: :user, dependent: :nullify
+  has_many :volunteer_events, dependent: :destroy
+  has_many :volunteers, through: :volunteer_events, source: :user
 
   validates :name, presence: true
 end

@@ -35,7 +35,6 @@ class Potluck < Event
   validates :preferred_time, :start_date, presence: true
 
   has_many :selections, dependent: :destroy
-  has_many :events, foreign_key: :owner_id, dependent: :destroy
 
   accepts_nested_attributes_for :selections
   after_create :add_selections
