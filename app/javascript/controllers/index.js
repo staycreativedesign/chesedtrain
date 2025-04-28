@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ConfettiController from "./confetti_controller"
+application.register("confetti", ConfettiController)
+
 import CopyController from "./copy_controller"
 application.register("copy", CopyController)
 
