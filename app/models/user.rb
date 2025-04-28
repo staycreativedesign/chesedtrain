@@ -28,6 +28,10 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :events, foreign_key: :owner_id, dependent: :destroy
+  has_many :selections_as_volunteer, class_name: "Selection", foreign_key: "volunteer_id"
+  has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
+
+
   validates :email_address, uniqueness: true
   after_create :send_welcome_message
   after_save :still_guest?
@@ -35,6 +39,12 @@ class User < ApplicationRecord
   has_many :volunteer_events, dependent: :destroy
   has_many :events, through: :volunteer_events, dependent: :destroy
   before_save :normalize_email
+  before_destroy :nullify_selections
+
+
+  def nullify_selections
+    selections_as_volunteer.update_all(volunteer_id: nil)
+  end
 
   def normalize_email
     self.email_address = email_address.strip.downcase if email_address.present?
