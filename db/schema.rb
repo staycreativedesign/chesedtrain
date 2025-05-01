@@ -170,7 +170,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_24_200913) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string "area_code"
-    t.string "toke", default: "cb53e62275d4f169a50c"
+    t.string "toke", default: "d8019630e15ecfe883e8"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 

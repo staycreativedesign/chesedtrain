@@ -10,7 +10,6 @@ export default class extends Controller {
 
 
   click(event) {
-    event.preventDefault()
 
     fetch(this.urlValue, {
       method: "POST",
