@@ -42,7 +42,7 @@ class Potluck < Event
 
   def add_selections
     SELECTIONS.each do |selection|
-      selections.create(name: selection, quantity: 0, placeholder: selection, potluck_date: start_date)
+      selections.create(name: selection, quantity: 1, placeholder: selection, potluck_date: start_date)
     end
   end
 

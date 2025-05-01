@@ -58,6 +58,15 @@ class PotlucksController < ApplicationController
       end
     when 3
       if @event.update(selection_params)
+        @event.selections.each do |selection|
+          selection_name = @event.selections.where(name: selection.name)
+          if selection.quantity > selection_name.count
+            @event.selections.create(name: selection.name, quantity: selection.quantity, potluck_date: start_date)
+          elsif selection.quantity < selection_name.count
+            selection_name.last.destroy
+          end
+        end
+
         redirect_to steps_potluck_path(@event, step: 4)
       else
         render :steps, status: :unprocessable_entity

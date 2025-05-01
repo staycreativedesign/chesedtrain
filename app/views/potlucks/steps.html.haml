@@ -34,7 +34,7 @@
         %div.overflow-x-auto
           %table.text-2xl.rounded-lg.border-solid.min-w-full
             %tbody
-              = f.fields_for :selections, @event.selections do |ff|
+              = f.fields_for :selections,@event.selections.uniq { |s| s.name } do |ff|
                 %tr
                   %td.border.border-slate-300.px-4.py-2
                     = ff.text_field :name, placeholder: ff.object.name, class: 'border-none text-xs lg:text-2xl text-neutral-400 w-full'
