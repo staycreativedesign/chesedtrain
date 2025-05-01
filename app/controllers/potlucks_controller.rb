@@ -100,12 +100,15 @@ class PotlucksController < ApplicationController
   private
 
   def find_ad
-    @ad = Ad.random_for_event(@event, "top")
-    @ad2 = Ad.random_for_event(@event, "bottom")
-    return unless @ad && @ad2
+    @ad = Ad.random_for_event(@event, 'top')
+    @ad2 = Ad.random_for_event(@event, 'bottom')
+    return unless @ad || @ad2
 
-    @ad.increment!(:views)
-    @ad2.increment!(:views)
+    if @ad
+      @ad.increment!(:views)
+    elsif @ad2
+      @ad2.increment!(:views)
+    end
   end
 
   def redirect_after_update

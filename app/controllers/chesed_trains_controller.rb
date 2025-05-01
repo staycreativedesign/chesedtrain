@@ -110,10 +110,13 @@ class ChesedTrainsController < ApplicationController
   def find_ad
     @ad = Ad.random_for_event(@event, 'top')
     @ad2 = Ad.random_for_event(@event, 'bottom')
-    return unless @ad && @ad2
+    return unless @ad || @ad2
 
-    @ad.increment!(:views)
-    @ad2.increment!(:views)
+    if @ad
+      @ad.increment!(:views)
+    elsif @ad2
+      @ad2.increment!(:views)
+    end
   end
 
   def update_event_dates(start_date, end_date, event, params)
