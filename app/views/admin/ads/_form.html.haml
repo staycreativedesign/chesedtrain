@@ -37,7 +37,7 @@
           Ex: www.nameofsite.com
       .area
         = f.label :location, "Location", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
-        = f.select :location, options_for_select([["Top", "top"], ["Bottom", "bottom"]], f.object.paused), { prompt: "Select position", required: true }, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
+        = f.select :location, options_for_select([["Top", "top"], ["Bottom", "bottom"]], f.object.location), { prompt: "Select position", required: true }, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
       .area
         = f.label :paused, "Paused?", class: 'w-full lg:text-[1.1rem] text-[0.7rem] font-normal text-secondary mb-1'
         = f.select :paused, options_for_select([["False", false], ["True", true]], f.object.paused), { prompt: "Select to Pause or Unpause ad", required: true }, class: 'w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
