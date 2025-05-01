@@ -93,5 +93,5 @@
             - else
               = link_to 'Volunteer', volunteer_chesed_train_event_date_path(@event, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'
   .flex.flex-col.items-center.w-full.relative.mt-5
-    = link_to(image_tag(@ad.image), "https://#{@ad.link}", data: { controller: "link-click", action: "click->link-click#click", link_click_url_value: track_ad_path(@ad), link_click_redirect_value: @ad.link } ) if @ad
+    = link_to(image_tag(@ad2.image), "https://#{@ad2.link}", data: { controller: "link-click", action: "click->link-click#click", link_click_url_value: track_ad_path(@ad2), link_click_redirect_value: @ad2.link } ) if @ad2
 
