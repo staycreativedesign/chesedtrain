@@ -6,6 +6,7 @@
       = hidden_field_tag :event, @event
       = hidden_field_tag :event_id, @event_id
       = hidden_field_tag :selection_id, @selection
+      = hidden_field_tag :steps, @steps
       .form-group
         = f.label :email_address, "Email Address", class: 'block lg:text-[1.1rem] text-[0.7rem] font-bold text-secondary mb-1'
         = f.email_field :email_address, class: 'bg-transparent w-full lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -16,5 +17,16 @@
         = recaptcha_tags(noscript: false)
       .mt-12.flex.justify-center.gap-3.lg:space-x-2.items-center.lg:flex-row.flex-col
         = f.submit "Login", class: 'mt-2 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
-        = link_to "Create an Account", new_user_path, class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        - if @steps 
+          - if @event == 'potluck'
+            = link_to "Back", steps_potluck_path(@event_id, 5), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+          - elsif  @event == 'chesed_train'
+            = link_to "Back", steps_chesed_train_path(@event_id, 5), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        - elsif @selection
+          - if @event == 'potluck'
+            = link_to "Back", potluck_path(@event_id), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+          - else  @event == 'chesed_train'
+            = link_to "Back", chesed_train_path(@event_id), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
+        - else
+          = link_to "Create an Account", new_user_path, class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         = link_to "Forgot Password", new_password_reset_path, class: 'mt-2 w-[11rem] text-danger border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
