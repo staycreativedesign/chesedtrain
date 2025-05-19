@@ -120,7 +120,7 @@ class ChesedTrainsController < ApplicationController
   end
 
   def update_event_dates(start_date, end_date, event, params)
-    return if params[:chesed_train][:date_range].blank?
+    return if params[:chesed_train][:date_range] == event.date_range || params[:chesed_train][:date_range].blank?
 
     start_date, end_date = params[:chesed_train][:date_range].split(' to ').map { |date| Date.parse(date) }
 
