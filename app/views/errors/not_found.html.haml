@@ -1,11 +1,12 @@
-.text-center
-  = link_to(image_tag("chesedtrainlogo.png", class: 'h-8', alt: "Header Logo"), root_path)
-.text-center.font-bold.text-lg
-  On no! Looks like the tracks need some fixing!
-.text-center.text-sm
-  You've ran into a bug on tracks! The conductors have been notificed are will be fixing this problem as soon as possible. 
-.text-center.text-sm
-  Thank you for your patience and understanding.
+.flex.flex-col
+  %p.text-center.font-bold.text-lg.mt-5
+    On no! Looks like the tracks need some fixing!
+  %p.text-center.text-sm
+    You've ran into a bug on the tracks! The conductors have been notificed are will be fixing this problem as soon as possible. 
+  %p.text-center.text-sm
+    Thank you for your patience and understanding.
+  %p.text-center
+    = image_tag "newfooterlogo.png", class: "w-full", alt: "Chesed Train Logo"
 
 
 

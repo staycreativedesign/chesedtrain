@@ -13,10 +13,9 @@
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload", rel: "stylesheet"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
 
-  %body{style: 'background-color:white'}
+  %body{style: 'background-color:white', class: 'min-h-screen flex flex-col'}
     = render 'shared/alert'
-    .flex.flex-col
-      = render "shared/header"
-      .flex-grow.flex.items-center.justify-center.font-lato
-        = yield
-      = render "shared/footer"
+    = render "shared/header"
+    .md:flex.flex-grow.items-center.justify-center.font-lato
+      = yield
+    = render "shared/footer"
