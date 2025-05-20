@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "errors/not_found"
   resources :updates
   resources :events do
     resources :event_dates
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   get '/chesed-train-pro-account', to: 'payments#pro', as: :pro_account
   get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
   post 'ads/:id/track', to: 'ads#track', as: 'track_ad'
+  match "/404", to: "errors#not_found", via: :all
 
   resources :chesed_trains do
     member do
