@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= 'Chesed Train'
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "https://chesedtrain.com/ogimage.jpg", :property => "og:image"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+    = favicon_link_tag asset_path('favicon-16x16.png')
+    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload", rel: "stylesheet"
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
+
+  %body{style: 'background-color:white'}
+    .text-center
+      = link_to(image_tag("chesedtrainlogo.png", class: 'h-8', alt: "Header Logo"), root_path)
+    .text-center.font-bold.text-lg
+      On no! Looks like the tracks need some fixing!
+    .text-center.text-sm
+      You've ran into a bug on tracks! The conductors have been notificed are will be fixing this problem as soon as possible. 
+    .text-center.text-sm
+      Thank you for your patience and understanding.
+
+
+
+
+
+
