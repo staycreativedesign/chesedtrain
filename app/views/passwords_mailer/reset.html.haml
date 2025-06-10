@@ -1,3 +1,5 @@
-%p
-  You can reset your password within the next 15 minutes on
-  \#{link_to "this password reset page", edit_password_url(@user.password_reset_token)}.
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      You can reset your password within the next 15 minutes on
+      #{link_to "this password reset page", edit_password_url(@user.password_reset_token)}.

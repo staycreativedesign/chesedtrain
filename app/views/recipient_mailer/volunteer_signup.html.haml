@@ -1,23 +1,22 @@
-%p
-  Dear #{@event.recipent_name},
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      Dear #{@event.recipent_name},
 
-%p
-  A volunteer has signed up for a task on your Chesed Train! Here are the details:
-
-%ul
-  %li
-    Volunteer Name: #{ @task.volunteer.name }
-  %li
-    Task: #{ @task.bringing }
-  - if @event.type == 'ChesedTrain'
-    %li
-      Date and Time: #{@task.full_date.strftime("%A %m/%d")} at #{@event.preferred_time}
-  - else
-    %li
-      Quantity: #{@task.quantity}
-    %li
-      Date and Time: #{@event.preferred_time}
-      
-
-%p
-  This effort is truly coming together in the spirit of chesed.
+    %p
+      A volunteer has signed up for a task on your Chesed Train! Here are the details:
+    %ul
+      %li
+        Volunteer Name: #{ @task.volunteer.name }
+      %li
+        Task: #{ @task.bringing }
+      - if @event.type == 'ChesedTrain'
+        %li
+          Date and Time: #{@task.full_date.strftime("%A %m/%d")} at #{@event.preferred_time}
+      - else
+        %li
+          Quantity: #{@task.quantity}
+        %li
+          Date and Time: #{@event.preferred_time}
+    %p
+      This effort is truly coming together in the spirit of chesed.

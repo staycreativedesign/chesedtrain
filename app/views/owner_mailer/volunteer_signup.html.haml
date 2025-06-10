@@ -1,27 +1,29 @@
-%p
-  Dear #{@owner.first_name},
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      Dear #{@owner.first_name},
 
-- if @event.type == 'ChesedTrain'
-  %p
-    A volunteer has signed up for a task on your Chesed Train! Here are the details:
+    - if @event.type == 'ChesedTrain'
+      %p
+        A volunteer has signed up for a task on your Chesed Train! Here are the details:
 
-  %ul
-    %li
-      Volunteer Name: #{ @task.volunteer.name}
-    %li
-      Task: #{ @task.bringing }
-    %li
-        Date: #{@task.date_weekday} #{ @task.date_month }/#{ @task.date_number }
-  %p
-    This effort is truly coming together in the spirit of chesed.
-- else
-  %p
-    A volunteer has signed up for a task on your Potluck! Here are the details:
+      %ul
+        %li
+          Volunteer Name: #{ @task.volunteer.name}
+        %li
+          Task: #{ @task.bringing }
+        %li
+            Date: #{@task.date_weekday} #{ @task.date_month }/#{ @task.date_number }
+      %p
+        This effort is truly coming together in the spirit of chesed.
+    - else
+      %p
+        A volunteer has signed up for a task on your Potluck! Here are the details:
 
-  %ul
-    %li
-      Volunteer Name: #{ @task.volunteer.name}
-    %li
-      Task: #{ @task.bringing }
-  %p
-    This effort is truly coming together in the spirit of chesed.
+      %ul
+        %li
+          Volunteer Name: #{ @task.volunteer.name}
+        %li
+          Task: #{ @task.bringing }
+      %p
+        This effort is truly coming together in the spirit of chesed.

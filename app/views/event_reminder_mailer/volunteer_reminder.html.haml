@@ -1,17 +1,19 @@
-%p
-  Dear #{@volunteer.first_name},
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      Dear #{@volunteer.first_name},
 
-%p
-  This is a reminder about your upcoming Chesed Train task:
+    %p
+      This is a reminder about your upcoming Chesed Train task:
 
-%p
-  Task: #{@event.bringing}
-%p
+    %p
+      Task: #{@event.bringing}
+    %p
 
-%p
-  Date and Time: #{@event.full_date.strftime("%A %m/%d")} at #{@event_type.preferred_time}
-%p
-  Organizer Contact: #{@event_type.owner.name} #{ @event_type.owner.phone_number}
-%p
-  Your effort helps make a real difference in someone’s life. Thank you for your dedication to chesed!
+    %p
+      Date and Time: #{@event.full_date.strftime("%A %m/%d")} at #{@event_type.preferred_time}
+    %p
+      Organizer Contact: #{@event_type.owner.name} #{ @event_type.owner.phone_number}
+    %p
+      Your effort helps make a real difference in someone’s life. Thank you for your dedication to chesed!
 

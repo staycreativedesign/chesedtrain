@@ -1,48 +1,14 @@
-!!!
-%html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{:charset => "UTF-8"}/
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %title Chesed Train Email
-  %body{:style => "margin: 0; padding: 0; background-color: rgba(63, 114, 175, 0.2); font-family: Arial, sans-serif;"}
-    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "padding: 20px 0;", :width => "100%"}
-      %tr
-        %td{:align => "center"}
-          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :style => "background-color: #ffffff; border-radius: 8px; overflow: hidden;", :width => "600"}
-            %tr
-              %td{:align => "center", :style => "padding: 20px;"}
-                %img{:alt => "Chesed Train Logo", :src => "https://chesedtrain.com/email_logo.jpg", :style => "max-width: 100%;", :width => "400"}/
-            %tr
-              %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;"}
-                %p{:style => "margin-top: 0;"}
-                  You are now able to manage multiple
-                  %strong Potlucks
-                  \&
-                  %strong Chesed Trains
-                  simultaneously, taking your Chesed to the Next Level!
-                %p
-                  You’re helping to create something that truly reflects the heart of our community. Log in anytime to manage or view your Chesed Train Account.
-                %p{:style => "margin-bottom: 0;"}
-                  Warm regards,
-                  %br/
-                  %strong The Chesed Train Team
-            %tr
-              %td{:align => "center", :style => "padding: 20px; font-size: 12px; color: #999999;"}
-                © 2025 Chesed Train. All rights reserved.
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      Dear #{@user.first_name}
+    %p
+      Welcome to Chesed Train! You’ve joined a platform that helps bring people together to do beautiful acts of kindness—chesed that truly uplifts our community.
+    %p
+      Whether you’re organizing or volunteering, Chesed Train is here to make it simple for you to step up and help others. #{ link_to 'Log in to your account here', login_url } to get started. You’ll find everything you need to coordinate, participate, and be part of something meaningful.
 
--# %p
--#   Dear #{@user.first_name}
--#
--# %p
--#   Welcome to Chesed Train! You’ve joined a platform that helps bring people together to do beautiful acts of kindness—chesed that truly uplifts our community.
--# %p
--#   Whether you’re organizing or volunteering, Chesed Train is here to make it simple for you to step up and help others. #{ link_to 'Log in to your account here', login_url } to get started. You’ll find everything you need to coordinate, participate, and be part of something meaningful.
--#
--# %p
--#   May your efforts bring bracha (blessing) to others and to you as well!
--#
--# %p
--#   Warm wishes,
--#   <br>
--#   The Chesed Train Team
+    %p
+      Warm regards,
+      %br/
+      %strong The Chesed Train Team
+
