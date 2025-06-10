@@ -26,6 +26,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         current_user = @user
 
+        WelcomeMailer.with(user: current_user).hello.deliver_now
         TwilioService.call(current_user, 'welcome')
         format.html { redirect_to new_payment_path, notice: 'Account was successfully created.' }
         format.json { redirect_to fallback_location: new_payment_path }
