@@ -1,15 +1,17 @@
-%p
-  Dear #{@user.first_name},
+%tr
+  %td{:style => "padding: 20px 30px; color: rgb(229, 231, 235); background-color: rgba(63, 114, 175, 0.2); font-size: 16px; line-height: 1.5;color:black;"}
+    %p
+      Dear #{@user.first_name},
 
-%p
-  Welcome to Chesed Train! You’ve joined a platform that helps bring people together to do beautiful acts of kindness—chesed that truly uplifts our community.
-%p
-  Whether you’re organizing or volunteering, Chesed Train is here to make it simple for you to step up and help others #{ link_to 'Your Account', user_show_path(@user)} to get started. You’ll find everything you need to coordinate, participate, and be part of something meaningful.
+    %p
+      Welcome to Chesed Train! You’ve joined a platform that helps bring people together to do beautiful acts of kindness—chesed that truly uplifts our community.
+    %p
+      Whether you’re organizing or volunteering, Chesed Train is here to make it simple for you to step up and help others #{ link_to 'Your Account', user_show_path(@user)} to get started. You’ll find everything you need to coordinate, participate, and be part of something meaningful.
 
-%p
-  May your efforts bring bracha (blessing) to others and to you as well!
+    %p
+      May your efforts bring bracha (blessing) to others and to you as well!
 
-%p
-  Warm wishes,
-  <br>
-  The Chesed Train Team
+    %p
+      Warm wishes,
+      <br>
+      The Chesed Train Team

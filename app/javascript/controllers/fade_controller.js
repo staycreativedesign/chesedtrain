@@ -19,6 +19,11 @@ export default class extends Controller {
     setTimeout(() => {
       element.classList.remove("opacity-100");
       element.classList.add("opacity-0");
+
+      // Wait for the transition to complete before removing
+      element.addEventListener("transitionend", () => {
+        element.remove();
+      }, { once: true });
     }, 2000);
   }
 }
