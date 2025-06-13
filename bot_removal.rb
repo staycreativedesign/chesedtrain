@@ -5,4 +5,4 @@ rescue StandardError
   next
 end
 
-users.where(guest: true).desstroy_all
+users.where(guest: true).destroy_all
