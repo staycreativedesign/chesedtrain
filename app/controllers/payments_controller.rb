@@ -58,7 +58,9 @@ class PaymentsController < ApplicationController
           price: 'price_1QoJ2DFPajux6JXVgPOOJD8N',
           quantity: 1
         }
+
       ],
+      allow_promotion_codes: true,
       after_completion: {
         type: 'redirect',
         redirect: {
