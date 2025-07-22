@@ -13,7 +13,7 @@ class YomTovsController < ApplicationController
         success = false unless selection.update(selection_params.permit(:id, :name, :quantity, :special_note))
       end
     end
-    flash.now[:notice] = 'Updated Yom Tovim'
+    flash.now[:notice] = 'Updated Shabbat'
     @event = Event.find(params[:id])
     @event_dates = @event.event_dates.select { |ed| %w[Friday Saturday].include?(ed.date_weekday) }
     render :index, status: :unprocessable_entity

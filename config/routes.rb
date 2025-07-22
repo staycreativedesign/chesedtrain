@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       patch 'update_step'
       post 'update_step'
       get 'thank-you', to: 'chesed_trains#thank_you', as: :thank_you
-      get '/yom-tovim', to: 'yom_tovs#index', as: :yom_tovs
+      get '/shabbat', to: 'yom_tovs#index', as: :yom_tovs
     end
 
     resources :event_dates do
