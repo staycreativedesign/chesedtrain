@@ -4,12 +4,14 @@ import "flatpickr/dist/flatpickr.min.css";
 
 export default class extends Controller {
   connect() {
-    const picker = flatpickr(this.element, {
-      mode: "range",
-      dateFormat: "Y-m-d",
-      inline: true,
-    });
+    // Read options from data-flatpickr-options attribute
+    const options = this.element.dataset.flatpickrOptions
+      ? JSON.parse(this.element.dataset.flatpickrOptions)
+      : {};
+
+    // Initialize flatpickr with dynamic options
+    const picker = flatpickr(this.element, options);
+
     picker.open();
   }
 }
-

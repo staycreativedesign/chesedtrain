@@ -10,13 +10,24 @@ class SelectionsController < ApplicationController
   def show; end
 
   def volunteer
-    @user = current_user || User.new
+    if @event.type == 'ChesedTrain'
+      if params[:chesed_train_id].present? && params[:id].present? && params[:selection_id].present?
+        @event_date = EventDate.find(params[:id])
+        render template: 'shared/selections/yom_tov_volunteer', layout: 'application',
+               locals: { event: @event_date, selection: @selection }
+      else
+        render template: 'shared/selections/chesed_train_volunteer', layout: 'application',
+               locals: { event: @event_date, selection: @selection }
+      end
+    else
+      render template: 'shared/selections/potlucks', layout: 'application',
+             locals: { event: @event, selection: @selection }
+    end
   end
 
   def add_volunteer
     if @selection.update!(selection_params.merge(volunteer: current_user))
       @event.volunteers << current_user
-
       TwilioService.call(current_user, 'volunteer')
       if @event.type == 'Potluck'
         TwilioService.call(@event.owner, 'volunteer_joined_potluck')
@@ -41,9 +52,14 @@ class SelectionsController < ApplicationController
       session[:user_id] = @user.id
       @current_user = @user
       TwilioService.call(current_user, 'welcome')
-
       if @event.type == 'ChesedTrain'
-        redirect_to volunteer_chesed_train_event_date_path(@event, @selection)
+        if params[:chesed_train_id].present? && params[:id].present? && params[:selection_id].present?
+          @event_date = @selection.event_date
+          redirect_to volunteer_chesed_train_yom_tov_path(@event, @event_date, @selection)
+        else
+          @event_date = EventDate.find(params[:id])
+          redirect_to volunteer_chesed_train_event_date_path(@event, @event_date)
+        end
       else
         redirect_to volunteer_potluck_selection_path(@event, @selection)
       end
@@ -53,10 +69,6 @@ class SelectionsController < ApplicationController
   end
 
   private
-
-  def location_params
-    params.expect(event: %i[address1 address2 city state])
-  end
 
   def set_event
     @event = if params[:chesed_train_id].present?
@@ -68,8 +80,11 @@ class SelectionsController < ApplicationController
 
   def set_selection
     @selection = if @event.type == 'ChesedTrain'
-                   EventDate.find(params[:id])
-
+                   if params[:chesed_train_id].present? && params[:id].present? && params[:selection_id].present?
+                     Selection.find(params[:selection_id])
+                   else
+                     EventDate.find(params[:id])
+                   end
                  else
                    Selection.find(params[:id])
                  end

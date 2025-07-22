@@ -3,26 +3,30 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  area_code              :string
+#  country_code           :string
 #  email_address          :string           not null
+#  first_name             :string
+#  guest                  :boolean          default(FALSE)
+#  is_admin               :boolean          default(FALSE)
+#  is_paying              :boolean          default(FALSE)
+#  last_name              :string
 #  password_digest        :string           not null
+#  phone_number           :string
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  sms                    :boolean
+#  toke                   :string           default("d8019630e15ecfe883e8")
+#  tos                    :boolean
+#  updates                :boolean          default(TRUE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  first_name             :string
-#  last_name              :string
-#  phone_number           :string
-#  updates                :boolean          default(TRUE)
-#  tos                    :boolean
-#  sms                    :boolean
-#  guest                  :boolean          default(FALSE)
-#  is_paying              :boolean          default(FALSE)
-#  is_admin               :boolean          default(FALSE)
-#  country_code           :string
 #  stripe_customer_id     :string
 #  stripe_subscription_id :string
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  area_code              :string
-#  toke                   :string           default("cb53e62275d4f169a50c")
+#
+# Indexes
+#
+#  index_users_on_email_address  (email_address) UNIQUE
 #
 class User < ApplicationRecord
   has_secure_password

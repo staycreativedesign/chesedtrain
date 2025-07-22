@@ -12,7 +12,10 @@
         Task: #{ @task.bringing }
       - if @event.type == 'ChesedTrain'
         %li
-          Date and Time: #{@task.full_date.strftime("%A %m/%d")} at #{@event.preferred_time}
+          - begin
+            Date and Time: #{@task.full_date.strftime("%A %m/%d")} at #{@event.preferred_time}
+          - rescue
+            Date and Time: #{@task.potluck_date.strftime("%A %m/%d")} at #{@event.preferred_time}
       - else
         %li
           Quantity: #{@task.quantity}

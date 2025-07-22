@@ -1,5 +1,5 @@
 class EventDatesController < ApplicationController
-  before_action :set_event_date, only: %i[ show edit update destroy ]
+  before_action :set_event_date, only: %i[show edit update destroy]
 
   # GET /event_dates or /event_dates.json
   def index
@@ -7,8 +7,7 @@ class EventDatesController < ApplicationController
   end
 
   # GET /event_dates/1 or /event_dates/1.json
-  def show
-  end
+  def show; end
 
   # GET /event_dates/new
   def new
@@ -16,16 +15,16 @@ class EventDatesController < ApplicationController
   end
 
   # GET /event_dates/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /event_dates or /event_dates.json
   def create
     @event_date = EventDate.new(event_date_params)
+    @event_date.event_dates.any? { |ed| %w[Friday Saturday].include?(ed.date_weekday) }
 
     respond_to do |format|
       if @event_date.save
-        format.html { redirect_to @event_date, notice: "Event date was successfully created." }
+        format.html { redirect_to @event_date, notice: 'Event date was successfully created.' }
         format.json { render :show, status: :created, location: @event_date }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +37,7 @@ class EventDatesController < ApplicationController
   def update
     respond_to do |format|
       if @event_date.update(event_date_params)
-        format.html { redirect_to @event_date, notice: "Event date was successfully updated." }
+        format.html { redirect_to @event_date, notice: 'Event date was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_date }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +51,20 @@ class EventDatesController < ApplicationController
     @event_date.destroy!
 
     respond_to do |format|
-      format.html { redirect_to event_dates_path, status: :see_other, notice: "Event date was successfully destroyed." }
+      format.html { redirect_to event_dates_path, status: :see_other, notice: 'Event date was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_date
-      @event_date = EventDate.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def event_date_params
-      params.expect(event_date: [ :event_id ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event_date
+    @event_date = EventDate.find(params.expect(:id))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def event_date_params
+    params.expect(event_date: [:event_id])
+  end
 end

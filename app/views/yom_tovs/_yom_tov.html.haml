@@ -1,0 +1,17 @@
+- event_date.selections.order(name: :asc).each do |selection|
+  .bg-white.rounded.p-4.lg:grid.lg:grid-cols-2
+    .area{class: 'text-center'}
+      %h1{class: dom_id(selection)}
+        = selection.name
+    .area{class: 'text-center'}
+      - if selection.volunteer.present?
+        = selection.volunteer.name
+        %br.lg:hidden
+        .hidden.lg:inline-block
+          \|
+        = selection.bringing
+      - else
+        - if Date.today > event_date.full_date
+          Date for adding volunteers has passed
+        - else
+          = link_to 'Volunteer', volunteer_chesed_train_yom_tov_path(@event, event_date, selection), class: 'mt-5 lg:mt-0 w-full block px-12 bg-primary-original border border-secondary text-white p-2 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer font-normal lg:h-[46px]'

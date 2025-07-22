@@ -26,9 +26,9 @@ gem 'stimulus-rails'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'base64', '0.1.1'
-gem 'caxlsx_rails'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
+gem 'caxlsx_rails'
 gem 'draper'
 gem 'haml-rails', '~> 2.0'
 gem 'honeypot-captcha'
@@ -68,7 +68,9 @@ group :development do
   gem 'annotate'
   gem 'letter_opener'
   gem 'pry'
+  gem 'rubocop'
   gem 'web-console'
+
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem 'rack-mini-profiler'

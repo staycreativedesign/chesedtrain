@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_24_200913) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_21_175309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_24_200913) do
     t.string "special_note"
     t.bigint "volunteer_id"
     t.text "bringing"
-    t.datetime "full_date"
+    t.date "full_date"
     t.index ["chesed_train_id"], name: "index_event_dates_on_chesed_train_id"
     t.index ["volunteer_id"], name: "index_event_dates_on_volunteer_id"
   end
@@ -128,6 +128,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_24_200913) do
     t.bigint "volunteer_id"
     t.string "bringing"
     t.datetime "potluck_date"
+    t.bigint "event_date_id"
+    t.index ["event_date_id"], name: "index_selections_on_event_date_id"
     t.index ["potluck_id"], name: "index_selections_on_potluck_id"
     t.index ["volunteer_id"], name: "index_selections_on_volunteer_id"
   end
@@ -170,7 +172,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_24_200913) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string "area_code"
-    t.string "toke", default: "d8019630e15ecfe883e8"
+    t.string "toke", default: "40b7eee5102337d216f6"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 

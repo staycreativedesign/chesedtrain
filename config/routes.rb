@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "errors/not_found"
+  get 'errors/not_found'
   resources :updates
   resources :events do
     resources :event_dates
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/chesed-train-pro-account', to: 'payments#pro', as: :pro_account
   get 'chesed-train-pro/', to: 'payments#new', as: :new_payment
   post 'ads/:id/track', to: 'ads#track', as: 'track_ad'
-  match "/404", to: "errors#not_found", via: :all
+  match '/404', to: 'errors#not_found', via: :all
 
   resources :chesed_trains do
     member do
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       patch 'update_step'
       post 'update_step'
       get 'thank-you', to: 'chesed_trains#thank_you', as: :thank_you
+      get '/yom-tovim', to: 'yom_tovs#index', as: :yom_tovs
     end
 
     resources :event_dates do
@@ -26,6 +27,14 @@ Rails.application.routes.draw do
         get '/new-volunteer/', to: 'selections#volunteer', as: :volunteer
         post '/new-volunteer/',  to: 'selections#setup_volunteer', as: :setup_volunteer
         patch '/add-volunteer/', to: 'selections#add_volunteer', as: :add_volunteer
+
+        resources :yom_tovs, except: [:index] do
+          member do
+            get '/new-volunteer/:selection_id', to: 'selections#volunteer', as: :volunteer
+            post '/new-volunteer/:selection_id',  to: 'selections#setup_volunteer', as: :setup_volunteer
+            patch '/add-volunteer/:selection_id', to: 'selections#add_volunteer', as: :add_volunteer
+          end
+        end
       end
     end
   end

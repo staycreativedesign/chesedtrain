@@ -10,7 +10,7 @@ class ChesedTrainsController < ApplicationController
 
   def update
     respond_to do |format|
-      update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event, params)
+      update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
       if @event.update(all_params)
         if (step = params[:step_check])
           format.html { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
@@ -64,7 +64,7 @@ class ChesedTrainsController < ApplicationController
 
         end_date = start_date if end_date.blank?
 
-        create_event_dates(start_date, end_date, @event)
+        event_date_resolver(start_date, end_date, @event)
         @event.update(start_date: start_date, end_date: end_date)
 
         redirect_to steps_chesed_train_path(@event, step: 4)
@@ -74,7 +74,11 @@ class ChesedTrainsController < ApplicationController
       end
     when 4
       if @event.update(preferences_params)
-        redirect_after_update
+        if @event.event_dates.joins(:selections).exists?
+          redirect_to yom_tovs_chesed_train_path(@event)
+        else
+          redirect_after_update
+        end
       else
         render :steps, status: :unprocessable_entity
       end
@@ -119,69 +123,11 @@ class ChesedTrainsController < ApplicationController
     end
   end
 
-  def update_event_dates(start_date, end_date, event, params)
-    return if params[:chesed_train][:date_range] == event.date_range || params[:chesed_train][:date_range].blank?
-
-    start_date, end_date = params[:chesed_train][:date_range].split(' to ').map { |date| Date.parse(date) }
-
-    # Fetch existing dates for the event
-    @dates = EventDate.where(chesed_train_id: event.id)
-
-    # Delete records where start_date is greater and end_date overlaps
-
-    @dates.where('full_date < ?', start_date)
-          .destroy_all
-
-    @dates.where('full_date > ?', end_date + 1.day).destroy_all
-
-    # Check if new EventDates need to be created
-    # Create a new EventDate if there are no existing dates covering the range
-
-    event.update(start_date: start_date, end_date: end_date)
-    (start_date..end_date).each do |foo|
-      full_date = event.event_dates.pluck(:full_date)
-      begin
-        date = foo
-      rescue StandardError
-        next
-      end
-
-      next if full_date.map(&:to_date).include?(date.to_date)
-      next unless Date.valid_date?(date.year, date.month, date.day)
-
-      EventDate.create!(
-        date_number: date.day,
-        date_weekday: date.strftime('%A'),
-        date_month: date.month,
-        full_date: date,
-        chesed_train_id: event.id
-      )
-
-      return if start_date == end_date
-    end
-  end
-
-  def create_event_dates(start_date, end_date, event)
-    event.update(start_date: start_date, end_date: end_date)
-    (start_date..end_date).each do |foo|
-      begin
-        date = Date.parse(foo)
-      rescue StandardError
-        next
-      end
-
-      next unless Date.valid_date?(date.year, date.month, date.day)
-
-      EventDate.create!(
-        date_number: date.day,
-        date_weekday: date.strftime('%A'),
-        date_month: date.month,
-        full_date: date,
-        chesed_train_id: event.id
-      )
-
-      return if start_date == end_date
-    end
+  def update_event_dates(start_date, end_date, event)
+    start_date, end_date = params[:chesed_train][:date_range].split(' to ')
+    event_date_resolver(start_date, end_date, event)
+  rescue ArgumentError => e
+    Rails.logger.error("Invalid date range format: #{e.message}")
   end
 
   def redirect_after_update
@@ -192,6 +138,27 @@ class ChesedTrainsController < ApplicationController
       TwilioService.call(current_user, 'chesed_train')
       redirect_to chesed_train_path(@event)
     end
+  end
+
+  def event_date_resolver(start_date, end_date, event)
+    new_dates = (Date.parse(start_date)..Date.parse(end_date)).to_a
+    event.event_dates.where.not(full_date: new_dates).destroy_all
+
+    new_dates.each do |date|
+      next if event.event_dates.pluck(:full_date).include?(date)
+
+      EventDate.create!(
+        date_number: date.day,
+        date_weekday: date.strftime('%A'),
+        date_month: date.month,
+        full_date: date,
+        chesed_train_id: event.id
+      )
+
+      return if start_date == end_date
+    end
+
+    event.update(start_date: start_date, end_date: end_date)
   end
 
   def set_chesed_train

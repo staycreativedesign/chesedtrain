@@ -1,3 +1,6 @@
+- start_date = @event.start_date&.strftime("%Y-%m-%d")
+- end_date = @event.end_date&.strftime("%Y-%m-%d")
+
 .container.p-10
   .flex.flex-col.bg-primary.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
     = form_with(model: @event, class: 'space-y-4 lg:w-1/2 w-full mt-5', method: :patch) do |f|
@@ -48,7 +51,9 @@
         %div{ class: "text-secondary text-[1rem] font-lato font-[700] mb-5 text-center"} 
           Chesed Train Dates
         .flex.flex-row.space-x-2
-          = f.text_field :date_range, id: "date-range-picker", data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d" }.to_json } 
+          = f.text_field :date_range,
+            id: "date-range-picker",
+            data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d", inline: true, defaultDate: [ start_date, end_date]}.to_json}
         %b.text-xs.mt-3
           * Please note if you change dates and there are people signed up for dates that are removed they will be removed from the date they selected.
         %div{ class: "text-secondary text-[1rem] font-lato font-[700] mt-5 text-center"} 

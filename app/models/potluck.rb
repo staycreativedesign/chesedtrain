@@ -3,33 +3,41 @@
 # Table name: events
 #
 #  id                   :bigint           not null, primary key
-#  name                 :string
-#  start_date           :datetime
-#  end_date             :datetime
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  recipent_email       :string
-#  recipent_name        :string
 #  address1             :string
 #  address2             :string
-#  city                 :string
-#  state                :string
 #  adults               :integer
-#  kids                 :integer
 #  allergies            :string
-#  preferred_time       :string
-#  dietary_restrictions :string
-#  special_message      :text
-#  owner_id             :bigint
-#  type                 :string
-#  least                :string
-#  shabbat_instructions :string
-#  fav_rest             :string
-#  step                 :integer
+#  city                 :string
 #  country              :string
-#  postal_code          :string
-#  status               :integer          default("opened"), not null
 #  date_range           :jsonb
+#  dietary_restrictions :string
+#  end_date             :datetime
+#  fav_rest             :string
+#  kids                 :integer
+#  least                :string
+#  name                 :string
+#  postal_code          :string
+#  preferred_time       :string
+#  recipent_email       :string
+#  recipent_name        :string
+#  shabbat_instructions :string
+#  special_message      :text
+#  start_date           :datetime
+#  state                :string
+#  status               :integer          default("opened"), not null
+#  step                 :integer
+#  type                 :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  owner_id             :bigint
+#
+# Indexes
+#
+#  index_events_on_owner_id  (owner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (owner_id => users.id)
 #
 class Potluck < Event
   validates :preferred_time, :start_date, presence: true
