@@ -4,7 +4,12 @@ export default class extends Controller {
   static targets = ["info"]
 
   toggle(event) {
-    event.preventDefault(); // Prevents the page jump
-    this.infoTarget.classList.toggle("hidden")
+    event.preventDefault();
+    const button = event.currentTarget;
+    const infoElement = button.closest('.lg\\:grid').nextElementSibling;
+
+    if (infoElement?.classList?.contains("yom-tov-info")) {
+      infoElement.classList.toggle("hidden");
+    }
   }
 }
