@@ -9,9 +9,7 @@ set :output, './cron_log.log'
 every 1.day, at: '8:00am' do
   rake 'event_reminder:send'
 end
-#
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
 
-# Learn more: http://github.com/javan/whenever
+every 3.hours do
+  rake 'bot_removal:send'
+end
