@@ -1,4 +1,4 @@
- - flash.each do |key, messages|
+- flash.each do |key, messages|
   - outcome = flash_class(key)
   - Array(messages).each do |message|
     %div.fixed.top-0.right-0{role: "alert", class: "opacity-0 border-2 border-#{outcome}-500 transition-opacity duration-500 ease-in-out", data: { controller:'fade', 'fade-target': 'content'} }
