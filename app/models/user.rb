@@ -29,12 +29,19 @@
 #  index_users_on_email_address  (email_address) UNIQUE
 #
 class User < ApplicationRecord
+  attr_accessor :nickname
+
+  validate :honeypot_check
+
+  def honeypot_check
+    errors.add(:base, 'Spam detected') if nickname.present?
+  end
+
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :events, foreign_key: :owner_id, dependent: :destroy
-  has_many :selections_as_volunteer, class_name: "Selection", foreign_key: "volunteer_id"
+  has_many :selections_as_volunteer, class_name: 'Selection', foreign_key: 'volunteer_id'
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
-
 
   validates :email_address, uniqueness: true
   after_create :send_welcome_message
@@ -44,7 +51,6 @@ class User < ApplicationRecord
   has_many :events, through: :volunteer_events, dependent: :destroy
   before_save :normalize_email
   before_destroy :nullify_selections
-
 
   def nullify_selections
     selections_as_volunteer.update_all(volunteer_id: nil)

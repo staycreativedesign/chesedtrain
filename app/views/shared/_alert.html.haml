@@ -1,7 +1,8 @@
-- flash.each do |key, message|
+ - flash.each do |key, messages|
   - outcome = flash_class(key)
-  %div.fixed.top-0.right-0{role: "alert", class: "opacity-0 border-2 border-#{outcome}-500 transition-opacity duration-500 ease-in-out", data: { controller:'fade', 'fade-target': 'content'} }
-    .text-white.font-bold.px-4.py-2{ class: "bg-#{outcome}-500" }
-      Information
-    .px-4.py-3{class: "text-white bg-#{outcome}-500"}
-      = message
+  - Array(messages).each do |message|
+    %div.fixed.top-0.right-0{role: "alert", class: "opacity-0 border-2 border-#{outcome}-500 transition-opacity duration-500 ease-in-out", data: { controller:'fade', 'fade-target': 'content'} }
+      .text-white.font-bold.px-4.py-2{ class: "bg-#{outcome}-500" }
+        = key.capitalize
+      .px-4.py-3{class: "text-white bg-#{outcome}-500"}
+        = message

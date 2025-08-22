@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
   before_action :check_session, only: %i[show edit update destroy]
+
   # GET /users or /users.json
   def index
     @users = User.all
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     respond_to do |format|
-      if @user.save! && verify_recaptcha(message: 'Cannot verify your recaptcha')
+      if @user.save && verify_recaptcha(message: 'Cannot verify your recaptcha')
         session[:user_id] = @user.id
         current_user = @user
 
@@ -31,8 +32,14 @@ class UsersController < ApplicationController
         format.html { redirect_to new_payment_path, notice: 'Account was successfully created.' }
         format.json { redirect_to fallback_location: new_payment_path }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html do
+          flash.now[:notice] = @user.errors.full_messages
+          render :new, status: :unprocessable_entity
+        end
+
+        format.json do
+          render json: @user.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -71,7 +78,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates, :area_code,
-                                 :password, :password_confirmation)
+    params.require(:user)
+          .permit(:email_address, :first_name, :last_name, :phone_number, :sms, :tos, :updates, :area_code,
+                  :password, :password_confirmation, :nickname)
   end
 end
