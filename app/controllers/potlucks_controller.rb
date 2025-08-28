@@ -125,6 +125,7 @@ class PotlucksController < ApplicationController
       redirect_to steps_potluck_path(@event, step: 5)
     else
       send_emails
+      TwilioService.call(current_user, 'potluck')
       redirect_to potluck_path(@event)
     end
   end
