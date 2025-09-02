@@ -1,5 +1,5 @@
 class ChesedTrainsController < ApplicationController
-  before_action :set_chesed_train, only: %i[steps update_step show thank_you edit update]
+  before_action :set_chesed_train, only: %i[steps update_step show thank_you edit update yom_tov_next]
   before_action :check_owner, only: %i[steps update_step edit update]
   before_action :check_date, only: %i[edit update]
   before_action :find_ad, only: %i[show]
@@ -65,7 +65,7 @@ class ChesedTrainsController < ApplicationController
         end_date = start_date if end_date.blank?
 
         event_date_resolver(start_date, end_date, @event)
-        @event.update(start_date: start_date, end_date: end_date)
+        @event.update(start_date:, end_date:)
 
         redirect_to steps_chesed_train_path(@event, step: 4)
       else
@@ -105,6 +105,12 @@ class ChesedTrainsController < ApplicationController
         end
       end
     end
+  end
+
+  def yom_tov_next
+    send_emails
+    TwilioService.call(current_user, 'welcome')
+    redirect_to chesed_train_path(@event)
   end
 
   def thank_you; end
@@ -157,8 +163,7 @@ class ChesedTrainsController < ApplicationController
 
       return if start_date == end_date
     end
-
-    event.update(start_date: start_date, end_date: end_date)
+    event.update(start_date:, end_date:)
   end
 
   def set_chesed_train

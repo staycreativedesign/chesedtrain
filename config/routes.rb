@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       post 'update_step'
       get 'thank-you', to: 'chesed_trains#thank_you', as: :thank_you
       get '/shabbat', to: 'yom_tovs#index', as: :yom_tovs
+      get '/yomtov', to: 'chesed_trains#yom_tov_next', as: :yom_tov_next
     end
 
     resources :event_dates do

@@ -1,6 +1,6 @@
 .flex.flex-row.items-center.justify-center.rounded-lg.w-full.relative.gap-4
   = link_to "Back", steps_chesed_train_path(event.chesed_train.id, step: back_step), class: 'mt-5 w-[11rem] button text-center'
-  = link_to "Continue", chesed_train_path(event.chesed_train), class: 'mt-5 w-[11rem] button text-center'
+  = link_to "Continue", yom_tov_next_chesed_train_path(event.chesed_train.id), data: { turbo_prefetch: false }, class: 'mt-5 w-[11rem] button text-center'
 .container.p-4.md:p-10
 .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
   %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-5"} 
