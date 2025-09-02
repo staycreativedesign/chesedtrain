@@ -14,7 +14,7 @@ module Admin
     private
 
     def find_chesed_train
-      @event = Event.find(params[:id])
+      @event = Event.friendly.find(params[:id])
     end
   end
 end
