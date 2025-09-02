@@ -42,6 +42,13 @@
         Organizer:
         .font-normal.lg:mb-5
           = @event.owner.name
+          <br>
+          = @event.owner.email_address
+        Recipient:
+        .font-normal.lg:mb-5
+          = @event.recipent_name
+          <br>
+          = @event.recipent_email
         Participants:
         .font-normal
           - if @event.volunteers.blank?
