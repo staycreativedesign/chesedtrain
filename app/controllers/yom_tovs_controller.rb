@@ -1,5 +1,6 @@
 class YomTovsController < ApplicationController
   before_action :find_event, only: [:index]
+
   def index
     @event_dates = @event.event_dates.select { |ed| %w[Friday Saturday].include?(ed.date_weekday) }
   end
@@ -16,7 +17,7 @@ class YomTovsController < ApplicationController
     flash.now[:notice] = 'Updated Shabbat'
     @event = Event.find(params[:id])
     @event_dates = @event.event_dates.select { |ed| %w[Friday Saturday].include?(ed.date_weekday) }
-    render :index, status: :unprocessable_entity
+    render :index, status: :ok
   end
 
   private
