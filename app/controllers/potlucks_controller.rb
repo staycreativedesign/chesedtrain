@@ -131,7 +131,7 @@ class PotlucksController < ApplicationController
   end
 
   def set_potluck
-    @event = Potluck.find(params[:id])
+    @event = Potluck.friendly.find(params[:id])
   end
 
   def potluck_params

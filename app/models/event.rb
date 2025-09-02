@@ -21,6 +21,7 @@
 #  recipent_email       :string
 #  recipent_name        :string
 #  shabbat_instructions :string
+#  slug                 :string
 #  special_message      :text
 #  start_date           :datetime
 #  state                :string
@@ -34,12 +35,16 @@
 # Indexes
 #
 #  index_events_on_owner_id  (owner_id)
+#  index_events_on_slug      (slug) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (owner_id => users.id)
 #
 class Event < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   enum :status, { opened: 0, closed: 1 }
 
   belongs_to :owner, class_name: 'User'

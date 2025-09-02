@@ -167,7 +167,7 @@ class ChesedTrainsController < ApplicationController
   end
 
   def set_chesed_train
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
   end
 
   def chesed_train_params

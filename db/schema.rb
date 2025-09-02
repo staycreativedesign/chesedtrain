@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_21_175309) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_02_204018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_21_175309) do
     t.boolean "paused", default: false
   end
 
+  create_table "altcha_solutions", force: :cascade do |t|
+    t.string "algorithm"
+    t.string "challenge"
+    t.string "salt"
+    t.string "signature"
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["algorithm", "challenge", "salt", "signature", "number"], name: "index_altcha_solutions", unique: true
+  end
+
   create_table "event_dates", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -114,7 +125,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_21_175309) do
     t.string "postal_code"
     t.integer "status", default: 0, null: false
     t.jsonb "date_range"
+    t.string "slug"
     t.index ["owner_id"], name: "index_events_on_owner_id"
+    t.index ["slug"], name: "index_events_on_slug", unique: true
   end
 
   create_table "selections", force: :cascade do |t|
