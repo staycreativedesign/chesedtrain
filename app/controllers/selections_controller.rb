@@ -72,9 +72,9 @@ class SelectionsController < ApplicationController
 
   def set_event
     @event = if params[:chesed_train_id].present?
-               Event.find(params[:chesed_train_id])
+               Event.friendly.find(params[:chesed_train_id])
              else
-               Event.find(params[:potluck_id])
+               Event.friendly.find(params[:potluck_id])
              end
   end
 
