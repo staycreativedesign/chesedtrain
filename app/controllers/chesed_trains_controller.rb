@@ -6,7 +6,9 @@ class ChesedTrainsController < ApplicationController
 
   def index; end
 
-  def show; end
+  def show
+    @title = @event.name
+  end
 
   def update
     respond_to do |format|

@@ -5,7 +5,10 @@ class PotlucksController < ApplicationController
 
   def index; end
 
-  def show; end
+  def show
+    @title = @event.name
+    @description = @event.special_message
+  end
 
   def update
     respond_to do |format|
