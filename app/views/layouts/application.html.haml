@@ -1,15 +1,17 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title= @title || 'Chesed Train'
-    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
-    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
-    %meta{:content => "https://chesedtrain.com/ogimage.jpg", :property => "og:image"}/
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}
+    %meta{:content => "https://chesedtrain.com/ogimage.jpg", :property => "og:image"}
     %meta{content: request.base_url + request.path, property: "og:url"}
-    %meta{:content => @title || 'Chesed Train', :property => "og:title"}/
-    %meta{:content => @title || 'Chesed Train', :name => "apple-mobile-web-app-title"}/
-    %meta{:content => @description || '', :property => "og:description"}/
+    %meta{:content => @title || 'Chesed Train', :property => "og:title"}
+    %meta{:content => @title || 'Chesed Train', :name => "apple-mobile-web-app-title"}
+    %meta{:content => @description || '', :property => "og:description"}
+    %meta{property: "og:type", content: "website"}
+
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
