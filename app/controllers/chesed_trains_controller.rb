@@ -8,6 +8,7 @@ class ChesedTrainsController < ApplicationController
 
   def show
     @title = @event.name
+    @description = @event.special_message
   end
 
   def update
