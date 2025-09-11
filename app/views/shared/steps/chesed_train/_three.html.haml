@@ -18,7 +18,7 @@
       .flex.flex-row.space-x-2
         = f.text_field :date_range,
           id: "date-range-picker",
-          data: { controller: "flatpickr", flatpickr_options: { mode: "range", dateFormat: "Y-m-d", inline: true, defaultDate: [ start_date, end_date]}.to_json}
+          data: { controller: "flatpickr", flatpickr_options: { mode: "multiple", dateFormat: "Y-m-d", inline: true, defaultDate: event.event_dates.map(&:full_date)}.to_json}
       .mt-10.flex.justify-center.lg:space-x-2.space-y-5.items-center.flex-col-reverse.lg:flex-row
         = link_to "Back", steps_chesed_train_path(event, step: step - 1), class: 'mt-5 w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         = f.submit "Next", class: 'w-[11rem] bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'

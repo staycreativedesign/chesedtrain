@@ -10,7 +10,7 @@ class ChesedTrainsController < ApplicationController
 
   def update
     respond_to do |format|
-      update_event_dates(params[:chesed_train][:start_date], params[:chesed_train][:end_date], @event)
+      update_event_dates(@event)
       if @event.update(all_params)
         if (step = params[:step_check])
           format.html { redirect_to steps_chesed_train_path(@event, step: step.to_i + 1) }
@@ -60,11 +60,15 @@ class ChesedTrainsController < ApplicationController
       end
     when 3
       if date_params_valid?
-        start_date, end_date = params[:chesed_train][:date_range].split(' to ')
+        dates = params[:chesed_train][:date_range].split(', ')
 
-        end_date = start_date if end_date.blank?
+        event_date_resolver(dates, @event)
 
-        event_date_resolver(start_date, end_date, @event)
+        start_date = @event.event_dates.first.full_date
+        end_date = @event.event_dates.last.full_date
+
+        @event_dates = @event.event_dates
+
         @event.update(start_date:, end_date:)
 
         redirect_to steps_chesed_train_path(@event, step: 4)
@@ -129,9 +133,9 @@ class ChesedTrainsController < ApplicationController
     end
   end
 
-  def update_event_dates(start_date, end_date, event)
-    start_date, end_date = params[:chesed_train][:date_range].split(' to ')
-    event_date_resolver(start_date, end_date, event)
+  def update_event_dates(event)
+    dates = params[:chesed_train][:date_range].split(', ')
+    event_date_resolver(dates, event)
   rescue ArgumentError => e
     Rails.logger.error("Invalid date range format: #{e.message}")
   end
@@ -146,11 +150,11 @@ class ChesedTrainsController < ApplicationController
     end
   end
 
-  def event_date_resolver(start_date, end_date, event)
-    new_dates = (Date.parse(start_date)..Date.parse(end_date)).to_a
-    event.event_dates.where.not(full_date: new_dates).destroy_all
+  def event_date_resolver(pre_dates, event)
+    dates = pre_dates.map(&:to_date)
+    event.event_dates.where.not(full_date: dates).destroy_all
 
-    new_dates.each do |date|
+    dates.each do |date|
       next if event.event_dates.pluck(:full_date).include?(date)
 
       EventDate.create!(
@@ -160,9 +164,11 @@ class ChesedTrainsController < ApplicationController
         full_date: date,
         chesed_train_id: event.id
       )
-
-      return if start_date == end_date
     end
+
+    start_date = event.event_dates.first.full_date
+    end_date = event.event_dates.last.full_date
+
     event.update(start_date:, end_date:)
   end
 
