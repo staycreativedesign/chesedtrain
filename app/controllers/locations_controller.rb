@@ -22,7 +22,7 @@ class LocationsController < ApplicationController
   end
 
   def set_event
-    @event = Event.find(params[:potluck_id])
+    @event = Event.friendly.find(params[:potluck_id])
   end
 
   def location_params
