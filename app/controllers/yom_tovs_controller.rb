@@ -23,6 +23,6 @@ class YomTovsController < ApplicationController
   private
 
   def find_event
-    @event = Event.find(params[:id])
+    @event = Event.freindly.find(params[:id])
   end
 end
