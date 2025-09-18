@@ -48,6 +48,8 @@ class SelectionsController < ApplicationController
 
   def setup_volunteer
     @user = User.new(user_params)
+    return unless verify_recaptcha(message: 'Cannot verify your recaptcha')
+
     if @user.save
       session[:user_id] = @user.id
       @current_user = @user
