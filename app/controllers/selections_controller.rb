@@ -1,14 +1,63 @@
 class SelectionsController < ApplicationController
   before_action :set_event, :set_selection, only: %i[update show volunteer setup_volunteer add_volunteer]
+  before_action :set_kwargs, only: %i[destroy update]
 
   def new
     @selections = @event.selections
   end
 
-  def update; end
+  def update
+    @selection = Selection.find(params[:id])
+    @selection.update(bringing: params[:bringing])
+
+    respond_to do |format|
+      format.turbo_stream do
+        flash.now[:notice] = 'Updated Successfully'
+
+        render turbo_stream: turbo_stream.update(
+          'flash',
+          partial: 'shared/alert'
+        )
+      end
+    end
+
+    @kwargs[:volunteer_name] = @selection.volunteer.name
+    @kwargs[:bringing] = params[:bringing]
+    @kwargs[:date] = @selection.potluck_date.strftime('%A %b %d')
+
+    OwnerMailer.with(event: @selection.potluck, task: @selection,
+                     volunteer: current_user).volunteer_update.deliver_now
+
+    TwilioService.call(@selection.potluck.owner, 'potluck_updated', **@kwargs)
+  end
+
+  def destroy
+    @selection = Selection.find(params[:id])
+
+    @kwargs[:volunteer_name] = @selection.volunteer.name
+    @kwargs[:bringing] = @selection.bringing
+    @kwargs[:date] = @selection.potluck_date.strftime('%A %b %d')
+
+    OwnerMailer.with(event: @selection.potluck, task: @selection,
+                     volunteer: current_user).volunteer_removed.deliver_now
+
+    TwilioService.call(@selection.potluck.owner, 'potluck_day_removed', **@kwargs)
+
+    @selection.update(volunteer_id: nil)
+    flash.now[:notice] = 'Stopped Volunteering'
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(@selection),
+          turbo_stream.prepend('flash', partial: 'shared/alert')
+        ]
+      end
+    end
+  end
 
   def show; end
-
+
   def volunteer
     if @event.type == 'ChesedTrain'
       if params[:chesed_train_id].present? && params[:id].present? && params[:selection_id].present?
@@ -90,6 +139,10 @@ class SelectionsController < ApplicationController
                  else
                    Selection.find(params[:id])
                  end
+  end
+
+  def set_kwargs
+    @kwargs = {}
   end
 
   def user_params
