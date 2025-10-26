@@ -5,27 +5,30 @@
 
 
 @layer base {
-  /* body {
+  body {
     font-family: 'Alice', serif;
-  } */
-  
-  /* h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lato', sans-serif;
-  } */
+  } 
+
   .font_large {
     font-weight: 900;
   }
-   .font-alice {
+  .font-alice {
     font-family: 'Alice', serif;
-   }
-   .font-lato {
+  }
+  .font-lato {
     font-family: 'Lato', sans-serif;
-   }
+  }
 }
 
-#date-range-picker {
-    display: none;
 
+#date-range-picker {
+  display: none;
+
+}
+
+.bg-red {
+  background-color: red;
+  color: white;
 }
 
 .text-danger {
@@ -61,43 +64,47 @@
     @apply flex flex-col items-center justify-center border border-primary rounded-lg p-5 md:p-10 w-full relative
   }
 
-.direct-upload {
-  display: inline-block;
-  position: relative;
-  padding: 2px 4px;
-  margin: 0 3px 3px 0;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  font-size: 11px;
-  line-height: 13px;
-}
+  .direct-upload {
+    display: inline-block;
+    position: relative;
+    padding: 2px 4px;
+    margin: 0 3px 3px 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    font-size: 11px;
+    line-height: 13px;
+  }
 
-.direct-upload--pending {
-  opacity: 0.6;
-}
+  .direct-upload--pending {
+    opacity: 0.6;
+  }
 
-.direct-upload__progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  opacity: 0.2;
-  background: #0076ff;
-  transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
-  transform: translate3d(0, 0, 0);
-}
+  .direct-upload__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0.2;
+    background: #0076ff;
+    transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+    transform: translate3d(0, 0, 0);
+  }
 
-.direct-upload--complete .direct-upload__progress {
-  opacity: 0.4;
-}
+  .direct-upload--complete .direct-upload__progress {
+    opacity: 0.4;
+  }
 
-.direct-upload--error {
-  border-color: red;
-}
+  .direct-upload--error {
+    border-color: red;
+  }
 
-input[type=file][data-direct-upload-url][disabled] {
-  display: none;
-}
+  input[type=file][data-direct-upload-url][disabled] {
+    display: none;
+  }
 
 
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+  }
 }

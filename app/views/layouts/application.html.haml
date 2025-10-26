@@ -20,7 +20,8 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module" 
 
   %body{style: 'background-color:white', class: 'min-h-screen flex flex-col'}
-    = render 'shared/alert'
+    = turbo_frame_tag "flash" do
+      = render 'shared/alert'
     = render "shared/header"
     .md:flex.flex-grow.items-center.justify-center.font-lato
       = yield

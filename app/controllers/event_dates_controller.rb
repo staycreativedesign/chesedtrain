@@ -1,5 +1,6 @@
 class EventDatesController < ApplicationController
   before_action :set_event_date, only: %i[show edit update destroy]
+  before_action :set_kwargs, only: %i[destroy update]
 
   # GET /event_dates or /event_dates.json
   def index
@@ -37,6 +38,29 @@ class EventDatesController < ApplicationController
   def update
     respond_to do |format|
       if @event_date.update(event_date_params)
+
+        format.turbo_stream do
+          @kwargs[:volunteer_name] = @event_date.volunteer.name
+          @kwargs[:bringing] = params[:event_date][:bringing]
+          @kwargs[:date] = @event_date.full_date
+
+          OwnerMailer.with(event: @event_date.chesed_train, task: @event_date,
+                           volunteer: current_user).volunteer_update.deliver_now
+
+          TwilioService.call(@event_date.chesed_train.owner, 'potluck_updated', **@kwargs)
+
+          respond_to do |format|
+            format.turbo_stream do
+              flash.now[:notice] = 'Updated Successfully'
+
+              render turbo_stream: turbo_stream.update(
+                'flash',
+                partial: 'shared/alert'
+              )
+            end
+          end
+        end
+
         format.html { redirect_to @event_date, notice: 'Event date was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_date }
       else
@@ -48,11 +72,33 @@ class EventDatesController < ApplicationController
 
   # DELETE /event_dates/1 or /event_dates/1.json
   def destroy
-    @event_date.destroy!
-
     respond_to do |format|
-      format.html { redirect_to event_dates_path, status: :see_other, notice: 'Event date was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html do
+        @event_date.destroy!
+        redirect_to event_dates_path, status: :see_other, notice: 'Event date was successfully destroyed.'
+      end
+
+      format.json do
+        @event_date.destroy!
+        head :no_content
+      end
+
+      format.turbo_stream do
+        @kwargs[:volunteer_name] = @event_date.volunteer.name
+        @kwargs[:bringing] = @event_date.bringing
+        @kwargs[:date] = @event_date.full_date
+
+        OwnerMailer.with(event: @event_date.chesed_train, task: @event_date,
+                         volunteer: current_user).volunteer_removed.deliver_now
+
+        TwilioService.call(@event_date.chesed_train.owner, 'chesed_train_removed', **@kwargs)
+
+        @event_date.update(volunteer_id: nil, bringing: nil, special_note: nil)
+        render turbo_stream: [
+          turbo_stream.remove(@event_date),
+          turbo_stream.prepend('flash', partial: 'shared/alert')
+        ]
+      end
     end
   end
 
@@ -60,11 +106,15 @@ class EventDatesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_event_date
-    @event_date = EventDate.find(params.expect(:id))
+    @event_date = EventDate.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def event_date_params
-    params.expect(event_date: [:event_id])
+    params.require(:event_date).permit(:id, :bringing, :volunteer_id)
+  end
+
+  def set_kwargs
+    @kwargs = {}
   end
 end

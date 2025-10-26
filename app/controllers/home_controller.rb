@@ -1,10 +1,7 @@
 class HomeController < ApplicationController
-  def index
-  end
+  def index; end
 
-  def select_chesed
-  end
+  def select_chesed; end
 
-  def coming_soon
-  end
+  def coming_soon; end
 end

@@ -1,7 +1,7 @@
 .container
   .flex.flex-col.w-full
     %div{class: 'flex flex-col items-center justify-center'}
-      %div{class: 'w-[%80] md:w-[50%] mb-10'}
+      %div{class: 'mb-10', style: 'width:80%;'}
         %div{ class: "flex flex-col items-center justify-center"} 
           - if current_user.is_paying?
             %p.text-secondary{class: 'border-2 border-primary rounded py-2 px-4 mt-4 font-bold text-[2rem]'}
@@ -10,38 +10,69 @@
             My Dashboard
           = link_to 'Manage My Account', edit_user_path(current_user), class: 'border-2 border-primary rounded py-2 px-4'
 
-        - @events.each do |event|
-          .border.border-primary.rounded-lg.lg:p-10.p-5.my-6.md:my-6.text-center
-            %p.text-secondary{class: 'text-[2rem] my-5 font-bold'}
-              = event.name
-            .grid.grid-cols-2.gap-4.space-between
-              - if event.type == 'ChesedTrain'
-                - if event.end_date >= Date.today
+          - @events.each do |event|
+            .border.border-primary.rounded-lg.lg:p-10.p-5.my-6.md:my-6.text-center
+              %p.text-secondary{class: 'text-[2rem] my-5 font-bold'}
+                = event.name
+              .grid.grid-cols-2.gap-4.space-between
+                - if event.type == 'ChesedTrain'
+                  - if event.end_date >= Date.today
+                    .area
+                      = link_to "Edit Chesed Train", edit_chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
                   .area
-                    = link_to "Edit Chesed Train", edit_chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
-                .area
-                  = link_to "View", chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
-              - else
-                - if event.end_date >= Date.today
+                    = link_to "View", chesed_train_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
+                - else
+                  - if event.end_date >= Date.today
+                    .area
+                      = link_to "Edit Potluck", edit_potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
                   .area
-                    = link_to "Edit Potluck", edit_potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 inline-block w-48 cursor-pointer"
-                .area
-                  = link_to "View", potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
+                    = link_to "View", potluck_path(event), class: "text-center bg-primary-original border border-secondary text-white px-2 py-2 rounded-xl hover:bg-primary-original transition duration-200 cursor-pointer inline-block w-48"
 
-        - if @past_events.present?
-          %h1 Past Events
+          - if @past_events.present?
+            %h1 Past Events
 
-          .w-full.mb-5
-            .overflow-x-auto{:class => "-m-1.5"}
-              .min-w-full.inline-block.align-middle{:class => "p-1.5"}
-                .overflow-hidden
-                  %table.min-w-full.divide-y.divide-gray-200
-                    %thead
-                      %tr
-                        %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
-
-                    %tbody
-                      - @past_events.each do |event|
+            .w-full.mb-5
+              .overflow-x-auto{:class => "-m-1.5"}
+                .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+                  .overflow-hidden
+                    %table.min-w-full.divide-y.divide-gray-200
+                      %thead
                         %tr
-                          %td= event.name
-                          %td= link_to 'View', event
+                          %th.px-6.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase{:scope => "col"} Name
+
+                      %tbody
+                        - @past_events.each do |event|
+                          %tr
+                            %td= event.name
+                            %td= link_to 'View', event
+          - if @chesed_events.present? || @potluck_events.present?
+            %p.text-secondary{class: 'text-[1.5rem] my-5'}
+              Volunteered Events
+          - if @chesed_events.present?
+            .w-full.mb-5
+              .overflow-x-auto{:class => "-m-1.5"}
+                .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+                  .overflow-hidden
+                    %table.min-w-full.divide-y.divide-gray-200
+                      %thead
+                        %tr
+                          %th.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase 
+                          %th.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase 
+                          %th.py-3.text-end.text-xs.font-medium.text-gray-8.uppercase 
+
+                        %tbody#rows
+                          = render partial: 'selections/row', collection: @chesed_events, as: :selection
+          - if @potluck_events.present?
+            .w-full.mb-5
+              .overflow-x-auto{:class => "-m-1.5"}
+                .min-w-full.inline-block.align-middle{:class => "p-1.5"}
+                  .overflow-hidden
+                    %table.min-w-full.divide-y.divide-gray-200
+                      %thead
+                        %tr
+                          %th.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase 
+                          %th.py-3.text-start.text-xs.font-medium.text-gray-500.uppercase 
+                          %th.py-3.text-end.text-xs.font-medium.text-gray-8.uppercase 
+
+                        %tbody#rows
+                          = render partial: 'selections/row', collection: @potluck_events, as: :selection

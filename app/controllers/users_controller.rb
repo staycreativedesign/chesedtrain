@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   def show
     @events = Event.where(owner: current_user).where('end_date >= ?', Date.today)
     @past_events = Event.where(owner: current_user).where('end_date < ?', Date.today)
+    @potluck_events = current_user.selections_as_volunteer.includes(:potluck)
+    @chesed_events = current_user.event_dates_as_volunteer.includes(:chesed_train)
   end
 
   def new
@@ -38,7 +40,7 @@ class UsersController < ApplicationController
         end
 
         format.json do
-          render json: @user.errors, status: :unprocessable_entity
+          render json: @user.errors.full_messages, status: :unprocessable_entity
         end
       end
     end
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

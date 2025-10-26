@@ -8,7 +8,7 @@ class SelectionsController < ApplicationController
 
   def update
     @selection = Selection.find(params[:id])
-    @selection.update(bringing: params[:bringing])
+    @selection.update(bringing: params[:selection][:bringing])
 
     respond_to do |format|
       format.turbo_stream do
@@ -22,7 +22,7 @@ class SelectionsController < ApplicationController
     end
 
     @kwargs[:volunteer_name] = @selection.volunteer.name
-    @kwargs[:bringing] = params[:bringing]
+    @kwargs[:bringing] = params[:selection][:bringing]
     @kwargs[:date] = @selection.potluck_date.strftime('%A %b %d')
 
     OwnerMailer.with(event: @selection.potluck, task: @selection,
@@ -43,7 +43,7 @@ class SelectionsController < ApplicationController
 
     TwilioService.call(@selection.potluck.owner, 'potluck_day_removed', **@kwargs)
 
-    @selection.update(volunteer_id: nil)
+    @selection.update(volunteer_id: nil, bringing: nil, special_note: nil)
     flash.now[:notice] = 'Stopped Volunteering'
 
     respond_to do |format|

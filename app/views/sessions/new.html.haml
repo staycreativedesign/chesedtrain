@@ -25,7 +25,7 @@
         - elsif @selection
           - if @event == 'potluck'
             = link_to "Back", potluck_path(@event_id), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
-          - else  @event == 'chesed_train'
+          - elsif  @event == 'chesed_train'
             = link_to "Back", chesed_train_path(@event_id), class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'
         - else
           = link_to "Create an Account", new_user_path, class: 'mt-2 px-4 secondary border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 cursor-pointer'

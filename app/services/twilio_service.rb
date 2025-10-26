@@ -1,13 +1,18 @@
 class TwilioService
   include ActionView::Helpers::UrlHelper
-  def self.call(user, message)
-    new(user, message).call
+  def self.call(user, message, **kwargs)
+    new(user, message, **kwargs).call
   end
 
-  def initialize(user, message)
+  def initialize(user, message, **kwargs)
     @user = user
     @message = message
+    @volunteer = kwargs[:volunteer_name]
+    @bringing = kwargs[:bringing]
+    @date = kwargs[:date]
   end
+
+  attr_reader :bringing, :date, :volunteer
 
   def call
     return unless @user.sms?
@@ -41,6 +46,15 @@ class TwilioService
 
     when 'potluck'
       'Thank you for creating a Pot Luck, you will be notified by text message when someone volunteers'
+
+    when 'potluck_updated'
+      "#{volunteer} is now bringing #{bringing} on #{date}"
+
+    when 'chesed_train_removed'
+      "#{volunteer} has left the Chesed Train and will not be bringing #{bringing} on #{date}"
+
+    when 'potluck_day_removed'
+      "#{volunteer} has left the Potluck and will not be bringing #{bringing} on #{date}"
 
     when 'volunteer'
       'Thank you for volunteering! You will receive a reminder when to bring your item.'

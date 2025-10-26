@@ -1,0 +1,35 @@
+%tr{ id: dom_id(selection) }
+
+  %td{ colspan: 4, class: "min-w-full" }
+    %div.font-bold
+      = [ selection.try(:potluck)&.name, selection.try(:chesed_train)&.name ].compact.first
+        
+    %div.font-semibold.text-sm.my-2
+      Event Date
+    %div.text-xs.text-gray-500
+      = [ selection.try(:potluck_date)&.strftime("%A %b %d"), selection.try(:full_date)&.to_date ].compact.first
+      = " at "
+      = [ selection.try(:potluck)&.preferred_time, selection.try(:chesed_train)&.preferred_time ].compact.first
+    %div.font-semibold.text-sm.my-2
+      Bringing
+    %div.mt-2
+      .grid.md:grid-cols-2.gap-3.md:gap-5
+        = form_with model: selection, 
+                    url: type_of_event(selection),
+                    method: :patch, 
+                    data: { turbo_frame: "_top" } do |f|
+          .grid.grid-cols-1.md:grid-cols-2.gap-3
+            .area.text-end
+              = f.text_field :bringing, 
+              class: "w-full text-xs lg:px-3 px-2 lg:py-2 py-1 border border-secondary rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+
+            .area.text-end
+              = f.submit 'Update', 
+                class: "w-full md:w-[100px] inline-flex rounded bg-primary px-2 py-1 text-xs font-medium text-black inset-ring inset-ring-gray-400/20"
+
+        .area.text-end.md:text-start
+          = button_to 'Leave',
+            type_of_event(selection),
+            method: :delete,
+            data: { turbo_frame: "_top" },
+            class: "items-center w-full md:w-[100px] rounded bg-red px-2 py-1 text-xs font-medium text-gray-400 inset-ring inset-ring-gray-400/20"

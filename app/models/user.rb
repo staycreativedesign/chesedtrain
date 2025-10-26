@@ -16,7 +16,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sms                    :boolean
-#  toke                   :string           default("d8019630e15ecfe883e8")
+#  toke                   :string           default("40b7eee5102337d216f6")
 #  tos                    :boolean
 #  updates                :boolean          default(TRUE)
 #  created_at             :datetime         not null
@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :events, foreign_key: :owner_id, dependent: :destroy
   has_many :selections_as_volunteer, class_name: 'Selection', foreign_key: 'volunteer_id'
+  has_many :event_dates_as_volunteer, class_name: 'EventDate', foreign_key: 'volunteer_id'
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
 
   validates :email_address, uniqueness: true

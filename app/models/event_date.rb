@@ -7,7 +7,7 @@
 #  date_month      :string
 #  date_number     :string
 #  date_weekday    :string
-#  full_date       :datetime
+#  full_date       :date
 #  special_note    :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
