@@ -11,8 +11,8 @@ class UsersController < ApplicationController
   def show
     @events = Event.where(owner: current_user).where('end_date >= ?', Date.today)
     @past_events = Event.where(owner: current_user).where('end_date < ?', Date.today)
-    @potluck_events = current_user.selections_as_volunteer.includes(:potluck)
-    @chesed_events = current_user.event_dates_as_volunteer.includes(:chesed_train)
+    @potluck_events = current_user.selections_as_volunteer.includes(:potluck).where('potluck_date >= ?', Date.today)
+    @chesed_events = current_user.event_dates_as_volunteer.includes(:chesed_train).where('full_date >= ?', Date.today)
   end
 
   def new
