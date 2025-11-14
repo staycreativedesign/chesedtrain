@@ -32,9 +32,9 @@
           %li
             = "Dietary Restrictions: #{@event.dietary_restrictions}" if @event.dietary_restrictions?
           %li
-            = "Favorite restaurant: #{@event.fav_rest}" if @event.fav_rest?
+            = "Favorite foods: #{@event.fav_rest}" if @event.fav_rest?
           %li
-            = "Least favorite restaurant: #{@event.least}" if @event.least?
+            = "Least favorite food: #{@event.least}" if @event.least?
           %li
             = "Shabbat Instructions: #{@event.shabbat_instructions}:" if @event.shabbat_instructions?
     .flex.flex-col.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative.col-span-2
