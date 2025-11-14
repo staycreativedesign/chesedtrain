@@ -4,10 +4,13 @@
       = @event.name
   .w-full.grid.lg:grid-cols-3.lg:gap-4.text-center.font-normal.text-secondary.text-1xl.text-2xl.mb-5.lg:mb-10
     .area
-      Adults:
-      = @event.adults
-      Kids: 
-      = @event.kids
+      .grid.col-1.md:grid-cols-2
+        .foo
+          Adults:
+          = @event.adults
+        .foo
+          Kids: 
+          = @event.kids
     .area
       = @event.address1
       = @event.address2
