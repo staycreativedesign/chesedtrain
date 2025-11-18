@@ -115,9 +115,10 @@ class ChesedTrainsController < ApplicationController
   end
 
   def yom_tov_next
-    send_emails
-    TwilioService.call(current_user, 'welcome')
-    redirect_to chesed_train_path(@event)
+    redirect_after_update
+    # send_emails
+    # TwilioService.call(current_user, 'welcome')
+    # redirect_to chesed_train_path(@event)
   end
 
   def thank_you; end

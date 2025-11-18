@@ -7,6 +7,7 @@ class YomTovsController < ApplicationController
   end
 
   def update
+    binding.pry
     success = true
 
     if params[:event_date] && params[:event_date][:selections_attributes]
