@@ -1,11 +1,11 @@
-- provide :scripts do
-  <script src="https://www.recaptcha.net/recaptcha/api.js" async="" defer=""></script>
 .flex.flex-col.items-center.justify-center.border.border-primary.rounded-lg.lg:p-10.p-5.w-full.relative
   - if request.original_url.include?("steps") && current_user.guest?
     = link_to "Login to your account", login_path(event: @event.type.downcase, event_id: @event.id, steps: 'step'), class: 'px-4 mb-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'
     
   - if @selection.present?
     = link_to "Login to your account", login_path(event: @event.type.downcase, event_id: @event.id, selection_id: @selection.id), class: 'px-4 mb-5 bg-primary-original border border-secondary text-white lg:py-2 py-1 text-center rounded-xl hover:bg-blue-700 transition duration-200 opacity-50'
+  - provide :scripts do
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async="" defer=""></script>
   %div{ class: "text-secondary lg:text-[2rem] text-[1rem] font-lato font-[700] mb-2"} 
     Create your Account
   .flex.flex-col.items-center.justify-center
