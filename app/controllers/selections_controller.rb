@@ -97,7 +97,6 @@ class SelectionsController < ApplicationController
 
   def setup_volunteer
     @user = User.new(user_params)
-    return unless verify_recaptcha(message: 'Cannot verify your recaptcha')
 
     if @user.save
       session[:user_id] = @user.id
@@ -115,6 +114,7 @@ class SelectionsController < ApplicationController
         redirect_to volunteer_potluck_selection_path(@event, @selection)
       end
     else
+      puts '---------------------error'
       render :volunteer, status: :unprocessable_entity
     end
   end
